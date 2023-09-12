@@ -1,0 +1,8 @@
+.movie-app > .row {
+  overflow: auto;
+  flex-wrap: nowrap;
+}
+.rowChild {
+  width: auto;
+  padding: 0;
+}
