@@ -1,5 +1,40 @@
 import {createApi,fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+type MovieApiOneType = {
+  Title: string
+  Year: string
+  Rated: string
+  Released: string
+  Runtime: string
+  Genre: string
+  Director: string
+  Writer: string
+  Actors: string
+  Plot: string
+  Language: string
+  Country: string
+  Awards: string
+  Poster: string
+  Ratings: Rating[]
+  Metascore: string
+  imdbRating: string
+  imdbVotes: string
+  imdbID: string
+  Type: string
+  DVD: string
+  BoxOffice: string
+  Production: string
+  Website: string
+  Response: string
+}
+export type Rating = {
+  Source: string
+  Value: string
+}
+
+type argType = {
+  id: string,
+}
 
 export const MovieApi = createApi({
     reducerPath: 'apiMovies',
@@ -15,4 +50,19 @@ export const MovieApi = createApi({
     }),
 })
 
+export const MovieApiOne = createApi({
+  reducerPath: 'MovieApiOne',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com/' }),
+  tagTypes: ['FetchMovie'],
+  endpoints: (builder) => ({
+    fetchMoviesOne: builder.query<MovieApiOneType, argType>({
+      query: (arg) => ({
+        url: `?apikey=55ce87c0&i=${arg.id}`,
+      }),
+      providesTags: result => ['FetchMovie']
+    }),
+  }),
+})
+
 export const {useFetchMoviesQuery} = MovieApi
+export const {useFetchMoviesOneQuery} = MovieApiOne

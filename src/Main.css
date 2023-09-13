@@ -6,3 +6,12 @@
   width: auto;
   padding: 0;
 }
+
+.slick-next{
+  right: 30px !important;
+}
+
+.slick-prev{
+  left: 30px !important;
+  z-index: 1000;
+}

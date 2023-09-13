@@ -1,0 +1,36 @@
+.link{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    &__right{
+        flex:1;
+        padding: 10px;
+    }
+}
+.containerTop{
+    display: flex;
+    width: 70%;
+}
+.ParentItem{
+    display: flex;
+    flex-wrap: wrap;
+}
+.item{
+    width: 150px;
+}
+.itemRight{
+    flex:1;
+}
+
+.containerBottom{
+    width:  70%;
+    text-align: start;
+}
+.Bottom{
+    
+}
