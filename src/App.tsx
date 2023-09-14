@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Main.css';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -18,6 +18,14 @@ function App() {
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
 
   console.log('111', MovieData);
+  useEffect(()=>{
+    async function kek(){
+      let response = await fetch('https://api.allorigins.win/raw?url=https://api.kinocheck.de/shows?tmdb_id=38472')
+      let dada = await response.json()
+      console.log(dada)
+    }
+    kek()
+  },[])
 
   return (
     <>

@@ -3,11 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../App.module.scss';
 import MovieList from './MovieList';
 import '../Main.css';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { useFetchMoviesQuery } from '../store/MovieApi';
 import MovieHeader from './MovieHeader';
-import { Route, Routes } from 'react-router-dom';
-import MovieCharacteristics from './MovieCharacteristics';
+import { useAppSelector } from '../hooks/redux';
+
 
 export type movieType = {
   Title: string;

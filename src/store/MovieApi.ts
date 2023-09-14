@@ -64,5 +64,25 @@ export const MovieApiOne = createApi({
   }),
 })
 
+export const trailerApi = createApi({
+  reducerPath: 'trailerApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.allorigins.win/raw?url=https://api.kinocheck.de/' }),
+  tagTypes: ['trailerApi'],
+ 
+  endpoints: (builder) => ({
+    fetcTrailer: builder.query<any, any>({
+      query: (arg) => ({
+        url: `movies?imdb_id=${arg.id}`,
+
+        // headers:{
+        //   'Content-Type': 'application/json;charset=utf-8'
+        // },
+      }),
+      providesTags: result => ['trailerApi']
+    }),
+  }),
+})
+
 export const {useFetchMoviesQuery} = MovieApi
 export const {useFetchMoviesOneQuery} = MovieApiOne
+export const {useFetcTrailerQuery} = trailerApi

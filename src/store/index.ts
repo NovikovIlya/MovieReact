@@ -1,6 +1,6 @@
 import  sliceMovie  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { MovieApi, MovieApiOne } from './MovieApi'; 
+import { MovieApi, MovieApiOne,trailerApi } from './MovieApi'; 
 // import sliceId from './sliceId';
 
 import {
@@ -18,6 +18,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 const rootReducer = combineReducers({
     [MovieApi.reducerPath]: MovieApi.reducer,
     [MovieApiOne.reducerPath]: MovieApiOne.reducer,
+    [trailerApi.reducerPath]: trailerApi.reducer,
     sliceMovie
   //   [cityApi.reducerPath]: cityApi.reducer,
   //   sliceId,
@@ -37,7 +38,7 @@ const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(MovieApi.middleware,MovieApiOne.middleware);
+      }).concat(MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware);
     },
 });
 

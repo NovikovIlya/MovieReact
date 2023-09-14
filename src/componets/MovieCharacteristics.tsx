@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetchMoviesOneQuery } from '../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
+import Trailer from './Trailer';
 
 const MovieCharacteristics = () => {
   const { title , year,id } = useParams();
@@ -87,6 +88,9 @@ const MovieCharacteristics = () => {
                   )
                 })}</div>
               </div>
+            </div>
+            <div className={styles.containerTrailer}>
+                <div><Trailer arg={arg}/></div>
             </div>
           </div>
         </>
