@@ -36,6 +36,20 @@ type argType = {
   id: string,
 }
 
+
+
+export interface Root2 {
+  body: Body[]
+  id: string
+  imdbid?: string
+}
+
+export interface Body {
+  postId: number
+  name: string
+  text: string
+}
+
 export const MovieApi = createApi({
     reducerPath: 'apiMovies',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com/' }),
@@ -43,7 +57,7 @@ export const MovieApi = createApi({
     endpoints: (builder) => ({
       fetchMovies: builder.query<any, any>({
         query: (search) => ({
-          url: `?apikey=55ce87c0&s=${search}`,
+          url: `${`?apikey=55ce87c0&s=${search}` }`,
         }),
         providesTags: result => ['Fetch']
       }),
@@ -73,12 +87,39 @@ export const trailerApi = createApi({
     fetcTrailer: builder.query<any, any>({
       query: (arg) => ({
         url: `movies?imdb_id=${arg.id}`,
-
-        // headers:{
-        //   'Content-Type': 'application/json;charset=utf-8'
-        // },
       }),
       providesTags: result => ['trailerApi']
+    }),
+  }),
+})
+
+export const fetchCommentApi = createApi({
+  reducerPath: 'fetchComment',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment' }),
+  tagTypes: ['fetchComment'],
+  endpoints: (builder) => ({
+    fetchComment: builder.query<Root2, string>({
+      query: (id) => ({
+        url: ``,
+      }),
+      providesTags: result => ['fetchComment']
+    }),
+  }),
+})
+
+export const AddCommentApi = createApi({
+  reducerPath: 'AddComment',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment/' }),
+  tagTypes: ['AddComment'],
+  endpoints: (builder) => ({
+    AddComment: builder.mutation<any, any>({
+      query: (add) => ({
+        method:'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['AddComment'],
+      
     }),
   }),
 })
@@ -86,3 +127,5 @@ export const trailerApi = createApi({
 export const {useFetchMoviesQuery} = MovieApi
 export const {useFetchMoviesOneQuery} = MovieApiOne
 export const {useFetcTrailerQuery} = trailerApi
+export const {useFetchCommentQuery} = fetchCommentApi
+export const {useAddCommentMutation} = AddCommentApi

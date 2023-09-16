@@ -7,6 +7,7 @@ import MovieHeader from './MovieHeader';
 import { useAppSelector } from '../hooks/redux';
 
 
+
 export type movieType = {
   Title: string;
   Year: string;

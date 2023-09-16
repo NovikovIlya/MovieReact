@@ -5,6 +5,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import MovieCharacteristics from './MovieCharacteristics';
 import { Link } from 'react-router-dom';
+import styles from './MovieList.module.scss'
+import { Button } from 'antd'
 
 interface MovieListProps {
   movie: movieType[];
@@ -25,8 +27,9 @@ const MovieList = ({ movie }: MovieListProps) => {
           return (
             <div className="rowChild f-flex justify-content-start m-3">
               <div>{item.Title}</div>
-              <img key={item.imdbID} src={item.Poster} alt="no" />
-              <Link to={`${item.imdbID}`}>Перейти</Link>
+              <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
+              <Link to={`${item.imdbID}`}>
+                <Button>Перейти</Button></Link>
             </div>
           );
         })}

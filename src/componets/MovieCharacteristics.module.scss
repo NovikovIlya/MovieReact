@@ -1,3 +1,6 @@
+.Main{
+    color: white;
+}
 .link{
     display: flex;
     justify-content: center;
@@ -34,7 +37,20 @@
 .Bottom{
     
 }
+.twoItem{
+    display: flex;
+    width: 70%;
+}
 .containerRating{
     margin-top: 20px;
+    width: 70%;
+}
+.containerTrailer{
+    display: flex;
+    justify-content: center;
+}
+.containerComment{
+    display: flex;
+    justify-content: center;
     width: 70%;
 }
