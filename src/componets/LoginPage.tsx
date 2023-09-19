@@ -1,25 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { LoginApi, useLoginApiSetMutation } from '../store/MovieApi';
+import { LoginApi, useAuthApiQuery } from '../store/MovieApi';
+import { Navigate } from 'react-router-dom';
 
 function LoginPage() {
-    const [LoginApiSet] = LoginApi.useLoginApiSetMutation()
+  const [cat,setCat] = useState('')
+  const [LoginApiSet] = LoginApi.useLoginApiSetMutation();
+  const { data, refetch, isError } = useAuthApiQuery(cat);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
-    const tok = await LoginApiSet(data)
+    try {
+      console.log(data);
+    const tok = await LoginApiSet(data);
     //@ts-ignore
-    console.log('222',tok?.data.token)
+    console.log('222', tok?.data.token);
     //@ts-ignore
     localStorage.setItem('token', tok.data.token);
     
+    refetch()
+
+    // window.location.replace('/login')
+    } catch (error) {
+      
+    }
 
   };
-  console.log(errors);
+  console.log('44',errors);
+  console.log('55',isError);
+  useEffect(()=>{
+    refetch()
+  },[])
+  if (data){
+    if (data.username){
+      window.location.replace('/')
+    }
+  }
+  
+
+
+  //@ts-ignore
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,5 +62,6 @@ function LoginPage() {
     </form>
   );
 }
+
 
 export default LoginPage;

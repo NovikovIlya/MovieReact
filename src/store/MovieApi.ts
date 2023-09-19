@@ -144,14 +144,8 @@ export const LoginApi = createApi({
 export const auth = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/me' ,
-  prepareHeaders: (headers, { getState }) => {
-    
-
-    // If we have a token set in state, let's assume that we should be passing it.
-    
+  prepareHeaders: (headers, { getState }) => { 
       headers.set('authorization', `Bearer ${window.localStorage.getItem('token')}`)
-    
-
     return headers
   },
 }),
