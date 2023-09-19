@@ -57,7 +57,7 @@ export const MovieApi = createApi({
     endpoints: (builder) => ({
       fetchMovies: builder.query<any, any>({
         query: (search) => ({
-          url: `${`?apikey=55ce87c0&s=${search}` }`,
+          url: `${search ? `${`?apikey=55ce87c0&s=${search}`}` : `${`?apikey=55ce87c0&y=2023&s=all`}`}`,
         }),
         providesTags: result => ['Fetch']
       }),
@@ -98,9 +98,9 @@ export const fetchCommentApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment' }),
   tagTypes: ['fetchComment'],
   endpoints: (builder) => ({
-    fetchComment: builder.query<Root2, string>({
+    fetchComment: builder.query<Root2[], string>({
       query: (id) => ({
-        url: ``,
+        url: `?imdbid=${id}`,
       }),
       providesTags: result => ['fetchComment']
     }),
@@ -124,8 +124,55 @@ export const AddCommentApi = createApi({
   }),
 })
 
+export const LoginApi = createApi({
+  reducerPath: 'LoginApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/login' }),
+  tagTypes: ['LoginApi'],
+  endpoints: (builder) => ({
+    LoginApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method:'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['LoginApi'],
+      
+    }),
+  }),
+})
+
+export const auth = createApi({
+  reducerPath: 'auth',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/me' ,
+  prepareHeaders: (headers, { getState }) => {
+    
+
+    // If we have a token set in state, let's assume that we should be passing it.
+    
+      headers.set('authorization', `Bearer ${window.localStorage.getItem('token')}`)
+    
+
+    return headers
+  },
+}),
+
+  tagTypes: ['auth'],
+  endpoints: (builder) => ({
+    authApi: builder.query<any, any>({
+      query: () => ({
+        //@ts-ignore
+        // headers : window.localStorage.getItem('token'),
+        url: '',
+      }),
+      providesTags: result => ['auth']
+    }),
+  }),
+})
+
 export const {useFetchMoviesQuery} = MovieApi
 export const {useFetchMoviesOneQuery} = MovieApiOne
 export const {useFetcTrailerQuery} = trailerApi
 export const {useFetchCommentQuery} = fetchCommentApi
 export const {useAddCommentMutation} = AddCommentApi
+export const {useLoginApiSetMutation} = LoginApi
+export const {useAuthApiQuery} = auth

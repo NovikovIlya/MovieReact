@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid';
 const initialState  = {
   films: [],
   value :'',
+  empty: false,
 
 };
 
@@ -21,9 +22,12 @@ export const sliceMovie = createSlice({
     addValue:(state, action) => {
       state.value = action.payload;
     },
+    toogleEmpty:(state,action)=>{
+      state.empty = action.payload;
+    }
    
   },
 });
 
-export const { addMovie,addValue } = sliceMovie.actions;
+export const { addMovie,addValue,toogleEmpty } = sliceMovie.actions;
 export default sliceMovie.reducer;

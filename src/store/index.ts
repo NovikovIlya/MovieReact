@@ -1,6 +1,6 @@
 import  sliceMovie  from './sliceMovie';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { AddCommentApi, MovieApi, MovieApiOne,fetchCommentApi,trailerApi } from './MovieApi'; 
+import { configureStore, combineReducers, createReducer } from '@reduxjs/toolkit';
+import { AddCommentApi, LoginApi, MovieApi, MovieApiOne,auth,fetchCommentApi,trailerApi } from './MovieApi'; 
 // import sliceId from './sliceId';
 
 import {
@@ -21,10 +21,12 @@ const rootReducer = combineReducers({
     [trailerApi.reducerPath]: trailerApi.reducer,
     [fetchCommentApi.reducerPath]: fetchCommentApi.reducer,
     [AddCommentApi.reducerPath]: AddCommentApi.reducer,
+    [LoginApi.reducerPath]: LoginApi.reducer,
+    [auth.reducerPath]: auth.reducer,
     sliceMovie
-  //   [cityApi.reducerPath]: cityApi.reducer,
-  //   sliceId,
+
 });
+
 
 const persistConfig = {
   key: 'root',
@@ -40,7 +42,7 @@ const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
+      }).concat(auth.middleware,LoginApi.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
     },
 });
 

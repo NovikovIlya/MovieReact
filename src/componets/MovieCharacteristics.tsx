@@ -90,14 +90,14 @@ const MovieCharacteristics = () => {
               <div className={styles.containerRating}>
                 <div className={styles.Bottom}>
                   <div className={styles.itemRight}>
-                    {data.Ratings.map((item) => {
+                    {data.Ratings ? data.Ratings.map((item) => {
                       return (
                         <>
                           <div>{item.Source}</div>
                           <div>{item.Value}</div>
                         </>
                       );
-                    })}
+                    }) : ''}
                   </div>
                 </div>
               </div>
