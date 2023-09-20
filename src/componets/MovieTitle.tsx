@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { auth, useAuthApiQuery } from '../store/MovieApi';
 import { useAppDispatch } from '../hooks/redux';
+import { useNavigate } from 'react-router-dom';
 
 const MovieTitle = () => {
-  const [cat,setCat]  = useState('')
-  const {data,refetch,isError} = auth.useAuthApiQuery(cat)
+  const navigate = useNavigate()
+  
+  const {data,refetch,isError} = auth.useAuthApiQuery('')
   const dispatch = useAppDispatch()
 
 
   const exitFnc = () => {
     localStorage.setItem('token', 'test');
-    // window.location.reload();
-    setCat('test')
+
     dispatch((auth.util.resetApiState()))
     refetch()
 
-    // data.username=''
-    window.location.replace('/login')
+    navigate('/login')
   };
   console.log('999',data)
   return (

@@ -32,6 +32,7 @@ const Search = () => {
     console.log('22', data);
   };
   useEffect(()=>{
+    dispatch(addValue(''))
     if (emptyToggle===true){
       // ref.current.click()
       dispatch(addMovie(data?.Search));

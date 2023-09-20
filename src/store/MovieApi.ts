@@ -154,8 +154,6 @@ export const auth = createApi({
   endpoints: (builder) => ({
     authApi: builder.query<any, any>({
       query: () => ({
-        //@ts-ignore
-        // headers : window.localStorage.getItem('token'),
         url: '',
       }),
       providesTags: result => ['auth']
@@ -169,4 +167,4 @@ export const {useFetcTrailerQuery} = trailerApi
 export const {useFetchCommentQuery} = fetchCommentApi
 export const {useAddCommentMutation} = AddCommentApi
 export const {useLoginApiSetMutation} = LoginApi
-export const {useAuthApiQuery} = auth
+export const {useAuthApiQuery,useLazyAuthApiQuery} = auth

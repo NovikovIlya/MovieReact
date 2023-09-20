@@ -19,17 +19,13 @@ export type movieType = {
 };
 
 function App() {
-  const [cat,setCat] = useState('')
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
-  const {data,refetch,isError} = useAuthApiQuery(cat)
-  console.log('111', MovieData);
-  console.log('55',data)
-  console.log('666',isError)
+  const {data,refetch,isError} = useAuthApiQuery('')
+
   
   useEffect(()=>{
-    setCat('')
-    refetch()
 
+    // refetch()
   },[refetch])
 
   if(isError){
