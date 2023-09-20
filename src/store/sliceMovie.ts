@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 
 const initialState  = {
   films: [],
-  value :'',
+  value : '',
   empty: false,
 
 };

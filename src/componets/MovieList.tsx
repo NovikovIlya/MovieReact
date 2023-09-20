@@ -24,7 +24,7 @@ const MovieList = ({ movie }: MovieListProps) => {
     slidesToShow: 3,
     speed: 500,
   };
-  console.log(movie);
+  console.log('666',movie);
   useEffect(()=>{
     if (movie){
       if (movie.length === 0){
@@ -33,11 +33,15 @@ const MovieList = ({ movie }: MovieListProps) => {
     }
    
   },[])
+  //@ts-ignore
+  if (!movie || movie == 'all'){
+    return <p>Movie not found!</p>
+  }
 
   return (
     <>
       <Slider {...settings}>
-        {movie?.map((item) => {
+        {movie.length > 0&&movie.map((item) => {
           return (
             <div className="rowChild f-flex justify-content-start m-3">
               <div className={styles.text}>{item.Title}</div>

@@ -6,7 +6,7 @@ import '../Main.css';
 import MovieHeader from './MovieHeader';
 import { useAppSelector } from '../hooks/redux';
 import { useAuthApiQuery } from '../store/MovieApi';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -19,17 +19,18 @@ export type movieType = {
 };
 
 function App() {
+  const navigate = useNavigate()
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
   const {data,refetch,isError} = useAuthApiQuery('')
 
   
   useEffect(()=>{
 
-    // refetch()
+    refetch()
   },[refetch])
 
-  if(isError){
-    return <Navigate to='/login'/>
+  if(!data){
+    navigate('/login')
     // window.location.replace('/login')
   }
 

@@ -141,6 +141,23 @@ export const LoginApi = createApi({
   }),
 })
 
+export const RegistrApi = createApi({
+  reducerPath: 'RegistrApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/registrationNew' }),
+  tagTypes: ['RegistrApi'],
+  endpoints: (builder) => ({
+    RegistrApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method:'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['RegistrApi'],
+      
+    }),
+  }),
+})
+
 export const auth = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/auth/me' ,
@@ -167,4 +184,5 @@ export const {useFetcTrailerQuery} = trailerApi
 export const {useFetchCommentQuery} = fetchCommentApi
 export const {useAddCommentMutation} = AddCommentApi
 export const {useLoginApiSetMutation} = LoginApi
+export const {useRegistrApiSetMutation} = RegistrApi
 export const {useAuthApiQuery,useLazyAuthApiQuery} = auth

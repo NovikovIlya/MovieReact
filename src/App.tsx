@@ -10,6 +10,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import LoginPage from './componets/LoginPage';
 import { useAuthApiQuery } from './store/MovieApi';
+import Auth from './componets/Auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBfQpzQuNJHXJ2uMsCqPQakUrGfduYVCWY',
@@ -51,6 +52,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<MovieCharacteristics />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="*" element={<>Нет такого</>} />
       </Routes>
     </>
