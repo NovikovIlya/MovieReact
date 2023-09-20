@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
 import {Input as AntdInput  } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, MailOutlined, SettingOutlined,LoginOutlined,DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 
@@ -22,20 +22,21 @@ const items: MenuProps['items'] = [
   {
     label: (
         <Link to="/login" rel="noopener noreferrer">
-          Navigation Four - Link
+          Login
         </Link>
       ),
     key: 'mail',
-    icon: <MailOutlined />,
+    icon: <LoginOutlined />,
   },
   {
     label: (
 
         <Link to="/auth"  rel="noopener noreferrer">
-        Navigation Four - Link
+        Sign up
       </Link>
     ),
     key: 'alipay',
+    icon: <DatabaseOutlined />
   },
 ]
   const [current, setCurrent] = useState('alipay');
@@ -44,7 +45,7 @@ const items: MenuProps['items'] = [
     console.log('click ', e);
     setCurrent(e.key);
   };
-  const navigate = useNavigate();
+
   const [RegistrApiSet] = RegistrApi.useRegistrApiSetMutation();
   // const { data: dataApi, refetch, isError } = useAuthApiQuery('');
   const {

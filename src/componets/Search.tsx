@@ -23,75 +23,75 @@ const Search = () => {
   console.log('33',data)
   const keka = [
     {
-    "Title": "All of Those Voices",
-    "Year": "2023",
-    "imdbID": "tt26675252",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMGZjODdjNDItYjk1NS00NTMyLWI2NzAtZTEwNzM5NDIyMWFjXkEyXkFqcGdeQXVyMTM1MDExOTE2._V1_SX300.jpg"
-    },
-    {
-    "Title": "Ed Sheeran: The Sum of It All",
-    "Year": "2023",
-    "imdbID": "tt27192366",
-    "Type": "series",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BYmE3YTEzOTctYTNlNS00ZmI4LTkzNjgtZDBiOWM3ZWU3OGRkXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_SX300.jpg"
-    },
-    {
-    "Title": "To End All War: Oppenheimer & the Atomic Bomb",
-    "Year": "2023",
-    "imdbID": "tt28240284",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BOTI1ZjI3MDctMzFmOC00NTZkLWI3ZjUtODMzNmI4MzM1NmRkXkEyXkFqcGdeQXVyNjQzMDEyOTI@._V1_SX300.jpg"
-    },
-    {
-    "Title": "In Love All Over Again",
-    "Year": "2023",
-    "imdbID": "tt21206964",
-    "Type": "series",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BNzRjYjI5OGQtNWQ1Ni00YzhjLTlmODEtYWY2MjgwZmM3YzIxXkEyXkFqcGdeQXVyMTMxNjUyMDkx._V1_SX300.jpg"
-    },
-    {
-    "Title": "All Your Faces",
-    "Year": "2023",
-    "imdbID": "tt24070754",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BYTU0YmE0MmYtM2Y1OC00ZWYwLTg3OWQtMjc1NjUzZjg0ODYyXkEyXkFqcGdeQXVyMjI1ODQ1MDk@._V1_SX300.jpg"
-    },
-    {
-    "Title": "Rock Hudson: All That Heaven Allowed",
-    "Year": "2023",
-    "imdbID": "tt13514636",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BOWI0NTljMzYtMjNiMS00ZTMxLTg0OWItNzI5ZmUzNjBiZDM2XkEyXkFqcGdeQXVyMTMzOTQyOTk1._V1_SX300.jpg"
-    },
-    {
-    "Title": "Working: What We Do All Day",
-    "Year": "2023",
-    "imdbID": "tt27619797",
-    "Type": "series",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BMmI3ZDIwZWQtZDRkNC00ZWI2LThkNDktNjVjYTkxN2MwYTRlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_SX300.jpg"
-    },
-    {
-    "Title": "Squared Love All Over Again",
-    "Year": "2023",
-    "imdbID": "tt26369131",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BY2UxMjEyNzUtNTViMy00YTNhLTk0N2MtOTNmNDYwZWMyZmM5XkEyXkFqcGdeQXVyMTAxMTM4NzU@._V1_SX300.jpg"
-    },
-    {
-    "Title": "All Inclusive",
-    "Year": "2023",
-    "imdbID": "tt13370378",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BM2Q0NzUyNTMtMjljYS00YmYxLThiMWQtZDhmMjJlODY3YzUyXkEyXkFqcGdeQXVyNDA4NTIwOQ@@._V1_SX300.jpg"
-    },
-    {
-    "Title": "All the Places",
-    "Year": "2023",
-    "imdbID": "tt12616964",
-    "Type": "movie",
-    "Poster": "https://m.media-amazon.com/images/M/MV5BZTg1ZjIxNTQtMjM5Ny00OGEyLWI2OTgtOGEzYzVkMDk4ZGFhXkEyXkFqcGdeQXVyMjAwNzczNTU@._V1_SX300.jpg"
-    }
+      "Title": "The Avengers",
+      "Year": "2012",
+      "imdbID": "tt0848228",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Avengers: Endgame",
+      "Year": "2019",
+      "imdbID": "tt4154796",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Avengers: Infinity War",
+      "Year": "2018",
+      "imdbID": "tt4154756",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Avengers: Age of Ultron",
+      "Year": "2015",
+      "imdbID": "tt2395427",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTM4OGJmNWMtOTM4Ni00NTE3LTg3MDItZmQxYjc4N2JhNmUxXkEyXkFqcGdeQXVyNTgzMDMzMTg@._V1_SX300.jpg"
+      },
+      {
+      "Title": "The Avengers",
+      "Year": "1998",
+      "imdbID": "tt0118661",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYWE1NTdjOWQtYTQ2Ny00Nzc5LWExYzMtNmRlOThmOTE2N2I4XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX300.jpg"
+      },
+      {
+      "Title": "The Avengers: Earth's Mightiest Heroes",
+      "Year": "2010–2012",
+      "imdbID": "tt1626038",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BYzA4ZjVhYzctZmI0NC00ZmIxLWFmYTgtOGIxMDYxODhmMGQ2XkEyXkFqcGdeQXVyNjExODE1MDc@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Ultimate Avengers: The Movie",
+      "Year": "2006",
+      "imdbID": "tt0491703",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTYyMjk0NTMwMl5BMl5BanBnXkFtZTgwNzY0NjAwNzE@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Ultimate Avengers II",
+      "Year": "2006",
+      "imdbID": "tt0803093",
+      "Type": "movie",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BZjI3MTI5ZTYtZmNmNy00OGZmLTlhNWMtNjZiYmYzNDhlOGRkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg"
+      },
+      {
+      "Title": "The Avengers",
+      "Year": "1961–1969",
+      "imdbID": "tt0054518",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BZWQwZTdjMDUtNTY1YS00MDI0LWFkNjYtZDA4MDdmZjdlMDRlXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX300.jpg"
+      },
+      {
+      "Title": "Avengers Assemble",
+      "Year": "2012–2019",
+      "imdbID": "tt2455546",
+      "Type": "series",
+      "Poster": "https://m.media-amazon.com/images/M/MV5BMTY0NTUyMDQwOV5BMl5BanBnXkFtZTgwNjAwMTA0MDE@._V1_SX300.jpg"
+      }
     ]
   const fetchMovie = () => {
     if (val.length < 1 ){
