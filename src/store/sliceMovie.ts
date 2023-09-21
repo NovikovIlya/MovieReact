@@ -9,6 +9,7 @@ const initialState  = {
   films: [],
   value : '',
   empty: false,
+  favorite:[],
 
 };
 
@@ -24,10 +25,13 @@ export const sliceMovie = createSlice({
     },
     toogleEmpty:(state,action)=>{
       state.empty = action.payload;
-    }
+    },
+    addFavorite: (state, action) => {
+      state.favorite = [...state.favorite,action.payload]
+    },
    
   },
 });
 
-export const { addMovie,addValue,toogleEmpty } = sliceMovie.actions;
+export const { addMovie,addValue,toogleEmpty ,addFavorite} = sliceMovie.actions;
 export default sliceMovie.reducer;

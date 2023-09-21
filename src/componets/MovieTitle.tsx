@@ -21,8 +21,8 @@ const MovieTitle = () => {
   console.log('999',data)
   return (
     <>
-      <div onClick={()=>dispatch((auth.util.resetApiState()))}>Movie</div>
-      <button onClick={exitFnc}>EXIT</button>
+      <div >Movie</div>
+      
     </>
   );
 };

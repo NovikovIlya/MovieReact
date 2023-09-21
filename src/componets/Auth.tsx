@@ -5,10 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
-import {Input as AntdInput  } from 'antd';
+import {Input as AntdInput,Button as AndtdButton,message  } from 'antd';
 import { AppstoreOutlined, MailOutlined, SettingOutlined,LoginOutlined,DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+
 
 interface FormInputs {
   username: string;
@@ -39,6 +40,7 @@ const items: MenuProps['items'] = [
     icon: <DatabaseOutlined />
   },
 ]
+const [messageApi, contextHolder] = message.useMessage();
   const [current, setCurrent] = useState('alipay');
 
   const onClick: MenuProps['onClick'] = (e) => {
@@ -46,7 +48,7 @@ const items: MenuProps['items'] = [
     setCurrent(e.key);
   };
 
-  const [RegistrApiSet] = RegistrApi.useRegistrApiSetMutation();
+  const [RegistrApiSet,result] = RegistrApi.useRegistrApiSetMutation();
   // const { data: dataApi, refetch, isError } = useAuthApiQuery('');
   const {
     control,
@@ -62,86 +64,91 @@ const items: MenuProps['items'] = [
       const tok = await RegistrApiSet(data);
       console.log('bbb',tok)
       //@ts-ignore
-    //   console.log('222', tok?.data.token);
-    //   //@ts-ignore
-    //   localStorage.setItem('token', tok.data.token);
-    //   navigate('/');
+
     } catch (e) {
       console.log(e);
       console.log(errors);
     }
   };
+  const info = () => {
+    messageApi.info('This user was not found!');
+  };
+  const infoSeccus = () => {
+    messageApi.info('Succesful!');
+  };
 
-  useEffect(() => {
-    // refetch();
-  }, []);
+
+  useEffect(()=>{
+    if(result.error){
+      info()
+    }
+    if(result.data ){
+      infoSeccus()
+    }
+  },[result])
 
   return (
     <>
-    <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
-      {/* {isError&&<p style={{color:'white'}}>Пользователь не найден</p>} */}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input 
-          type="text"
-          placeholder="Name"
-          {...register('username', {
-            required: 'this req',
-            minLength: { value: 6, message: 'min passs' },
-            maxLength: 80,
-            
-          })}
-        />
-        {/* <input 
-          type="password"
-          placeholder="password"
-          {...register('password', {
-            required: true,
-            minLength: { value: 6, message: 'min passs' },
-            maxLength: 100,
-          })}
-        /> */}
-        <Controller
-        render={({ field }) => <AntdInput placeholder='pass' {...field} />}
-        rules={{ required: true }}
-        
-        name="password"
+    {contextHolder}
+    <Menu className={styles.menu} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.name} >
+      <Controller
+        render={({ field }) => <AntdInput  placeholder="Username" {...field} />}
+        rules={{ required: 'Field cannot be empty', minLength: { value: 4, message: 'Minimum 4 characters' } }}
+        name="username"
         control={control}
         defaultValue=""
       />
         <ErrorMessage
-          errors={errors}
-          name="username"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? _.entries(messages).map(([type, message]: [string, string]) => (
-                  <p style={{ color: 'white' }} key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
-        />
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? _.entries(messages).map(([type, message]: [string, string]) => (
-                  <p style={{ color: 'white' }} key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
-        />
-         <input  type="submit" />
-       
+        errors={errors}
+        name="username"
+        render={({ messages }) => {
+          console.log('messages', messages);
+          return messages
+            ? _.entries(messages).map(([type, message]: [string, string]) => (
+                <p className={styles.error} key={type}>
+                  {message}
+                </p>
+              ))
+            : null;
+        }}
+      />
+      </div>
      
-       
-      </form>
-    </>
+     
+      <Controller
+        render={({ field }) => <AntdInput placeholder="Password" type='password' {...field} />}
+        rules={{ required: 'Field cannot be empty', minLength: { value: 4, message: 'Minimum 4 characters' }}}
+        name="password"
+        control={control}
+        defaultValue=""
+      />
+
+      <ErrorMessage
+        errors={errors}
+        name="password"
+        render={({ messages }) => {
+          console.log('messages', messages);
+          return messages
+            ? _.entries(messages).map(([type, message]: [string, string]) => (
+                <p className={styles.error}  key={type}>
+                  {message}
+                </p>
+              ))
+            : null;
+        }}
+      />
+      <div className={styles.container__btn}>
+        <AndtdButton type="primary" htmlType="submit">
+          Send
+        </AndtdButton>
+      </div>
+      
+    </form>
+    
+   
+  </>
   );
 }
 

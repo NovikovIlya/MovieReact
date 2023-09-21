@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useFetchMoviesQuery } from '../store/MovieApi';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { addMovie, addValue } from '../store/sliceMovie';
+import { Input,Button } from 'antd';
+import styles from './Search.module.scss'
 
 const Search = () => {
   const ref = useRef<HTMLButtonElement>()
@@ -109,20 +111,17 @@ const Search = () => {
       console.log('eemama')
     }
     
-    // if (emptyToggle===true){
-    //   // ref.current.click()
-    //   dispatch(addMovie(data?.Search));
-    // }
+
   },[dispatch])
   
 
   
 
   return (
-    <div>
-      <input onChange={(e) => handleMovie(e)} value={val} placeholder="Input text" />
-      {/* {data.Error === 'Incorrect IMDb ID.'&&<h1>Пожалуйста впишите текст</h1>} */}
-      <button ref={ref} onClick={() => fetchMovie()}>Ok</button>
+    <div className={styles.container}>
+      <Input onChange={(e) => handleMovie(e)} value={val} placeholder="Input text" />
+
+      <Button ref={ref} onClick={() => fetchMovie()}>Ok</Button>
      
     </div>
   );

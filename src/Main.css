@@ -1,6 +1,6 @@
 .movie-app > .row {
   overflow: auto;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .rowChild {
   width: auto;
