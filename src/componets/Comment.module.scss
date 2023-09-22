@@ -1,14 +1,30 @@
+.MainParent{
+    width: 100%;
+}
 .Main{
-    
     color:black
 }
 .container{
     background-color: white;
     border-radius: 10px;
     margin-bottom: 30px;
-    // border:1px solid black;
+    padding: 15px;
 }
-
+.parentBtn{
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 .btn{
     border-radius: 20%;
+}
+.out{
+    margin-right: 5px;
+}
+.containerChilcd{
+    &__text{
+        padding-bottom: 10px;
+    }
 }

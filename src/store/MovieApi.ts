@@ -57,7 +57,8 @@ export const MovieApi = createApi({
     endpoints: (builder) => ({
       fetchMovies: builder.query<any, any>({
         query: (search) => ({
-          url: `${search ? `${`?apikey=55ce87c0&s=${search}`}` : `${`?apikey=55ce87c0&y=2023&s=all`}`}`,
+         url: `?apikey=55ce87c0&s=${search}`,
+          // url: `${search ? `${`?apikey=55ce87c0&s=${search}`}` : `${`?apikey=55ce87c0&y=2023&s=all`}`}`,
         }),
         providesTags: result => ['Fetch']
       }),

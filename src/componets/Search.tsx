@@ -24,13 +24,6 @@ const Search = () => {
   };
   console.log('33',data)
   const keka = [
-    {
-      "Title": "The Avengers",
-      "Year": "2012",
-      "imdbID": "tt0848228",
-      "Type": "movie",
-      "Poster": "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
-      },
       {
       "Title": "Avengers: Endgame",
       "Year": "2019",
@@ -119,9 +112,9 @@ const Search = () => {
 
   return (
     <div className={styles.container}>
-      <Input onChange={(e) => handleMovie(e)} value={val} placeholder="Input text" />
+      <Input className={styles.container__inp} onChange={(e) => handleMovie(e)} value={val} placeholder="Input text" />
 
-      <Button ref={ref} onClick={() => fetchMovie()}>Ok</Button>
+      <Button className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>Search</Button>
      
     </div>
   );

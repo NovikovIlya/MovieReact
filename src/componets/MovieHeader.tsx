@@ -7,7 +7,7 @@ import UserInfo from './UserInfo'
 const MovieHeader = () => {
   return (
     <div className={styles.container}>
-        <div ><MovieTitle/></div>
+        <div><MovieTitle/></div>
         <div><Search/></div>
         <div><UserInfo/></div>
     </div>

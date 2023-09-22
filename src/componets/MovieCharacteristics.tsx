@@ -4,7 +4,8 @@ import { useFetchMoviesOneQuery } from '../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from './Trailer';
 import Comment from './Comment';
-import { Button } from 'antd'
+import { Button,Divider } from 'antd'
+import {StarFilled} from '@ant-design/icons';
 
 const MovieCharacteristics = () => {
   const { title, year, id } = useParams();
@@ -17,11 +18,14 @@ const MovieCharacteristics = () => {
   return (
     <div className={styles.Main}>
       <Link className={styles.link} to="/">
-       <Button>Назад</Button>
+       <Button>Back</Button>
       </Link>
 
       {isLoading ? (
-        <h1>Идет загрузка</h1>
+        <div className={styles.zagr}>
+            <h1 className={styles.zagr__hed1}>Loading...</h1>
+        </div>
+      
       ) : (
         <>
           <div className={styles.container}>
@@ -75,11 +79,15 @@ const MovieCharacteristics = () => {
               </div>
             </div>
 
+            <Divider className={styles.divid}/>
+
             <div className={styles.containerBottom}>
               <div className={styles.Bottom}>
                 <div className={styles.itemRight}>{data.Plot}</div>
               </div>
             </div>
+
+            <Divider className={styles.divid}/>
 
             <div className={styles.twoItem}>
             <div className={styles.containerTrailer}>
@@ -89,24 +97,27 @@ const MovieCharacteristics = () => {
               </div>
               <div className={styles.containerRating}>
                 <div className={styles.Bottom}>
-                  <div className={styles.itemRight}>
+                  <div className={styles.itemRight2}>
                     {data.Ratings ? data.Ratings.map((item) => {
                       return (
                         <>
-                          <div>{item.Source}</div>
-                          <div>{item.Value}</div>
+                          <div className={styles.ratingMass}>
+                            <div><StarFilled className={styles.star}/>{item.Source}</div>
+                            <div>{item.Value}</div>
+                          </div>
+                          
                         </>
                       );
                     }) : ''}
                   </div>
                 </div>
               </div>
-
-              
             </div>
 
+            <Divider className={styles.divid}/>
+
             <div className={styles.containerComment}>
-                <div><Comment id={id}/></div>
+             <Comment id={id}/>
             </div>
           </div>
         </>

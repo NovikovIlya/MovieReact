@@ -21,7 +21,7 @@ const MovieTitle = () => {
   console.log('999',data)
   return (
     <>
-      <div >Movie</div>
+      <div >PrivetMovie</div>
       
     </>
   );

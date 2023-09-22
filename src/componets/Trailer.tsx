@@ -11,15 +11,16 @@ const Trailer = ({ arg }) => {
     }
     if(data.error){
       console.log('не ок')
-      return <></>
+      // return <></>
     }
   }
 
-  const urlTrailer = `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`;
+  const urlTrailer = data ? (data.error ? `https://www.youtube.com/embed/dQw4w9WgXcQ` :   `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`) : `https://www.youtube.com/embed/dQw4w9WgXcQ`;
+  console.log('xc',urlTrailer)
   return (
     <>
       {isLoading ? (
-        <h1>Идет загрузка</h1>
+        <h1>Loading...</h1>
       ) : (
         <>
           <div>

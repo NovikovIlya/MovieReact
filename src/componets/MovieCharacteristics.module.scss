@@ -1,11 +1,19 @@
 .Main{
     color: white;
 }
+.zagr{
+    width: 100%;
+    &__hed1{
+        display: flex;
+        justify-content: center;
+    }
+}
 .link{
     display: flex;
+    margin-top: 10px;
     justify-content: center;
+    margin-bottom: 20px;
 }
-
 .container{
     display: flex;
     justify-content: center;
@@ -13,6 +21,8 @@
     &__right{
         flex:1;
         padding: 10px;
+        margin-left: 20px;
+        margin-top: -25px;
     }
 }
 .containerTop{
@@ -22,12 +32,22 @@
 .ParentItem{
     display: flex;
     flex-wrap: wrap;
+    align-items: end;
 }
 .item{
     width: 150px;
+    margin-top: 10px;
 }
 .itemRight{
     flex:1;
+}
+.itemRight2{
+    height: 90%;
+    flex:1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    padding: 20px;
 }
 
 .containerBottom{
@@ -35,9 +55,11 @@
     text-align: start;
 }
 .Bottom{
-    
+    height: 100%;
 }
 .twoItem{
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
     width: 70%;
 }
@@ -52,5 +74,13 @@
 .containerComment{
     display: flex;
     justify-content: center;
+    width: 70%;
+}
+.star{
+    margin-right: 5px;
+}
+.divid{
+    background-color: white;
+    min-width: 60%;
     width: 70%;
 }

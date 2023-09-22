@@ -20,7 +20,7 @@ const UserInfo = () => {
 
   return (
     <div className={styles.container}>
-      <div>{dataApi?.username}</div>
+      <div className={styles.container__username}>{dataApi?.username}</div>
       <Button onClick={exitFnc}>EXIT</Button>
     </div>
   );

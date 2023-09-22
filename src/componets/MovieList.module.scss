@@ -4,7 +4,23 @@
 .text{
     height: 70px;
 }
+.bottom{
+    display: flex;
+    align-items: baseline;
+    justify-content: start;
+    width: 77%;
+}
+.head1{
+    width: 100%;
+    padding-left: 90px;
+}
 
 .favorite{
     width: 100%;;
+}
+.btnDesc{
+    border-radius: 20px 0 0 20px;
+}
+.btnPlus{
+    border-radius: 0 20px 20px 0;
 }
