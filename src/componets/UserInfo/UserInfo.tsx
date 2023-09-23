@@ -1,13 +1,13 @@
 import React from 'react';
-import { useAppDispatch } from '../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../store/MovieApi';
+import { auth } from '../../store/MovieApi';
 import styles from './UserInfo.module.scss';
 import { Button } from 'antd';
 
 const UserInfo = () => {
   const navigate = useNavigate();
-  const { data: dataApi, refetch, isError } = auth.useAuthApiQuery('');
+  const { data: dataApi, refetch } = auth.useAuthApiQuery('');
   const dispatch = useAppDispatch();
   const exitFnc = () => {
     localStorage.setItem('token', 'test');

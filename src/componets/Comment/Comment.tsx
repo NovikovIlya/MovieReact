@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAddCommentMutation, useFetchCommentQuery } from '../store/MovieApi';
+import { useAddCommentMutation, useFetchCommentQuery } from '../../store/MovieApi';
 import styles from './Comment.module.scss';
 import { Button, Divider } from 'antd';
-import {UserOutlined} from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 const Comment = ({ id }) => {
   const { data, isLoading } = useFetchCommentQuery(id);
@@ -11,9 +11,9 @@ const Comment = ({ id }) => {
 
   const handleCreate = async () => {
     const title = prompt('Enter text');
-    const name = prompt('Enter username')
-    if (name === '' || title === ''){
-      return alert('You must enter a name or text!')
+    const name = prompt('Enter username');
+    if (name === '' || title === '') {
+      return alert('You must enter a name or text!');
     }
     await AddCommentApi({
       imdbid: id,
@@ -25,16 +25,18 @@ const Comment = ({ id }) => {
         },
       ],
     });
-    alert('Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)')
+    alert(
+      'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
+    );
   };
 
-  const reversedArray = []
-  for(let i = mass.length - 1; i >= 0; i--) {
-    const valueAtIndex = mass[i]
-    
-    reversedArray.push(valueAtIndex)
+  const reversedArray = [];
+  for (let i = mass.length - 1; i >= 0; i--) {
+    const valueAtIndex = mass[i];
+
+    reversedArray.push(valueAtIndex);
   }
-  
+
   return (
     <div className={styles.MainParent}>
       <div className={styles.parentBtn}>
@@ -42,7 +44,7 @@ const Comment = ({ id }) => {
           Add comment
         </Button>
       </div>
-     
+
       <div className={styles.Main}>
         {isLoading ? (
           <h1>Loading...</h1>
@@ -53,7 +55,10 @@ const Comment = ({ id }) => {
                 {item.body.map((child) => {
                   return (
                     <div className={styles.containerChilcd}>
-                      <div><UserOutlined className={styles.out} />{child.name}</div>
+                      <div>
+                        <UserOutlined className={styles.out} />
+                        {child.name}
+                      </div>
                       <Divider />
                       <div className={styles.containerChilcd__text}>{child.text}</div>
                     </div>

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { movieType } from '../types'; 
+import { movieType } from '../../types';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
 import styles from './MovieList.module.scss';
 import { Button, Popover } from 'antd';
-import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { toogleEmpty } from '../store/sliceMovie';
-import { addFavorite, deleteFavorite } from '../store/sliceMovie';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { toogleEmpty } from '../../store/sliceMovie';
+import { addFavorite, deleteFavorite } from '../../store/sliceMovie';
 
 interface MovieListProps {
   movie: movieType[];
@@ -35,7 +35,7 @@ const MovieList = ({ movie }: MovieListProps) => {
   };
   const settings2 = {
     centerMode: true,
-    slidesToShow: favorite.length > 2 ? 3 : favorite.length> 1 ? 2 : 1,
+    slidesToShow: favorite.length > 2 ? 3 : favorite.length > 1 ? 2 : 1,
     speed: 500,
   };
   const addFavoriteFnc = (item: movieType) => {
@@ -52,19 +52,23 @@ const MovieList = ({ movie }: MovieListProps) => {
         dispatch(toogleEmpty(true));
       }
     }
-  }, []);
-  
-  if (!movie ) {
+  }, [movie, dispatch]);
+
+  if (!movie) {
     return <p>Movie not found!</p>;
+  }
+  if (!movie.length){
+    return null;
   }
 
   return (
     <>
       <Slider {...settings}>
+        
         {movie.length > 0 &&
           movie.map((item) => {
             return (
-              <div className="rowChild f-flex justify-content-start m-3">
+              <div key={item.imdbID} className="mda rowChild f-flex justify-content-start m-3">
                 <div className={styles.text}>{item.Title}</div>
                 <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
                 <div className={styles.bottom}>
@@ -72,7 +76,10 @@ const MovieList = ({ movie }: MovieListProps) => {
                     <Button className={styles.btnDesc}>Go to movie</Button>
                   </Link>
                   <Popover content={content} title="">
-                    <Button className={styles.btnPlus} onClick={() => addFavoriteFnc(item)} type="primary">
+                    <Button
+                      className={styles.btnPlus}
+                      onClick={() => addFavoriteFnc(item)}
+                      type="primary">
                       +
                     </Button>
                   </Popover>
@@ -80,7 +87,9 @@ const MovieList = ({ movie }: MovieListProps) => {
               </div>
             );
           })}
+         
       </Slider>
+      
       {favorite.length > 0 && (
         <div>
           <h1 className={styles.head1}>Favorites</h1>
@@ -90,7 +99,7 @@ const MovieList = ({ movie }: MovieListProps) => {
         {favorite.length > 0 &&
           favorite.map((item) => {
             return (
-              <div className="rowChild f-flex justify-content-start m-3">
+              <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
                 <div className={styles.text}>{item.Title}</div>
                 <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
                 <div className={styles.bottom}>
@@ -98,7 +107,10 @@ const MovieList = ({ movie }: MovieListProps) => {
                     <Button className={styles.btnDesc}>Go to moive</Button>
                   </Link>
                   <Popover content={content2} title="">
-                    <Button  className={styles.btnPlus} onClick={() => delFavoriteFnc(item)} type="primary">
+                    <Button
+                      className={styles.btnPlus}
+                      onClick={() => delFavoriteFnc(item)}
+                      type="primary">
                       -
                     </Button>
                   </Popover>

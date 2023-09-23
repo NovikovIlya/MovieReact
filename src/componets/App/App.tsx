@@ -1,24 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Main.css';
-import { useAppDispatch, useAppSelector } from './hooks/redux';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import MovieCharacteristics from './componets/MovieCharacteristics';
-import MainPage from './componets/MainPage';
-
-import { initializeApp } from 'firebase/app';
-
-import LoginPage from './componets/LoginPage';
-import { useAuthApiQuery } from './store/MovieApi';
-import Auth from './componets/Auth';
-
-
-
+import '../../Main.css';
+import { Route, Routes } from 'react-router-dom';
+import MovieCharacteristics from '../MovieCharacterisics/MovieCharacteristics';
+import MainPage from '../MainPage/MainPage';
+import LoginPage from '../Login/LoginPage';
+import Auth from '../Auth/Auth';
 
 function App() {
-
   return (
     <>
+      <div>/learn react/i</div>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<MovieCharacteristics />} />

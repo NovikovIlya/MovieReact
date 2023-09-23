@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { LoginApi, useAuthApiQuery } from '../store/MovieApi';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { LoginApi, useAuthApiQuery } from '../../store/MovieApi';
+import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
@@ -42,7 +42,7 @@ function LoginPage() {
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
-  const { data: dataApi, refetch, isError } = useAuthApiQuery('');
+  const { data: dataApi, refetch } = useAuthApiQuery('');
   const navigate = useNavigate();
   const {
     control,
@@ -59,10 +59,7 @@ function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       const tok = await LoginApiSet(data);
-      //@ts-ignore
-      console.log('222', tok?.data.token);
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
       refetch();
@@ -73,37 +70,29 @@ function LoginPage() {
   };
   const onSubmit1 = async () => {
     try {
-    
-      const tok = await LoginApiSet({username:'papa123',password:'papa321'});
-      console.log('999',tok)
-      //@ts-ignore
-      console.log('222', tok?.data.token);
+      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
       refetch();
     } catch (e) {
       console.log(e);
-      console.log(errors);
     }
-  };
-  console.log('vvvbbb', result);
-  useEffect(() => {
-    // refetch();
-    if (dataApi) {
-      navigate('/');
-      console.log('perehod');
-    }
-  }, [dataApi, navigate]);
-  console.log('vv', dataApi);
-  const info = () => {
-    messageApi.info('This user was not found!');
   };
 
   useEffect(() => {
+    if (dataApi) {
+      navigate('/');
+    }
+  }, [dataApi, navigate]);
+ 
+  useEffect(() => {
     if (result.error) {
+      const info = () => {
+        messageApi.info('This user was not found!');
+      };
       info();
     }
-  }, [result.error]);
+  }, [result.error,messageApi]);
 
   return (
     <>
@@ -172,13 +161,11 @@ function LoginPage() {
           <AndtdButton type="primary" htmlType="submit">
             Send
           </AndtdButton>
-          
         </div>
         <div className={styles.container__btn}>
           <AndtdButton type="primary" htmlType="button" onClick={onSubmit1}>
             Enter test user
           </AndtdButton>
-          
         </div>
       </form>
     </>

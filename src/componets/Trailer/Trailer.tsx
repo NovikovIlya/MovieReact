@@ -1,22 +1,27 @@
 import React from 'react';
-import { useFetcTrailerQuery } from '../store/MovieApi';
+import { useFetcTrailerQuery } from '../../store/MovieApi';
+import styles from './Trailer.module.scss'
 
 const Trailer = ({ arg }) => {
-  const { data, isLoading, isError } = useFetcTrailerQuery(arg);
-  console.log(data);
+  const { data, isLoading } = useFetcTrailerQuery(arg);
 
-  if (data){
-    if (!data.error){
-      console.log('все ок')
+
+  if (data) {
+    if (!data.error) {
+      console.log('все ок');
     }
-    if(data.error){
-      console.log('не ок')
-      // return <></>
+    if (data.error) {
+      console.log('не ок');
+  
     }
   }
 
-  const urlTrailer = data ? (data.error ? `https://www.youtube.com/embed/dQw4w9WgXcQ` :   `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`) : `https://www.youtube.com/embed/dQw4w9WgXcQ`;
-  console.log('xc',urlTrailer)
+  const urlTrailer = data
+    ? data.error
+      ? `https://www.youtube.com/embed/dQw4w9WgXcQ`
+      : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
+    : `https://www.youtube.com/embed/dQw4w9WgXcQ`;
+  console.log('xc', urlTrailer);
   return (
     <>
       {isLoading ? (

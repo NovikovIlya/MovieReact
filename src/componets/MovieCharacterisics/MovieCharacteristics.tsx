@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useFetchMoviesOneQuery } from '../store/MovieApi';
+import { useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
-import Trailer from './Trailer';
-import Comment from './Comment';
-import { Button,Divider } from 'antd'
-import {StarFilled} from '@ant-design/icons';
+import Trailer from '../Trailer/Trailer';
+import Comment from '../Comment/Comment';
+import { Button, Divider } from 'antd';
+import { StarFilled } from '@ant-design/icons';
 
 const MovieCharacteristics = () => {
   const { title, year, id } = useParams();
@@ -18,14 +18,13 @@ const MovieCharacteristics = () => {
   return (
     <div className={styles.Main}>
       <Link className={styles.link} to="/">
-       <Button>Back</Button>
+        <Button>Back</Button>
       </Link>
 
       {isLoading ? (
         <div className={styles.zagr}>
-            <h1 className={styles.zagr__hed1}>Loading...</h1>
+          <h1 className={styles.zagr__hed1}>Loading...</h1>
         </div>
-      
       ) : (
         <>
           <div className={styles.container}>
@@ -79,7 +78,7 @@ const MovieCharacteristics = () => {
               </div>
             </div>
 
-            <Divider className={styles.divid}/>
+            <Divider className={styles.divid} />
 
             <div className={styles.containerBottom}>
               <div className={styles.Bottom}>
@@ -87,10 +86,10 @@ const MovieCharacteristics = () => {
               </div>
             </div>
 
-            <Divider className={styles.divid}/>
+            <Divider className={styles.divid} />
 
             <div className={styles.twoItem}>
-            <div className={styles.containerTrailer}>
+              <div className={styles.containerTrailer}>
                 <div>
                   <Trailer arg={arg} />
                 </div>
@@ -98,26 +97,30 @@ const MovieCharacteristics = () => {
               <div className={styles.containerRating}>
                 <div className={styles.Bottom}>
                   <div className={styles.itemRight2}>
-                    {data.Ratings ? data.Ratings.map((item) => {
-                      return (
-                        <>
-                          <div className={styles.ratingMass}>
-                            <div><StarFilled className={styles.star}/>{item.Source}</div>
-                            <div>{item.Value}</div>
-                          </div>
-                          
-                        </>
-                      );
-                    }) : ''}
+                    {data.Ratings
+                      ? data.Ratings.map((item) => {
+                          return (
+                            <>
+                              <div className={styles.ratingMass}>
+                                <div>
+                                  <StarFilled className={styles.star} />
+                                  {item.Source}
+                                </div>
+                                <div>{item.Value}</div>
+                              </div>
+                            </>
+                          );
+                        })
+                      : ''}
                   </div>
                 </div>
               </div>
             </div>
 
-            <Divider className={styles.divid}/>
+            <Divider className={styles.divid} />
 
             <div className={styles.containerComment}>
-             <Comment id={id}/>
+              <Comment id={id} />
             </div>
           </div>
         </>
