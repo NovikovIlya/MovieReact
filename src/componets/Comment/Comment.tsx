@@ -33,7 +33,6 @@ const Comment = ({ id }) => {
   const reversedArray = [];
   for (let i = mass.length - 1; i >= 0; i--) {
     const valueAtIndex = mass[i];
-
     reversedArray.push(valueAtIndex);
   }
 
@@ -50,11 +49,12 @@ const Comment = ({ id }) => {
           <h1>Loading...</h1>
         ) : (
           reversedArray?.map((item) => {
+
             return (
-              <div className={styles.container}>
+              <div key={item.id}  className={styles.container}>
                 {item.body.map((child) => {
                   return (
-                    <div className={styles.containerChilcd}>
+                    <div key={child.name} className={styles.containerChilcd}>
                       <div>
                         <UserOutlined className={styles.out} />
                         {child.name}

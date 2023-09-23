@@ -13,6 +13,6 @@ test('renders learn react link', () => {
       </BrowserRouter>
     </Provider>,
   );
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const title = screen.getByText(/Privet/i);
+  expect(title).toBeInTheDocument();
 });

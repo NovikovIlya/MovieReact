@@ -5,7 +5,8 @@ import { addMovie, addValue } from '../../store/sliceMovie';
 import { Input, Button } from 'antd';
 import styles from './Search.module.scss';
 
-const Search = () => {
+const Search = (props) => {
+  const {children = 'Search',placeholder} = props
   const ref = useRef<HTMLButtonElement>();
   const val = useAppSelector((state) => state.sliceMovie.value);
   const [arg, setArg] = useState<string>('');
@@ -26,6 +27,7 @@ const Search = () => {
       return;
     }
     dispatch(addMovie(data?.Search));
+
     refetch();
   };
 
@@ -116,7 +118,7 @@ const Search = () => {
         className={styles.container__inp}
         onChange={(e) => handleMovie(e)}
         value={val}
-        placeholder="Input text"
+        placeholder={placeholder}
       />
 
       <Button className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>

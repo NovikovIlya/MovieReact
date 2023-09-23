@@ -21,7 +21,7 @@ const Trailer = ({ arg }) => {
       ? `https://www.youtube.com/embed/dQw4w9WgXcQ`
       : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
     : `https://www.youtube.com/embed/dQw4w9WgXcQ`;
-  console.log('xc', urlTrailer);
+  
   return (
     <>
       {isLoading ? (

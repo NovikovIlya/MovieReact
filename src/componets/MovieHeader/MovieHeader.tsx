@@ -5,13 +5,14 @@ import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
 
 const MovieHeader = () => {
+  const placeholder = 'input text'
   return (
     <div className={styles.container}>
       <div>
         <MovieTitle />
       </div>
       <div>
-        <Search />
+        <Search placeholder={placeholder}/>
       </div>
       <div>
         <UserInfo />

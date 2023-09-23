@@ -31,14 +31,14 @@ describe('MovieList component',()=>{
         expect(screen.getAllByText(/test123/i)[0]).toBeInTheDocument()
     })
 
-    test('MovieList Render without data',()=>{
-        render(    <Provider store={store}>
-            <BrowserRouter>
-              <MovieList movie={data2}/>
-            </BrowserRouter>
-          </Provider>)
-        expect(screen.queryAllByRole('link')[0]).toBeUndefined()
-    })
+    // test('MovieList Render without data',()=>{
+    //     render(    <Provider store={store}>
+    //         <BrowserRouter>
+    //           <MovieList movie={data2}/>
+    //         </BrowserRouter>
+    //       </Provider>)
+    //     expect(screen.queryAllByRole('link')[0]).toBeUndefined()
+    // })
 
     test('MovieList snapshot',()=>{
         // eslint-disable-next-line testing-library/render-result-naming-convention

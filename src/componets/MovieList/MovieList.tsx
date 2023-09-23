@@ -55,11 +55,45 @@ const MovieList = ({ movie }: MovieListProps) => {
   }, [movie, dispatch]);
 
   if (!movie) {
-    return <p>Movie not found!</p>;
+    return (<div >
+      <div className={styles.notFound}>
+      <p>Movie not found!</p>
+      </div>
+      
+      {favorite.length > 0 && (
+        <div>
+          <h1 className={styles.head1}>Favorites</h1>
+        </div>
+      )}
+      <Slider {...settings2}>
+        {favorite.length > 0 &&
+          favorite.map((item) => {
+            return (
+              <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
+                <div className={styles.text}>{item.Title}</div>
+                <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
+                <div className={styles.bottom}>
+                  <Link to={`${item.imdbID}`}>
+                    <Button className={styles.btnDesc}>Go to moive</Button>
+                  </Link>
+                  <Popover content={content2} title="">
+                    <Button
+                      className={styles.btnPlus}
+                      onClick={() => delFavoriteFnc(item)}
+                      type="primary">
+                      -
+                    </Button>
+                  </Popover>
+                </div>
+              </div>
+            );
+          })}
+      </Slider>
+    </div>);
   }
-  if (!movie.length){
-    return null;
-  }
+  // if (!movie.length){
+  //   return null;
+  // }
 
   return (
     <>

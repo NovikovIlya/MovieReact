@@ -10,7 +10,6 @@ import Auth from '../Auth/Auth';
 function App() {
   return (
     <>
-      <div>/learn react/i</div>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/:id" element={<MovieCharacteristics />} />

@@ -100,15 +100,13 @@ const MovieCharacteristics = () => {
                     {data.Ratings
                       ? data.Ratings.map((item) => {
                           return (
-                            <>
-                              <div className={styles.ratingMass}>
+                              <div key={item.Source} className={styles.ratingMass}>
                                 <div>
                                   <StarFilled className={styles.star} />
-                                  {item.Source}
+                                  {item.Source}:
                                 </div>
                                 <div>{item.Value}</div>
                               </div>
-                            </>
                           );
                         })
                       : ''}
