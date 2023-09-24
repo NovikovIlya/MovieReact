@@ -27,6 +27,10 @@ export const sliceMovie = createSlice({
       state.empty = action.payload;
     },
     addFavorite: (state, action) => {
+      if(state.favorite.find((item)=>item.imdbID === action.payload.imdbID)){
+        alert('The movie has already been added to your favorites')
+        return
+      }
       state.favorite = [...state.favorite,action.payload]
     },
     deleteFavorite: (state, action) => {

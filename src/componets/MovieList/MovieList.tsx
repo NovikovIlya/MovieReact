@@ -28,14 +28,16 @@ const content2 = (
 const MovieList = ({ movie }: MovieListProps) => {
   const dispatch = useAppDispatch();
   const favorite = useAppSelector((state) => state.sliceMovie.favorite);
+  const mobile =  (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
+  .test(navigator.userAgent))
   const settings = {
     centerMode: true,
-    slidesToShow: 3,
+    slidesToShow: mobile ? 1 : 3,
     speed: 500,
   };
   const settings2 = {
     centerMode: true,
-    slidesToShow: favorite.length > 2 ? 3 : favorite.length > 1 ? 2 : 1,
+    slidesToShow: mobile ? 1 :  favorite.length > 2 ? 3 : favorite.length > 1 ? 2 : 1,
     speed: 500,
   };
   const addFavoriteFnc = (item: movieType) => {

@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addMovie, addValue } from '../../store/sliceMovie';
 import { Input, Button } from 'antd';
 import styles from './Search.module.scss';
+import cn from 'classnames'
+
 
 const Search = (props) => {
-  const {children = 'Search',placeholder} = props
+  const {children = 'Search',placeholder,onChange=(e) => handleMovie(e)} = props
   const ref = useRef<HTMLButtonElement>();
   const val = useAppSelector((state) => state.sliceMovie.value);
   const [arg, setArg] = useState<string>('');
@@ -110,20 +112,29 @@ const Search = (props) => {
       dispatch(addMovie(keka));
       refetch();
     }
-  }, [dispatch,refetch,val.length]);
+  }, [dispatch,refetch]);
+
+  const inputClass = cn({
+    [styles.filled] : val.length
+  })
+ 
 
   return (
-    <div className={styles.container}>
-      <Input
-        className={styles.container__inp}
-        onChange={(e) => handleMovie(e)}
-        value={val}
-        placeholder={placeholder}
-      />
-
-      <Button className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>
-        Search
-      </Button>
+    <div data-testid="inpCn" className={inputClass}>
+      <div className={styles.container}>
+        <Input data-testid="inpCn2"
+        //@ts-ignore
+          label='textbox'
+          className={styles.container__inp}
+          onChange={onChange}
+          value={val}
+          placeholder={placeholder}
+        />
+        
+        <Button className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>
+          Search
+        </Button>
+      </div>
     </div>
   );
 };

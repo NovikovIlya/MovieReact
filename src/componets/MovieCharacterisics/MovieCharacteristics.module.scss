@@ -32,7 +32,7 @@
 .ParentItem{
     display: flex;
     flex-wrap: wrap;
-    align-items: end;
+    align-items: baseline;
 }
 .item{
     width: 150px;
@@ -83,4 +83,33 @@
     background-color: white;
     min-width: 60%;
     width: 70%;
+}
+
+
+@media screen and (max-width: 600px) {
+    .containerTop{
+        display: block;
+    }
+    .twoItem{
+        display: block;
+    }
+    iframe{
+        width: 300px;
+    }
+    .containerRating{
+        width: 100%;
+    }
+    .containerRating{
+        text-align: center;
+    }
+    .itemRight2{
+        justify-content: center;
+    }
+    .container{
+        
+        &__right{
+           margin-top: 10px;
+        }
+    }
+    
 }
