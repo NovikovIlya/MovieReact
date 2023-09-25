@@ -39,7 +39,6 @@ const items: MenuProps['items'] = [
 ];
 
 function LoginPage() {
-  const [go,setGo] = useState('')
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();

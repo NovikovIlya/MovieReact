@@ -8,6 +8,7 @@ import cn from 'classnames'
 
 
 const Search = (props) => {
+  const [dis,setDis] = useState(true)
   const {children = 'Search',placeholder,onChange=(e) => handleMovie(e)} = props
   const ref = useRef<HTMLButtonElement>();
   const val = useAppSelector((state) => state.sliceMovie.value);
@@ -19,8 +20,16 @@ const Search = (props) => {
     const text = e.target.value;
     setArg(text);
     dispatch(addValue(text));
-    console.log(text);
   };
+  
+  useEffect(()=>{
+    if (data && !data.Error){
+      setDis(false)
+    } 
+    if (data.Error){
+      setDis(true)
+    }
+  },[data,data.Error])
   
  
   const fetchMovie = () => {
@@ -131,7 +140,7 @@ const Search = (props) => {
           placeholder={placeholder}
         />
         
-        <Button className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>
+        <Button disabled={dis} className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>
           Search
         </Button>
       </div>

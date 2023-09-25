@@ -11,6 +11,7 @@ export type MovieArray={
   Search: MovieApiOneType[],
   totalResult: string,
   Response: boolean,
+  Error?: string,
 }
 
 export type MovieApiOneType = {
