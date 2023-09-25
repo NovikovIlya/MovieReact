@@ -21,15 +21,19 @@ const Search = (props) => {
     setArg(text);
     dispatch(addValue(text));
   };
-  
+
   useEffect(()=>{
-    if (data && !data.Error){
-      setDis(false)
-    } 
-    if (data.Error){
-      setDis(true)
+    if (data){
+      if (!data.Error){
+        setDis(false)
+      } 
     }
-  },[data,data.Error])
+    if(data){
+      if (data.Error){
+        setDis(true)
+      }
+    }
+  },[data])
   
  
   const fetchMovie = () => {
@@ -38,7 +42,6 @@ const Search = (props) => {
       return;
     }
     dispatch(addMovie(data?.Search));
-
     refetch();
   };
 

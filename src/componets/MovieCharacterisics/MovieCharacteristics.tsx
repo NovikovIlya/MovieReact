@@ -6,6 +6,8 @@ import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
 import { Button, Divider } from 'antd';
 import { StarFilled } from '@ant-design/icons';
+import cn from 'classnames';
+import { useAppSelector } from '../../hooks/redux';
 
 const MovieCharacteristics = () => {
   const { title, year, id } = useParams();
@@ -15,8 +17,16 @@ const MovieCharacteristics = () => {
     id: id,
   };
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
+  const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
+  const darkModeTheme = cn({
+    [styles.Main]: !darkMode,
+    // [styles.Main2]: darkMode
+  })
+
+
   return (
-    <div className={styles.Main}>
+    <div className={styles.mt}>
+    <div className={darkModeTheme}>
       <Link className={styles.link} to="/">
         <Button>Back</Button>
       </Link>
@@ -123,6 +133,7 @@ const MovieCharacteristics = () => {
           </div>
         </>
       )}
+    </div>
     </div>
   );
 };

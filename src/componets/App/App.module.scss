@@ -1,11 +1,10 @@
-body{
+.Main{
     background-color: black ;
+    min-height: 100vh;
 }
 
 .container{
-    
     color:white;
-
 }
 .row{
     flex-direction: row;

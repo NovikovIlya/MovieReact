@@ -3,11 +3,20 @@ import { useAddCommentMutation, useFetchCommentQuery } from '../../store/MovieAp
 import styles from './Comment.module.scss';
 import { Button, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useAppSelector } from '../../hooks/redux';
+import cn from 'classnames';
 
 const Comment = ({ id }) => {
+  const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const { data, isLoading } = useFetchCommentQuery(id);
   const [AddCommentApi] = useAddCommentMutation();
   const mass = data ? data : [];
+
+  const darkModeTheme = cn({
+    [styles.container]: !darkMode,
+    [styles.container2]: darkMode,
+    // [styles.Main2]: darkMode
+  })
 
   const handleCreate = async () => {
     const title = prompt('Enter text');
@@ -51,7 +60,7 @@ const Comment = ({ id }) => {
           reversedArray?.map((item) => {
 
             return (
-              <div key={item.id}  className={styles.container}>
+              <div key={item.id}  className={darkModeTheme}>
                 {item.body.map((child) => {
                   return (
                     <div key={child.name} className={styles.containerChilcd}>

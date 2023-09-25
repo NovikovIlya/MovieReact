@@ -1,8 +1,14 @@
 .menu{
     display: flex;
     justify-content: center;
+
+}
+.Main{
+    background-color: black;
+    height: 100vh;
 }
 .container{
+    // background-color: black;
     margin: 0 auto;
     width: 60%;
     &__user{

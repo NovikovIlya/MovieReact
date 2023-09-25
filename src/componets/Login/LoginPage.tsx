@@ -63,7 +63,6 @@ function LoginPage() {
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
       refetch();
-      // setGo('')
     } catch (e) {
       console.log(e);
       console.log(errors);
@@ -106,6 +105,7 @@ function LoginPage() {
         mode="horizontal"
         items={items}
       />
+      <div className={styles.Main}>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.name}>
           <Controller
@@ -170,6 +170,7 @@ function LoginPage() {
           </AndtdButton>
         </div>
       </form>
+      </div>
     </>
   );
 }

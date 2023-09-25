@@ -10,6 +10,7 @@ const initialState  = {
   value : '',
   empty: false,
   favorite:[],
+  darkMode: false,
 
 };
 
@@ -37,9 +38,12 @@ export const sliceMovie = createSlice({
       console.log('zzvc',action.payload)
       state.favorite = state.favorite.filter((item)=>item.imdbID!== action.payload.imdbID)
     },
+    darkMode:(state)=>{
+      state.darkMode = !state.darkMode;
+    },
    
   },
 });
 
-export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite} = sliceMovie.actions;
+export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite,darkMode} = sliceMovie.actions;
 export default sliceMovie.reducer;
