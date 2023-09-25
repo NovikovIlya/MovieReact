@@ -42,7 +42,7 @@ function LoginPage() {
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
-  const { data: dataApi, refetch } = useAuthApiQuery('');
+  const { data: dataApi, refetch } = useAuthApiQuery('',{skip: true});
   const navigate = useNavigate();
   const {
     control,
@@ -81,6 +81,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (dataApi) {
+      console.log('dadaApi',dataApi)
       navigate('/');
     }
   }, [dataApi, navigate]);
