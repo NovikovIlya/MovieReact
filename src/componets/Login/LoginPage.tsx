@@ -43,7 +43,7 @@ function LoginPage() {
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
-  const { data: dataApi, refetch } = useAuthApiQuery(go,{skip: true});
+  const { data: dataApi, refetch } = useAuthApiQuery('');
   const navigate = useNavigate();
   const {
     control,
@@ -63,8 +63,8 @@ function LoginPage() {
       const tok = await LoginApiSet(data);
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
-      // refetch();
-      setGo('')
+      refetch();
+      // setGo('')
     } catch (e) {
       console.log(e);
       console.log(errors);
