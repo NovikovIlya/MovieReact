@@ -39,10 +39,11 @@ const items: MenuProps['items'] = [
 ];
 
 function LoginPage() {
+  const [go,setGo] = useState('')
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
-  const { data: dataApi, refetch } = useAuthApiQuery('',{skip: true});
+  const { data: dataApi, refetch } = useAuthApiQuery(go,{skip: true});
   const navigate = useNavigate();
   const {
     control,
@@ -62,7 +63,8 @@ function LoginPage() {
       const tok = await LoginApiSet(data);
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
-      refetch();
+      // refetch();
+      setGo('')
     } catch (e) {
       console.log(e);
       console.log(errors);
