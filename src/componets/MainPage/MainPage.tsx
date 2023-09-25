@@ -9,6 +9,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
+import { Divider } from 'antd';
 
 export type movieType = {
   Title: string;
@@ -53,6 +54,7 @@ function MainPage() {
           <div>
             <MovieHeader />
           </div>
+          <Divider className={styles.divi}/>
           <div className="row">
             <MovieList movie={MovieData} />
           </div>

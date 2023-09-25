@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
 import styles from './MovieList.module.scss';
-import { Button, Popover } from 'antd';
+import { Button, Divider, Popover } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { toogleEmpty } from '../../store/sliceMovie';
 import { addFavorite, deleteFavorite } from '../../store/sliceMovie';
@@ -125,9 +125,10 @@ const MovieList = ({ movie }: MovieListProps) => {
           })}
          
       </Slider>
-      
+     
       {favorite.length > 0 && (
         <div>
+           <Divider className={styles.divi}/>
           <h1 className={styles.head1}>Favorites</h1>
         </div>
       )}

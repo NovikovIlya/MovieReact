@@ -1,6 +1,8 @@
 import React from 'react';
 import { useFetcTrailerQuery } from '../../store/MovieApi';
 import styles from './Trailer.module.scss'
+import Skeleton from './Skeleton'
+
 
 const Trailer = ({ arg }) => {
   const { data, isLoading } = useFetcTrailerQuery(arg);
@@ -25,7 +27,7 @@ const Trailer = ({ arg }) => {
   return (
     <>
       {isLoading ? (
-        <h1>Loading...</h1>
+        <div><Skeleton/></div>
       ) : (
         <>
           <div>
