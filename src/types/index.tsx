@@ -6,6 +6,10 @@ export type movieType = {
     Poster: string;
 };
 
+export type FormInputs = {
+  username: string;
+  password: string;
+}
 
 export type MovieArray={
   Search: MovieApiOneType[],

@@ -11,6 +11,7 @@ const initialState  = {
   empty: false,
   favorite:[],
   darkMode: false,
+  render: false,
 
 };
 
@@ -41,9 +42,12 @@ export const sliceMovie = createSlice({
     darkMode:(state)=>{
       state.darkMode = !state.darkMode;
     },
+    toggleRender:(state)=>{
+      state.render = true
+    }
    
   },
 });
 
-export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite,darkMode} = sliceMovie.actions;
+export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite,darkMode,toggleRender} = sliceMovie.actions;
 export default sliceMovie.reducer;

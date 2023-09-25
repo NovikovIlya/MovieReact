@@ -8,6 +8,7 @@ import { Button, Divider } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/redux';
+import Rating from '../Rating/Rating';
 
 const MovieCharacteristics = () => {
   const { title, year, id } = useParams();
@@ -124,6 +125,8 @@ const MovieCharacteristics = () => {
                 </div>
               </div>
             </div>
+
+            <Rating/>
 
             <Divider className={styles.divid} />
 

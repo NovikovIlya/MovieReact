@@ -15,11 +15,10 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { toggleRender } from '../../store/sliceMovie';
+import { FormInputs } from '../../types'; 
 
-interface FormInputs {
-  username: string;
-  password: string;
-}
 
 const items: MenuProps['items'] = [
   {
@@ -42,8 +41,10 @@ function LoginPage() {
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
-  const { data: dataApi, refetch } = useAuthApiQuery('');
+  const { data: dataApi, refetch,isFetching } = useAuthApiQuery('');
+  const renderValue = useAppSelector((state)=>state.sliceMovie.render)
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   const {
     control,
     register,
@@ -65,7 +66,7 @@ function LoginPage() {
       refetch();
     } catch (e) {
       console.log(e);
-      console.log(errors);
+
     }
   };
   const onSubmit1 = async () => {
@@ -79,12 +80,16 @@ function LoginPage() {
     }
   };
 
+
+
   useEffect(() => {
+    if(!isFetching){
+      dispatch(toggleRender())
+    }
     if (dataApi) {
-      console.log('dadaApi',dataApi)
       navigate('/');
     }
-  }, [dataApi, navigate]);
+  }, [dataApi, navigate,isFetching,dispatch]);
  
   useEffect(() => {
     if (result.error) {
@@ -94,6 +99,10 @@ function LoginPage() {
       info();
     }
   }, [result.error,messageApi]);
+
+  if(!renderValue){
+    return <><div className={styles.render}><p>Please wait, the server is waking up on Render (about 30 sec)</p></div></>
+  }
 
   return (
     <>
