@@ -77,7 +77,7 @@ export const AddCommentApi = createApi({
 
 export const LoginApi = createApi({
   reducerPath: 'LoginApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://movieappback.vercel.app/auth/login' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/login' }),
   tagTypes: ['LoginApi'],
   endpoints: (builder) => ({
     LoginApiSet: builder.mutation<login, login>({
@@ -93,7 +93,7 @@ export const LoginApi = createApi({
 
 export const RegistrApi = createApi({
   reducerPath: 'RegistrApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://movieappback.vercel.app/auth/registrationNew' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/registrationNew' }),
   tagTypes: ['RegistrApi'],
   endpoints: (builder) => ({
     RegistrApiSet: builder.mutation<login, login>({
@@ -110,7 +110,7 @@ export const RegistrApi = createApi({
 export const auth = createApi({
   reducerPath: 'auth',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://movieappback.vercel.app/auth/me',
+    baseUrl: 'https://backmovie.onrender.com/auth/me',
     prepareHeaders: (headers, { getState }) => {
       headers.set('authorization', `Bearer ${window.localStorage.getItem('token')}`);
       return headers;
