@@ -8,9 +8,8 @@
     height: 100vh;
 }
 .container{
-    // background-color: black;
     margin: 0 auto;
-    width: 60%;
+    width: 30%;
     &__user{
         display: flex;
 
@@ -35,4 +34,9 @@
 }
 .spin{
     margin-top: 70px;
+}
+@media screen and (max-width:600px) {
+    .container{
+        width: 60%;
+    }
 }
