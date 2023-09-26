@@ -39,11 +39,11 @@ function MainPage() {
   }, [refetch]);
 
   useEffect(() => {
-    if (isFetching === false) {
+  
       if (!data) {
         navigate('/login');
       }
-    }
+    
   }, [isFetching, data, navigate]);
 
   return (
