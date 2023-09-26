@@ -10,7 +10,6 @@ export const MovieApi = createApi({
       query: (search) => ({
         url: `?apikey=55ce87c0&s=${search}`,
       }),
-      // providesTags: result => ['Fetch']
     }),
   }),
 });
@@ -24,7 +23,6 @@ export const MovieApiOne = createApi({
       query: (arg) => ({
         url: `?apikey=55ce87c0&i=${arg.id}`,
       }),
-      // providesTags: result => ['FetchMovie']
     }),
   }),
 });
@@ -40,7 +38,6 @@ export const trailerApi = createApi({
       query: (arg) => ({
         url: `movies?imdb_id=${arg.id}`,
       }),
-      // providesTags: result => ['trailerApi']
     }),
   }),
 });
@@ -54,7 +51,6 @@ export const fetchCommentApi = createApi({
       query: (id) => ({
         url: `?imdbid=${id}`,
       }),
-      // providesTags: result => ['fetchComment']
     }),
   }),
 });
@@ -64,11 +60,10 @@ export const fetchRatingApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items' }),
   tagTypes: ['fetchRating'],
   endpoints: (builder) => ({
-    fetchRating: builder.query<any, any>({
+    fetchRating: builder.query<any, string>({
       query: (id) => ({
         url: `?imdbid=${id}`,
       }),
-      // providesTags: result => ['fetchComment']
     }),
   }),
 });
@@ -152,7 +147,6 @@ export const auth = createApi({
       query: () => ({
         url: '',
       }),
-      // providesTags: (result) => ['auth'],
     }),
   }),
 });

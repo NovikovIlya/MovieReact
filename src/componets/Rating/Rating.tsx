@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Rate } from 'antd';
 import styles from './Rating.module.scss';
-import { useAddRatingMutation, useFetchRatingQuery, AddRatingApi, auth } from '../../store/MovieApi';
+import { useAddRatingMutation, useFetchRatingQuery } from '../../store/MovieApi';
 
 const Rating = ({ id }) => {
   const [resRating, setResRating] = useState(0);
   const { data } = useFetchRatingQuery(id);
   const [AddRatingApi] = useAddRatingMutation()
 
-  const rating = async(e) => {
+  const rating = async(e:number) => {
     console.log(e);
     await AddRatingApi({
       imdbid: id,
@@ -16,7 +16,7 @@ const Rating = ({ id }) => {
     })
     alert('Your rating has been successfully submitted! It will be summarized with all scores within 30 seconds')
   };
-  console.log(data);
+ 
 
   useEffect(() => {
     if (data) {

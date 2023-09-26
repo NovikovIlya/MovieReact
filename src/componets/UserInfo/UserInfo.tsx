@@ -9,12 +9,11 @@ const UserInfo = () => {
   const navigate = useNavigate();
   const { data: dataApi, refetch } = auth.useAuthApiQuery('');
   const dispatch = useAppDispatch();
+  
   const exitFnc = () => {
     localStorage.setItem('token', 'test');
-
     dispatch(auth.util.resetApiState());
     refetch();
-
     navigate('/login');
   };
 

@@ -7,21 +7,20 @@ import { useAppSelector } from '../../hooks/redux';
 import cn from 'classnames';
 
 const Comment = ({ id }) => {
-  const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
+  const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data, isLoading } = useFetchCommentQuery(id);
   const [AddCommentApi] = useAddCommentMutation();
-  const { data: dataApi, refetch } = auth.useAuthApiQuery('');
+  const { data: dataApi } = auth.useAuthApiQuery('');
   const mass = data ? data : [];
 
   const darkModeTheme = cn({
     [styles.container]: !darkMode,
     [styles.container2]: darkMode,
-  })
+  });
 
   const handleCreate = async () => {
     const title = prompt('Enter text');
-    // const name = prompt('Enter username');
-    const name = dataApi.username
+    const name = dataApi.username;
     if (name === '' || title === '') {
       return alert('You must enter a name or text!');
     }
@@ -59,9 +58,8 @@ const Comment = ({ id }) => {
           <h1>Loading...</h1>
         ) : (
           reversedArray?.map((item) => {
-
             return (
-              <div key={item.id}  className={darkModeTheme}>
+              <div key={item.id} className={darkModeTheme}>
                 {item.body.map((child) => {
                   return (
                     <div key={child.name} className={styles.containerChilcd}>

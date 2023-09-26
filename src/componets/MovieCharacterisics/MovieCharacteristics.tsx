@@ -4,7 +4,7 @@ import { useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
-import { Button, Divider,Alert, Space, Spin  } from 'antd';
+import { Button, Divider, Spin  } from 'antd';
 import { StarFilled } from '@ant-design/icons';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/redux';
@@ -21,7 +21,6 @@ const MovieCharacteristics = () => {
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
-    // [styles.Main2]: darkMode
   })
 
 
@@ -34,7 +33,7 @@ const MovieCharacteristics = () => {
 
       {isLoading ? (
         <div className={styles.zagr}>
-          <h3 className={styles.zagr__hed1}>Loading...</h3>
+          {/* <h3 className={styles.zagr__hed1}>Loading...</h3> */}
           <Spin tip="Loading" size="large">
             <div className="content" />
           </Spin>
