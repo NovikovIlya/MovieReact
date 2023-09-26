@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
-import { Input as AntdInput, Button as AndtdButton, message } from 'antd';
+import { Input as AntdInput, Button as AndtdButton, message, Spin } from 'antd';
 import {
   AppstoreOutlined,
   MailOutlined,
@@ -38,6 +38,7 @@ const items: MenuProps['items'] = [
 ];
 
 function LoginPage() {
+  const [lama,setLama] = useState(false)
   const [dis,setDis] = useState(false)
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
@@ -61,6 +62,7 @@ function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
+      setLama(true)
       setDis(true)
       const tok  = await LoginApiSet(data);
       console.log('zz',tok)
@@ -73,10 +75,12 @@ function LoginPage() {
 
     }finally{
       setDis(false)
+      setLama(false)
     }
   };
   const onSubmit1 = async () => {
     try {
+      setLama(true)
       const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
       if('data' in tok){
         localStorage.setItem('token', tok.data.token);
@@ -84,6 +88,8 @@ function LoginPage() {
       }
     } catch (e) {
       console.log(e);
+    }finally{
+      setLama(false)
     }
   };
 
@@ -189,7 +195,11 @@ function LoginPage() {
           </AndtdButton>
         </div>
       </form>
+      {lama&&     <Spin className={styles.spin} tip="Loading" size="large">
+            <div className="content" />
+          </Spin>}
       </div>
+
     </>
   );
 }
