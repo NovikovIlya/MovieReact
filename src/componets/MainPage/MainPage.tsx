@@ -48,12 +48,12 @@ function MainPage() {
 
   return (
     <>
-    {isFetching ?         <div className={styles.zagr}>
+    {/* {isFetching ?         <div className={styles.zagr}>
           
           <Spin tip="Loading" size="large">
             <div className="content" />
           </Spin>
-        </div> :
+        </div> : */}
     <div className={darkModeThemeMain}>
       <div className={darkModeTheme}>
         <div className="container-fluid movie-app">
@@ -66,7 +66,7 @@ function MainPage() {
           </div>
         </div>
       </div>
-      </div>}
+      </div>
     </>
   );
 }

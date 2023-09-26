@@ -38,6 +38,7 @@ const items: MenuProps['items'] = [
 ];
 
 function LoginPage() {
+  const [dis,setDis] = useState(false)
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
@@ -60,6 +61,7 @@ function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
+      setDis(true)
       const tok = await LoginApiSet(data);
       //@ts-ignore
       localStorage.setItem('token', tok.data.token);
@@ -67,6 +69,8 @@ function LoginPage() {
     } catch (e) {
       console.log(e);
 
+    }finally{
+      setDis(false)
     }
   };
   const onSubmit1 = async () => {
@@ -122,8 +126,10 @@ function LoginPage() {
             rules={{
               required: 'Field cannot be empty',
               minLength: { value: 4, message: 'Minimum 4 characters' },
+              
             }}
             name="username"
+            disabled={dis}
             control={control}
             defaultValue=""
           />
@@ -144,11 +150,12 @@ function LoginPage() {
         </div>
 
         <Controller
-          render={({ field }) => <AntdInput placeholder="Password" type="password" {...field} />}
+          render={({ field }) => <AntdInput disabled={dis} placeholder="Password" type="password" {...field} />}
           rules={{
             required: 'Field cannot be empty',
             minLength: { value: 4, message: 'Minimum 4 characters' },
           }}
+          disabled={dis}
           name="password"
           control={control}
           defaultValue=""
