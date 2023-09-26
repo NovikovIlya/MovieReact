@@ -9,7 +9,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
-import { Divider } from 'antd';
+import { Divider, Spin } from 'antd';
 
 export type movieType = {
   Title: string;
@@ -48,6 +48,12 @@ function MainPage() {
 
   return (
     <>
+    {isFetching ?         <div className={styles.zagr}>
+          
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div> :
     <div className={darkModeThemeMain}>
       <div className={darkModeTheme}>
         <div className="container-fluid movie-app">
@@ -60,7 +66,7 @@ function MainPage() {
           </div>
         </div>
       </div>
-      </div>
+      </div>}
     </>
   );
 }
