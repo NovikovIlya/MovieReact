@@ -63,12 +63,7 @@ function Auth() {
       console.log(errors);
     }
   };
-  // const info = () => {
-  //   messageApi.info('This user was not found!');
-  // };
-  // const infoSeccus = () => {
-  //   messageApi.info('Succesful!');
-  // };
+
 
   useEffect(() => {
     if (result.error) {
@@ -95,6 +90,7 @@ function Auth() {
         mode="horizontal"
         items={items}
       />
+      <div className={styles.Main}>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.name}>
           <Controller
@@ -154,6 +150,7 @@ function Auth() {
           </AndtdButton>
         </div>
       </form>
+      </div>
     </>
   );
 }
