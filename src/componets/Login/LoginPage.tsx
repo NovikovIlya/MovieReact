@@ -20,24 +20,29 @@ import { toggleRender } from '../../store/sliceMovie';
 import { FormInputs } from '../../types'; 
 
 
-const items: MenuProps['items'] = [
-  {
-    label: 'Login',
-    key: 'mail',
-    icon: <LoginOutlined />,
-  },
-  {
-    label: (
-      <Link to="/auth" rel="noopener noreferrer">
-        Sign up
-      </Link>
-    ),
-    icon: <DatabaseOutlined />,
-    key: 'alipay',
-  },
-];
+
 
 function LoginPage() {
+  const items: MenuProps['items'] = [
+    {
+      label: (
+        <Link className={styles.lin}  to="/login" rel="noopener noreferrer">
+          Login
+        </Link>
+      ),
+      key: 'mail',
+      icon: <LoginOutlined />,
+    },
+    {
+      label: (
+        <Link className={styles.lin} to="/auth" >
+          Sign up
+        </Link>
+      ),
+      icon: <DatabaseOutlined />,
+      key: 'alipay',
+    },
+  ];
   const [lama,setLama] = useState(false)
   const [dis,setDis] = useState(false)
   const [current, setCurrent] = useState('mail');

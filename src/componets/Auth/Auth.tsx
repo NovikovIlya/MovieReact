@@ -16,7 +16,7 @@ function Auth() {
   const items: MenuProps['items'] = [
     {
       label: (
-        <Link to="/login" rel="noopener noreferrer">
+        <Link className={styles.lin} to="/login" rel="noopener noreferrer">
           Login
         </Link>
       ),
@@ -25,7 +25,7 @@ function Auth() {
     },
     {
       label: (
-        <Link to="/auth" rel="noopener noreferrer">
+        <Link className={styles.lin} to="/auth" rel="noopener noreferrer">
           Sign up
         </Link>
       ),
