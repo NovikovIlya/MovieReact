@@ -131,3 +131,8 @@ export type CommentProps = {
 export type  MovieListProps = {
   movie: movieType[];
 }
+
+export type ratingType = {
+  imdbid: string,
+  rating: number,
+}

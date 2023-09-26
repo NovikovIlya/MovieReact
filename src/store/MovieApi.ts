@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login,  tokenType } from '../types';
+import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login,  ratingType,  tokenType } from '../types';
 
 export const MovieApi = createApi({
   reducerPath: 'apiMovies',
@@ -60,7 +60,7 @@ export const fetchRatingApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items' }),
   tagTypes: ['fetchRating'],
   endpoints: (builder) => ({
-    fetchRating: builder.query<any, string>({
+    fetchRating: builder.query<ratingType[], string>({
       query: (id) => ({
         url: `?imdbid=${id}`,
       }),
