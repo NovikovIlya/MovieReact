@@ -5,11 +5,12 @@ import { addMovie, addValue } from '../../store/sliceMovie';
 import { Input, Button } from 'antd';
 import styles from './Search.module.scss';
 import cn from 'classnames'
+import { SearchProps } from '../../types';
 
 
-const Search = (props) => {
+const Search:React.FC<SearchProps> = (props) => {
   const [dis,setDis] = useState(true)
-  const {children = 'Search',placeholder,onChange=(e) => handleMovie(e)} = props
+  const {children = 'Search',placeholder,onChange=(e:React.ChangeEvent<HTMLInputElement>) => handleMovie(e)} = props
   const ref = useRef<HTMLButtonElement>();
   const val = useAppSelector((state) => state.sliceMovie.value);
   const [arg, setArg] = useState<string>('');

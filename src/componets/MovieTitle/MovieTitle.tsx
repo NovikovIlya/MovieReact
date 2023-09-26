@@ -12,7 +12,6 @@ const MovieTitle = () => {
   const dispatch = useAppDispatch()
 
   const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
     dispatch(darkModeAdd())
   };
 

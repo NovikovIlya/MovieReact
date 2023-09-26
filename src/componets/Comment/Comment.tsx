@@ -5,8 +5,10 @@ import { Button, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { useAppSelector } from '../../hooks/redux';
 import cn from 'classnames';
+import { CommentProps } from '../../types';
 
-const Comment = ({ id }) => {
+
+const Comment:React.FC<CommentProps> = ({ id }) => {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data, isLoading } = useFetchCommentQuery(id);
   const [AddCommentApi] = useAddCommentMutation();

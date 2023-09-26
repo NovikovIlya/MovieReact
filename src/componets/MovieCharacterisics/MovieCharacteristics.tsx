@@ -104,7 +104,7 @@ const MovieCharacteristics = () => {
             <div className={styles.twoItem}>
               <div className={styles.containerTrailer}>
                 <div>
-                  <Trailer arg={arg} />
+                  <Trailer id={arg.id} />
                 </div>
               </div>
               <div className={styles.containerRating}>

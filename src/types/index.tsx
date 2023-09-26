@@ -114,7 +114,20 @@ export type login ={
 }
 
 export type tokenType = {
-
     token: string;
 
 };
+
+export type SearchProps = {
+  placeholder: string,
+  children?: any,
+  onChange?: ()=>void,
+}
+
+export type CommentProps = {
+  id: string
+}
+
+export type  MovieListProps = {
+  movie: movieType[];
+}

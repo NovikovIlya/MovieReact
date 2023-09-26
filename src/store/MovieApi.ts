@@ -34,9 +34,9 @@ export const trailerApi = createApi({
   }),
   tagTypes: ['trailerApi'],
   endpoints: (builder) => ({
-    fetcTrailer: builder.query<TrailerApi, argType>({
-      query: (arg) => ({
-        url: `movies?imdb_id=${arg.id}`,
+    fetcTrailer: builder.query<TrailerApi, string>({
+      query: (id) => ({
+        url: `movies?imdb_id=${id}`,
       }),
     }),
   }),

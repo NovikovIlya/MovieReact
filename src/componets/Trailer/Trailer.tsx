@@ -2,21 +2,12 @@ import React from 'react';
 import { useFetcTrailerQuery } from '../../store/MovieApi';
 import styles from './Trailer.module.scss'
 import Skeleton from './Skeleton'
+import { argType } from '../../types';
 
 
-const Trailer = ({ arg }) => {
-  const { data, isLoading } = useFetcTrailerQuery(arg);
+const Trailer = ({id} : argType) => {
+  const { data, isLoading } = useFetcTrailerQuery(id);
 
-
-  if (data) {
-    if (!data.error) {
-      console.log('все ок');
-    }
-    if (data.error) {
-      console.log('не ок');
-  
-    }
-  }
 
   const urlTrailer = data
     ? data.error

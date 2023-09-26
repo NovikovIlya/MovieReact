@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { movieType } from '../../types';
+import { MovieListProps, movieType } from '../../types';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,22 +10,19 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { toogleEmpty } from '../../store/sliceMovie';
 import { addFavorite, deleteFavorite } from '../../store/sliceMovie';
 
-interface MovieListProps {
-  movie: movieType[];
-}
 
-const content = (
-  <div>
-    <p>Add to favorites</p>
-  </div>
-);
-const content2 = (
-  <div>
-    <p>Remove favorites</p>
-  </div>
-);
 
 const MovieList = ({ movie }: MovieListProps) => {
+  const content = (
+    <div>
+      <p>Add to favorites</p>
+    </div>
+  );
+  const content2 = (
+    <div>
+      <p>Remove favorites</p>
+    </div>
+  );
   const dispatch = useAppDispatch();
   const favorite = useAppSelector((state) => state.sliceMovie.favorite);
   const mobile =  (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
@@ -93,9 +90,6 @@ const MovieList = ({ movie }: MovieListProps) => {
       </Slider>
     </div>);
   }
-  // if (!movie.length){
-  //   return null;
-  // }
 
   return (
     <>
