@@ -62,10 +62,12 @@ function LoginPage() {
   const onSubmit = async (data) => {
     try {
       setDis(true)
-      const tok = await LoginApiSet(data);
-      //@ts-ignore
-      localStorage.setItem('token', tok.data.token);
-      refetch();
+      const tok  = await LoginApiSet(data);
+      console.log('zz',tok)
+      if('data' in tok){
+        localStorage.setItem('token', tok.data.token);
+        refetch()
+      }
     } catch (e) {
       console.log(e);
 
@@ -76,9 +78,10 @@ function LoginPage() {
   const onSubmit1 = async () => {
     try {
       const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
-      //@ts-ignore
-      localStorage.setItem('token', tok.data.token);
-      refetch();
+      if('data' in tok){
+        localStorage.setItem('token', tok.data.token);
+        refetch();
+      }
     } catch (e) {
       console.log(e);
     }

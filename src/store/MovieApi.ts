@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login } from '../types';
+import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login,  tokenType } from '../types';
 
 export const MovieApi = createApi({
   reducerPath: 'apiMovies',
@@ -105,7 +105,7 @@ export const LoginApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/login' }),
   tagTypes: ['LoginApi'],
   endpoints: (builder) => ({
-    LoginApiSet: builder.mutation<login, login>({
+    LoginApiSet: builder.mutation<tokenType, login>({
       query: (add) => ({
         method: 'POST',
         url: '',

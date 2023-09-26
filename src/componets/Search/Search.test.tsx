@@ -6,8 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import store from '../../store';
 
 const onChange = jest.fn()
-//@ts-ignore
-// const user = userEvent.setup()
+
 
 describe('Search components',()=>{
     test('Search renders component',()=>{

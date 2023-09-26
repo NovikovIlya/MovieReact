@@ -112,3 +112,9 @@ export type login ={
   username : string,
   password: string,
 }
+
+export type tokenType = {
+
+    token: string;
+
+};

@@ -9,11 +9,8 @@ import { Input as AntdInput, Button as AndtdButton, message } from 'antd';
 import { LoginOutlined, DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { FormInputs } from '../../types';
 
-interface FormInputs {
-  username: string;
-  password: string;
-}
 
 function Auth() {
   const items: MenuProps['items'] = [
@@ -54,13 +51,9 @@ function Auth() {
   });
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       const tok = await RegistrApiSet(data);
-      console.log('bbb', tok);
-      //@ts-ignore
     } catch (e) {
       console.log(e);
-      console.log(errors);
     }
   };
 
