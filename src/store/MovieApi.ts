@@ -59,6 +59,20 @@ export const fetchCommentApi = createApi({
   }),
 });
 
+export const fetchRatingApi = createApi({
+  reducerPath: 'fetchRating',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items' }),
+  tagTypes: ['fetchRating'],
+  endpoints: (builder) => ({
+    fetchRating: builder.query<any, any>({
+      query: (id) => ({
+        url: `?imdbid=${id}`,
+      }),
+      // providesTags: result => ['fetchComment']
+    }),
+  }),
+});
+
 export const AddCommentApi = createApi({
   reducerPath: 'AddComment',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment/' }),
@@ -71,6 +85,22 @@ export const AddCommentApi = createApi({
         body: add,
       }),
       invalidatesTags: ['AddComment'],
+    }),
+  }),
+});
+
+export const AddRatingApi = createApi({
+  reducerPath: 'AddRating',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items/' }),
+  tagTypes: ['AddRating'],
+  endpoints: (builder) => ({
+    AddRating: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['AddRating'],
     }),
   }),
 });
@@ -135,3 +165,5 @@ export const { useAddCommentMutation } = AddCommentApi;
 export const { useLoginApiSetMutation } = LoginApi;
 export const { useRegistrApiSetMutation } = RegistrApi;
 export const { useAuthApiQuery, useLazyAuthApiQuery } = auth;
+export const { useFetchRatingQuery} = fetchRatingApi
+export const {useAddRatingMutation} = AddRatingApi
