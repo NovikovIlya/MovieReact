@@ -70,7 +70,7 @@ function LoginPage() {
       setLama(true)
       setDis(true)
       const tok  = await LoginApiSet(data);
-      console.log('zz',tok)
+     
       if('data' in tok){
         localStorage.setItem('token', tok.data.token);
         refetch()

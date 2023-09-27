@@ -22,3 +22,10 @@
 .ant-switch-inner{
   border: 2px solid gray;
 }
+.ant-menu-submenu-title{
+  padding-left: 8px !important;
+}
+.ant-menu-item-only-child{
+  z-index: 1000;
+  padding-left: 8px !important;
+}

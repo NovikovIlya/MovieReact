@@ -116,6 +116,22 @@ export const LoginApi = createApi({
   }),
 });
 
+export const renameApi = createApi({
+  reducerPath: 'rename',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/rename' }),
+  tagTypes: ['rename'],
+  endpoints: (builder) => ({
+    renameApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'PUT',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['rename'],
+    }),
+  }),
+});
+
 export const RegistrApi = createApi({
   reducerPath: 'RegistrApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/registrationNew' }),
@@ -161,3 +177,4 @@ export const { useRegistrApiSetMutation } = RegistrApi;
 export const { useAuthApiQuery, useLazyAuthApiQuery } = auth;
 export const { useFetchRatingQuery} = fetchRatingApi
 export const {useAddRatingMutation} = AddRatingApi
+export const {useRenameApiSetMutation} = renameApi

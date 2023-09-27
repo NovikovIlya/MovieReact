@@ -41,10 +41,12 @@ function MainPage() {
   useEffect(() => {
   
       if (!data) {
-        navigate('/login');
+        if(!localStorage.getItem('token')){
+          navigate('/login');
+        }
       }
     
-  }, [isFetching, data, navigate]);
+  }, [ data, navigate]);
 
   return (
     <>

@@ -1,5 +1,6 @@
 .MainParent{
     width: 100%;
+    margin-bottom: 40px;
 }
 .Main{
     color:black
@@ -24,7 +25,10 @@
     margin-top: 10px;
 }
 .btn{
-    border-radius: 20%;
+    border-radius: 0 20px 20px 0;
+}
+.inp{
+    border-radius: 20px 0 0 20px;
 }
 .out{
     margin-right: 5px;
