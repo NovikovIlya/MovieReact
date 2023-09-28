@@ -35,16 +35,23 @@ const Profile = () => {
         <Link className={styles.link} to="/">
            <Button>Back</Button>
         </Link>
+
         <div className={styles.container}>
-          <div>
-            Name: {dataApi.username}
-            password: {dataApi.password}
+
+          <div className={styles.parent}>
+            <div className={styles.text}>Current name:  </div>
+            <div className={styles.text}> {dataApi?.username}</div>
           </div>
-          <div>
-            <p>New username</p>
-            <Input value={text} onChange={(e)=>handleInput(e)} placeholder='input newUsername'></Input>
-            <Button onClick={handleClick}>Send</Button>
+
+          <div className={styles.parent}>
+            <div className={styles.text}>New username: </div>
+            <div className={styles.newUsername}>
+              <Input className={styles.inp}  value={text} onChange={(e)=>handleInput(e)} placeholder='input newUsername'></Input>
+              <Button className={styles.btn} onClick={handleClick}>Send</Button>
+            </div>
+           
           </div>
+
         </div>
     </div>
   );

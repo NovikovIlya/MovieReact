@@ -59,13 +59,15 @@ export type argType = {
 export type Root2 =  {
   body: Body[]
   id?: string
-  imdbid?: string
+  imdbid?: string,
+  like?: boolean,
 }
 
 export type Body = {
   postId: number
   name: string
   text: string
+  like?: boolean,
 }
 
 

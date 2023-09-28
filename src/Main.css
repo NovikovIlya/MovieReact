@@ -29,3 +29,6 @@
   z-index: 1000;
   padding-left: 8px !important;
 }
+.ant-select-selector{
+  border: none !important;
+}
