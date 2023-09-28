@@ -28,7 +28,7 @@ const UserInfo = () => {
     } as MenuItem;
   }
   const exitFnc = () => {
-    localStorage.setItem('token', 'test');
+    localStorage.setItem('token', '');
     dispatch(auth.util.resetApiState());
     refetch();
     navigate('/login');

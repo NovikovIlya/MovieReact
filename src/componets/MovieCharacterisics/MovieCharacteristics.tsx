@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useFetchMoviesOneQuery } from '../../store/MovieApi';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useAuthApiQuery, useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
@@ -11,17 +11,29 @@ import { useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
 
 const MovieCharacteristics = () => {
+  const navigate = useNavigate()
   const { title, year, id } = useParams();
   const arg = {
     title: title,
     year: year,
     id: id,
   };
+  const { data: dataApi, refetch, isFetching } = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   })
+
+  useEffect(() => {
+  
+    if (!dataApi) {
+      if(!localStorage.getItem('token')){
+        navigate('/login');
+      }
+    }
+  
+}, [ dataApi, navigate]);
 
 
   return (
