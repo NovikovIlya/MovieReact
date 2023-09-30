@@ -10,6 +10,7 @@ import {  ConfigProvider, theme } from 'antd';
 import { useAppSelector } from '../../hooks/redux';
 import Profile from '../Profile/Profile';
 
+
 function App() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/auth" element={<Auth/>} />
           <Route path="/profile" element={<Profile />} />
+      
           <Route path="*" element={<>Нет такого</>} />
         </Routes>
       </ConfigProvider>

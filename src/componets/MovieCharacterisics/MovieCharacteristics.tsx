@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect ,useState} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuthApiQuery, useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
@@ -9,8 +9,11 @@ import { StarFilled } from '@ant-design/icons';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
+import Similar from '../Similar/Similar';
+
 
 const MovieCharacteristics = () => {
+  const [gengreText,setGenreText] = useState<string>('')
   const navigate = useNavigate()
   const { title, year, id } = useParams();
   const arg = {
@@ -32,6 +35,8 @@ const MovieCharacteristics = () => {
         navigate('/login');
       }
     }
+    setGenreText(data?.Genre.split(',')[0])
+    
   
 }, [ dataApi, navigate]);
 
@@ -113,6 +118,8 @@ const MovieCharacteristics = () => {
 
             <Divider className={styles.divid} />
 
+            
+            <div className={styles.twoItemParent}>
             <div className={styles.twoItem}>
               <div className={styles.containerTrailer}>
                 <div>
@@ -139,8 +146,16 @@ const MovieCharacteristics = () => {
                 </div>
               </div>
             </div>
+            </div>
+            
 
             <Rating id={id} />
+
+            <Divider className={styles.divid} />
+            
+            <div className="row wh">
+              <Similar gengreText={gengreText}/>
+            </div>
 
             <Divider className={styles.divid} />
 

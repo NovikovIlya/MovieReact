@@ -68,6 +68,19 @@ export const fetchRatingApi = createApi({
   }),
 });
 
+export const similarApi = createApi({
+  reducerPath: 'similar',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2/' }),
+  tagTypes: ['similar'],
+  endpoints: (builder) => ({
+    similarFetch: builder.query<any, any>({
+      query: (genre) => ({
+        url: `list_movies.json?genre=${genre}&limit=10`,
+      }),
+    }),
+  }),
+});
+
 export const AddCommentApi = createApi({
   reducerPath: 'AddComment',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment/' }),
@@ -178,3 +191,4 @@ export const { useAuthApiQuery, useLazyAuthApiQuery } = auth;
 export const { useFetchRatingQuery} = fetchRatingApi
 export const {useAddRatingMutation} = AddRatingApi
 export const {useRenameApiSetMutation} = renameApi
+export const {useSimilarFetchQuery} = similarApi

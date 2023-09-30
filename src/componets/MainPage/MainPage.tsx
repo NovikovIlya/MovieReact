@@ -39,23 +39,28 @@ function MainPage() {
   }, [refetch]);
 
   useEffect(() => {
+      // if(isFetching){
+      //   navigate('/loading');
+      // }
   
       if (!data) {
-        if(!localStorage.getItem('token')){
+        if (!isFetching){
           navigate('/login');
         }
+         
+        
       }
     
-  }, [ data, navigate]);
+  }, [ data, navigate,isFetching]);
 
   return (
     <>
-    {/* {isFetching ?         <div className={styles.zagr}>
+    {!data ? isFetching &&         <div className={styles.zagr}>
           
           <Spin tip="Loading" size="large">
             <div className="content" />
           </Spin>
-        </div> : */}
+        </div> :
     <div className={darkModeThemeMain}>
       <div className={darkModeTheme}>
         <div className="container-fluid movie-app">
@@ -68,7 +73,7 @@ function MainPage() {
           </div>
         </div>
       </div>
-      </div>
+      </div>}
     </>
   );
 }

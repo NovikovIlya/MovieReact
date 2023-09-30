@@ -14,7 +14,7 @@ const MovieHeader = () => {
       <div>
         <Search placeholder={placeholder}/>
       </div>
-      <div>
+      <div className={styles.userInfo}>
         <UserInfo />
       </div>
     </div>

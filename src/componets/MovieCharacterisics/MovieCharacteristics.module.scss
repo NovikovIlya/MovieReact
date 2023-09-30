@@ -11,6 +11,7 @@
     color: white;
 }
 .zagr{
+    
     margin-top: 40px;
     width: 100%;
     &__hed1{
@@ -25,6 +26,8 @@
     margin-bottom: 20px;
 }
 .container{
+    margin: 0 auto;
+    width: 1200px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -67,15 +70,21 @@
 .Bottom{
     height: 100%;
 }
+.twoItemParent{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .twoItem{
     margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     width: 70%;
+    justify-content: center;
 }
 .containerRating{
     margin-top: 20px;
-    width: 70%;
+    // width: 70%;
 }
 .containerTrailer{
     display: flex;
@@ -94,9 +103,15 @@
     min-width: 60%;
     width: 70%;
 }
+.ratingMass{
+    width: 100%;
+}
 
 
 @media screen and (max-width: 600px) {
+    .container{
+        width: 100%;
+    }
     .containerTop{
         display: block;
     }
