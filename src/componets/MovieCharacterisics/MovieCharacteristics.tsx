@@ -38,7 +38,8 @@ const MovieCharacteristics = () => {
     setGenreText(data?.Genre.split(',')[0])
     
   
-}, [ dataApi, navigate]);
+}, [ data, navigate,dataApi]);
+console.log('xxx',gengreText)
 
 
   return (

@@ -13,7 +13,8 @@ export type SimilarProps ={
 }
 
 const Similar = ({gengreText}:SimilarProps ) => {
-  const { data ,isLoading} = useSimilarFetchQuery(gengreText,{refetchOnFocus:true});
+  const [text,setText] = useState(null)
+  const { data ,isLoading,refetch} = useSimilarFetchQuery(text,{refetchOnFocus:true});
   const [arrayYts,setArrayYts] = useState<MovieYts[]>([])
 
   const mobile =  (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
@@ -25,10 +26,22 @@ const Similar = ({gengreText}:SimilarProps ) => {
   };
 
 
+
+
   useEffect(() => {
+
     console.log('ss', data?.data.movies);
     setArrayYts(data?.data.movies)
-  }, [data]);
+    if (gengreText === undefined){
+      console.log('und')
+      return;
+    }
+    if (gengreText !== undefined){
+      setText(gengreText)
+      refetch()
+    }
+  }, [data,gengreText,refetch]);
+  console.log(gengreText)
   
   return (
     <>
