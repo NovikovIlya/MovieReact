@@ -45,9 +45,9 @@ console.log('xxx',gengreText)
   return (
     <div className={styles.mt}>
     <div className={darkModeTheme}>
-      <Link className={styles.link} to="/">
+      {/* <Link className={styles.link} to="/">
         <Button>Back</Button>
-      </Link>
+      </Link> */}
 
       {isLoading ? (
         <div className={styles.zagr}>

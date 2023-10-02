@@ -4,49 +4,98 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { addMovie, addValue } from '../../store/sliceMovie';
 import { Input, Button } from 'antd';
 import styles from './Search.module.scss';
-import cn from 'classnames'
+import cn from 'classnames';
 import { SearchProps } from '../../types';
+import { AutoComplete } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 
-const Search:React.FC<SearchProps> = (props) => {
-  const [dis,setDis] = useState(true)
-  const {children = 'Search',placeholder,onChange=(e:React.ChangeEvent<HTMLInputElement>) => handleMovie(e)} = props
+const Search: React.FC<SearchProps> = (props) => {
+  const navigate = useNavigate()
+
+  const [dataMass,setDataMass] = useState([
+    // { value: 'Burns Bay Road' },
+    // { value: 'Downing Street' },
+    // { value: 'Wall Street' },
+  ])
+  const options = dataMass
+  const [val2,setVal2] = useState('')
+  const [dis, setDis] = useState(true);
+  const {
+    children = 'Search',
+    placeholder,
+    onChange = (e: React.ChangeEvent<HTMLInputElement>) => handleMovie(e),
+  } = props;
   const ref = useRef<HTMLButtonElement>();
   const val = useAppSelector((state) => state.sliceMovie.value);
   const [arg, setArg] = useState<string>('');
-  const { data, refetch } = useFetchMoviesQuery(val);
+  const { data, refetch } = useFetchMoviesQuery(val2);
   const dispatch = useAppDispatch();
 
-  const handleMovie = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    setArg(text);
-    dispatch(addValue(text));
+  const onSelect = (data2: string) => {
+    console.log('onSelect', data2);
+    const es = data.Search.find((item)=>{
+      return(
+        item.Title === data2
+      )
+    })
+    console.log('ssffv',es)
+    navigate(`/${es.imdbID}`)
   };
 
-  useEffect(()=>{
-    if (data){
-      if (!data.Error){
-        setDis(false)
-      } 
+  const handleMovie = (e) => {
+    const text = e
+    console.log('e',e)
+    setVal2(text)
+    console.log('vvv',text)
+    // setArg(text);
+    // dispatch(addValue(text));
+    if(text.length<1){
+      setDataMass([])
     }
-    if(data){
-      if (data.Error){
-        setDis(true)
-      }
-    }
-  },[data])
-  
- 
-  const fetchMovie = () => {
-    if (val.length < 1) {
-      alert('Введите текст');
-      return;
-    }
-    dispatch(addMovie(data?.Search));
-    refetch();
   };
 
   useEffect(() => {
+    if (data) {
+      if (!data.Error) {
+        setDis(false);
+      }
+    }
+    if (data) {
+      if (data.Error) {
+        setDis(true);
+      }
+    }
+  }, [data]);
+
+  // const fetchMovie = () => {
+  //   if (val.length < 1) {
+  //     alert('Введите текст');
+  //     return;
+  //   }
+  //   dispatch(addMovie(data?.Search));
+  //   refetch();
+  // };
+
+
+  useEffect(()=>{
+    if(data){
+      if(data.Search){
+        const searchData = data.Search.map((item)=>{
+          let {Title} = item
+          return({ ...item,
+          value : Title,
+          })
+        })
+        console.log('vvvbbb',searchData)
+        setDataMass(searchData)
+      }
+    }
+   
+  },[data])
+
+  useEffect(() => {
+    console.log(data)
     if (val.length < 1) {
       const keka = [
         {
@@ -125,28 +174,47 @@ const Search:React.FC<SearchProps> = (props) => {
       dispatch(addMovie(keka));
       refetch();
     }
-  }, [dispatch,refetch]);
+  }, [dispatch, refetch,data]);
 
   const inputClass = cn({
-    [styles.filled] : val.length
-  })
- 
+    [styles.filled]: val.length,
+  });
 
   return (
     <div data-testid="inpCn" className={inputClass}>
       <div className={styles.container}>
-        <Input data-testid="inpCn2"
-        //@ts-ignore
-          label='textbox'
+        {/* <Input
+          data-testid="inpCn2"
+          //@ts-ignore
+          label="textbox"
           className={styles.container__inp}
-          onChange={onChange}
-          value={val}
+          // onChange={onChange}
+          // value={val}
           placeholder={placeholder}
         />
-        
-        <Button disabled={dis} className={styles.container__btn} ref={ref} onClick={() => fetchMovie()}>
+
+        <Button
+          disabled={dis}
+          className={styles.container__btn}
+          ref={ref}
+          onClick={() => fetchMovie()}>
           Search
-        </Button>
+        </Button> */}
+
+        <AutoComplete
+        //@ts-ignore
+            value={val2}
+            //@ts-ignore
+          onChange={onChange}
+          //@ts-ignore
+          onSelect={onSelect}
+          style={{ width: 200 }}
+          options={options}
+          placeholder="input text"
+          filterOption={(inputValue, option) =>
+            option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+        />
       </div>
     </div>
   );

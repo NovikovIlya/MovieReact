@@ -44,6 +44,7 @@ export type MovieApiOneType = {
   Production: string
   Website: string
   Response: string
+  value?: string;
 }
 export type Rating = {
   Source: string

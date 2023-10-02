@@ -65,7 +65,7 @@ function MainPage() {
       <div className={darkModeTheme}>
         <div className="container-fluid movie-app">
           <div>
-            <MovieHeader />
+            {/* <MovieHeader /> */}
           </div>
           <Divider className={styles.divi}/>
           <div className="row">
