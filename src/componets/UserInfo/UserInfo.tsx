@@ -1,10 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../store/MovieApi';
 import styles from './UserInfo.module.scss';
-import { Button } from 'antd';
-
 import { MenuOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -13,7 +11,6 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const UserInfo = () => {
   const refUser = useRef();
-  const [kaka,setKaka] = useState([null])
   function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -58,28 +55,21 @@ const UserInfo = () => {
 
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
-    //@ts-ignore
-  
-    
-    
   };
-  const onOpenChange =(e)=>{
+  const onOpenChange =(e:any)=>{
     console.log('vv',e)
-    setKaka([null])
   }
 
   return (
     <div className={styles.container}>
       <div ref={refUser} className={styles.container__username}>{dataApi?.username}</div>
       <Menu 
-      ref={refUser} 
       subMenuCloseDelay={0.1}
         onOpenChange={onOpenChange}
         onClick={onClick}
         style={{ width: 112 }}
-        defaultSelectedKeys={kaka}
-        defaultOpenKeys={kaka}
-       
+        defaultSelectedKeys={[null]}
+        defaultOpenKeys={[null]}  
         mode="vertical"
         items={items}
         className={styles.menu}

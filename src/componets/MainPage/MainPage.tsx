@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../App/App.module.scss';
-import stylesDark from '../App/AppDark.module.scss'
+import stylesDark from '../App/AppDark.module.scss';
 import MovieList from '../MovieList/MovieList';
 import '../../Main.css';
-import MovieHeader from '../MovieHeader/MovieHeader';
 import { useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
-import { Divider, Spin } from 'antd';
+import { Spin } from 'antd';
 
 export type movieType = {
   Title: string;
@@ -20,64 +19,59 @@ export type movieType = {
 };
 
 function MainPage() {
-  const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
+  const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
-  const { data, refetch, isFetching ,error,isError} = useAuthApiQuery('');
+  const { data, refetch, isFetching, error } = useAuthApiQuery('');
 
   const darkModeTheme = cn({
-    [styles.container] : !darkMode,
-    [stylesDark.container] : darkMode,
-  })
+    [styles.container]: !darkMode,
+    [stylesDark.container]: darkMode,
+  });
   const darkModeThemeMain = cn({
-    [styles.Main] : !darkMode,
-    [stylesDark.Main] : darkMode,
-  })
+    [styles.Main]: !darkMode,
+    [stylesDark.Main]: darkMode,
+  });
 
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-
   useEffect(() => {
-      // if(isFetching){
-      //   navigate('/loading');
-      // }
-    console.log('123',data)
-    console.log('xc',error)
-    console.log('vb',isError)
-      if (error) {
-        // @ts-ignore
-        if (error.data.message === 'Пользователь не авторизован'){
-          navigate('/login');
+    if (error) {
+      if ('data' in error) {
+        const data = error.data as any;
+        if ('message' in data) {
+          if (data.message === 'Пользователь не авторизован') {
+            navigate('/login');
+          }
         }
-         
-        
       }
-    
-  }, [ data, navigate,isFetching,error]);
+    }
+  }, [data, navigate, isFetching, error]);
 
   return (
     <>
-    {!data ? isFetching &&         <div className={styles.zagr}>
-          
-          <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-        </div> :
-    <div className={darkModeThemeMain}>
-      <div className={darkModeTheme}>
-        <div className="container-fluid movie-app">
-          <div>
-            {/* <MovieHeader /> */}
+      {!data ? (
+        isFetching && (
+          <div className={styles.zagr}>
+            <Spin tip="Loading" size="large">
+              <div className="content" />
+            </Spin>
           </div>
-          {/* <Divider className={styles.divi}/> */}
-          <div className="row">
-            <MovieList movie={MovieData} />
+        )
+      ) : (
+        <div className={darkModeThemeMain}>
+          <div className={darkModeTheme}>
+            <div className="container-fluid movie-app">
+              <div></div>
+              <div className="row">
+                <MovieList movie={MovieData} />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      </div>}
+      )}
     </>
   );
 }

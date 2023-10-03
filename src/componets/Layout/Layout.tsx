@@ -6,10 +6,12 @@ import cn from 'classnames';
 import styles from '../App/App.module.scss';
 import stylesDark from '../App/AppDark.module.scss';
 import { useAuthApiQuery } from '../../store/MovieApi';
-import { Divider, Spin } from 'antd';
+import { Spin } from 'antd';
+
+
 
 const Layout = () => {
-  const { data, isFetching,error } = useAuthApiQuery('');
+  const { data, isFetching } = useAuthApiQuery('');
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const darkModeTheme = cn({
     [styles.container]: !darkMode,
@@ -26,13 +28,16 @@ const Layout = () => {
     <>
       <div className={darkModeThemeMain}>
         <div className={darkModeTheme}>
-              {/* <div className={styles.zagr}>
-                <Spin tip="Loading" size="large">
-                  <div className="content" />
-                </Spin>
-              </div> */}
+        {!data ? (
+        isFetching && <> <div className={styles.zagr}>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      </div></>
+      ) : <>
             <MovieHeader /> 
             <Outlet />
+            </>}
         </div>
       </div>
     </>

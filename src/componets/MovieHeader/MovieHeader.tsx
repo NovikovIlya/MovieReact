@@ -7,32 +7,32 @@ import { Divider } from 'antd';
 import { useAuthApiQuery } from '../../store/MovieApi';
 
 const MovieHeader = () => {
-  const { data, isFetching,error } = useAuthApiQuery('');
+  const { data, isFetching } = useAuthApiQuery('');
 
-  const placeholder = 'input text'
+  const placeholder = 'input text';
   return (
-    <>{error ? '' : 
-      <div>
+    <>
+      {!data ? (
+        isFetching && <></>
+      ) : (
+        <div>
           <div className={styles.container}>
-      <div>
-        <MovieTitle />
-      </div>
-      <div>
-        <Search placeholder={placeholder}/>
-      </div>
-      <div className={styles.userInfo}>
-        <UserInfo />
-      </div>
-     
-    </div>
-    <div className={styles.container2}>
-      <Divider className={styles.divi}/>
-    </div>
-      </div>
-    }
-    
-     </>
-    
+            <div>
+              <MovieTitle />
+            </div>
+            <div>
+              <Search placeholder={placeholder} />
+            </div>
+            <div className={styles.userInfo}>
+              <UserInfo />
+            </div>
+          </div>
+          <div className={styles.container2}>
+            <Divider className={styles.divi} />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

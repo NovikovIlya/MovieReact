@@ -13,7 +13,7 @@ import { useAuthApiQuery } from '../../store/MovieApi';
 export const Favorites = () => {
   const navigate = useNavigate();
   const favorite = useAppSelector((state) => state.sliceMovie.favorite);
-  const { data, isFetching, error, isError } = useAuthApiQuery('');
+  const {  error } = useAuthApiQuery('');
   const dispatch = useAppDispatch();
   const content2 = (
     <div>

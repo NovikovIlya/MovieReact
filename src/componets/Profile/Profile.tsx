@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import {  useAppSelector } from '../../hooks/redux';
 import cn from 'classnames';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { Button, Input } from 'antd';
 import { auth, useAuthApiQuery, useRenameApiSetMutation } from '../../store/MovieApi';
 
 const Profile = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch();
   const [text, setText] = useState('');
-  const { data, isFetching ,error,isError} = useAuthApiQuery('');
+  const { data, isFetching ,error} = useAuthApiQuery('');
   const [renameApiSet] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data: dataApi, refetch } = auth.useAuthApiQuery('');
@@ -34,10 +33,14 @@ const Profile = () => {
 
   useEffect(() => {
     if (error) {
-      // @ts-ignore
-      if (error.data.message === 'Пользователь не авторизован'){
-        navigate('/login');
-      }  
+      if ('data' in error) {
+        const data = error.data as any;
+        if ('message' in data) {
+          if (data.message === 'Пользователь не авторизован') {
+            navigate('/login');
+          }
+        }
+      }
     }
   
 }, [ data, navigate,isFetching,error]);

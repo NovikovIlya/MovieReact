@@ -1,11 +1,11 @@
 import React, { useEffect ,useState} from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 import { useAuthApiQuery, useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
-import { Button, Divider, Popover, Spin  } from 'antd';
-import { StarFilled,PlusOutlined } from '@ant-design/icons';
+import {  Divider, Popover, Spin  } from 'antd';
+import { StarFilled,PlusOutlined,CheckOutlined } from '@ant-design/icons';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
@@ -21,6 +21,7 @@ const MovieCharacteristics = () => {
       <p>Add to favorites</p>
     </div>
   );
+  const [iconToggle,setIconToggle] = useState(false)
   const [gengreText,setGenreText] = useState<string>('')
   const navigate = useNavigate()
   const { title, year, id } = useParams();
@@ -29,7 +30,7 @@ const MovieCharacteristics = () => {
     year: year,
     id: id,
   };
-  const { data: dataApi, refetch, isFetching } = useAuthApiQuery('');
+  const { data: dataApi ,error} = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const darkModeTheme = cn({
@@ -37,32 +38,37 @@ const MovieCharacteristics = () => {
   })
   const addFavoriteFnc = (item: movieType) => {
     dispatch(addFavorite(item));
+    setIconToggle(true)
   };
 
   useEffect(() => {
-  
-    if (!dataApi) {
-      if(!localStorage.getItem('token')){
-        navigate('/login');
+    if (error) {
+      if ('data' in error) {
+        const data = error.data as any;
+        if ('message' in data) {
+          if (data.message === 'Пользователь не авторизован') {
+            navigate('/login');
+          }
+        }
       }
     }
-    setGenreText(data?.Genre.split(',')[0])
-    
-  
-}, [ data, navigate,dataApi]);
-console.log('xxx',gengreText)
+    if(data){
+      if(data.Genre){
+        var text = data.Genre.split(',')[0]
+      }else {
+         text = 'Action'
+      }
+    }
+    setGenreText(text)
+}, [ data, navigate,dataApi,error]);
+
 
 
   return (
     <div className={styles.mt}>
     <div className={darkModeTheme}>
-      {/* <Link className={styles.link} to="/">
-        <Button>Back</Button>
-      </Link> */}
-
       {isLoading ? (
         <div className={styles.zagr}>
-          {/* <h3 className={styles.zagr__hed1}>Loading...</h3> */}
           <Spin tip="Loading" size="large">
             <div className="content" />
           </Spin>
@@ -75,11 +81,12 @@ console.log('xxx',gengreText)
                 <img src={data.Poster} alt="no" />
                 <div className={styles.plus}>
                   <Popover content={content} title="">
-                    <PlusOutlined  className={styles.plusE}
+                    {!iconToggle ? <PlusOutlined  className={styles.plusE}
                           onClick={() => addFavoriteFnc(data)}
-                        />
+                        /> : <CheckOutlined  className={styles.plusE}
+                        onClick={() => addFavoriteFnc(data)}
+                      />}
                     </Popover>
-                  
                 </div>
               </div>
               <div className={styles.container__right}>
