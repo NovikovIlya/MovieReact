@@ -18,7 +18,7 @@ const Search: React.FC<SearchProps> = (props) => {
     // { value: 'Downing Street' },
     // { value: 'Wall Street' },
   ])
-  const options = dataMass
+  const options = dataMass;
   const [val2,setVal2] = useState('')
   const [dis, setDis] = useState(true);
   const {
@@ -68,14 +68,7 @@ const Search: React.FC<SearchProps> = (props) => {
     }
   }, [data]);
 
-  // const fetchMovie = () => {
-  //   if (val.length < 1) {
-  //     alert('Введите текст');
-  //     return;
-  //   }
-  //   dispatch(addMovie(data?.Search));
-  //   refetch();
-  // };
+
 
 
   useEffect(()=>{

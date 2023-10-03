@@ -10,6 +10,7 @@ import { ConfigProvider,  theme } from 'antd';
 import { useAppSelector } from '../../hooks/redux';
 import Profile from '../Profile/Profile';
 import Layout from '../Layout/Layout';
+import { Favorites } from '../Favorites/Favorites';
 
 function App() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
@@ -27,6 +28,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/favorites" element={<Favorites />} />
               <Route path="*" element={<>Нет такого</>} />
             </Route>
             </Route>

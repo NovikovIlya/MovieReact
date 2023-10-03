@@ -12,7 +12,7 @@
 }
 .zagr{
     
-    margin-top: 80px;
+    margin-top: 150px;
     width: 100%;
     &__hed1{
         display: flex;
@@ -107,9 +107,26 @@
 .ratingMass{
     width: 100%;
 }
+.plus{
+    position: relative;
+    top: -24px;
+    display: flex;
+    justify-content: end;
+    background-color: black;
+    opacity: 0.5;
+}
+.plusE:hover{
+    scale: 1.2;
+}
+.plusE{
+    margin-right: 10px;
+}
 
 
 @media screen and (max-width: 600px) {
+    .plus{
+        width: 300px;
+    }
     .container{
         width: 100%;
     }

@@ -34,3 +34,6 @@
 .ant-select-selector{
   border: none !important;
 }
+.ant-menu-submenu-arrow{
+  display: none;
+}

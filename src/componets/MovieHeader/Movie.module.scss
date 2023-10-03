@@ -5,8 +5,18 @@
     padding-top: 25px;
     align-items: center;
 }
+.container2{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-top: 3px;
+    align-items: center;
+}
 .userInfo{
     width: 175px;
+}
+.divi{
+    background-color: gray;
 }
 
 @media screen and (max-width: 600px) {

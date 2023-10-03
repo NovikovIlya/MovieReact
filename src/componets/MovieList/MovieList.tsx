@@ -119,8 +119,13 @@ const MovieList = ({ movie }: MovieListProps) => {
           })}
          
       </Slider>
+
      
-      {favorite.length > 0 && (
+     <div>
+     <Divider className={styles.divi}/>
+     </div>
+     
+      {/* {favorite.length > 0 && (
         <div>
            <Divider className={styles.divi}/>
           <h1 className={styles.head1}>Favorites</h1>
@@ -149,7 +154,7 @@ const MovieList = ({ movie }: MovieListProps) => {
               </div>
             );
           })}
-      </Slider>
+      </Slider> */}
     </>
   );
 };

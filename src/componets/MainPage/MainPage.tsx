@@ -23,7 +23,7 @@ function MainPage() {
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
-  const { data, refetch, isFetching } = useAuthApiQuery('');
+  const { data, refetch, isFetching ,error,isError} = useAuthApiQuery('');
 
   const darkModeTheme = cn({
     [styles.container] : !darkMode,
@@ -38,20 +38,24 @@ function MainPage() {
     refetch();
   }, [refetch]);
 
+
   useEffect(() => {
       // if(isFetching){
       //   navigate('/loading');
       // }
-  
-      if (!data) {
-        if (!isFetching){
+    console.log('123',data)
+    console.log('xc',error)
+    console.log('vb',isError)
+      if (error) {
+        // @ts-ignore
+        if (error.data.message === 'Пользователь не авторизован'){
           navigate('/login');
         }
          
         
       }
     
-  }, [ data, navigate,isFetching]);
+  }, [ data, navigate,isFetching,error]);
 
   return (
     <>
@@ -67,7 +71,7 @@ function MainPage() {
           <div>
             {/* <MovieHeader /> */}
           </div>
-          <Divider className={styles.divi}/>
+          {/* <Divider className={styles.divi}/> */}
           <div className="row">
             <MovieList movie={MovieData} />
           </div>

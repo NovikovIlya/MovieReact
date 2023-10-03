@@ -4,15 +4,23 @@ import { useAuthApiQuery, useFetchMoviesOneQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
-import { Button, Divider, Spin  } from 'antd';
-import { StarFilled } from '@ant-design/icons';
+import { Button, Divider, Popover, Spin  } from 'antd';
+import { StarFilled,PlusOutlined } from '@ant-design/icons';
 import cn from 'classnames';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
 import Similar from '../Similar/Similar';
+import { addFavorite } from '../../store/sliceMovie';
+import { movieType } from '../../types';
 
 
 const MovieCharacteristics = () => {
+  const dispatch = useAppDispatch()
+  const content = (
+    <div>
+      <p>Add to favorites</p>
+    </div>
+  );
   const [gengreText,setGenreText] = useState<string>('')
   const navigate = useNavigate()
   const { title, year, id } = useParams();
@@ -27,6 +35,9 @@ const MovieCharacteristics = () => {
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   })
+  const addFavoriteFnc = (item: movieType) => {
+    dispatch(addFavorite(item));
+  };
 
   useEffect(() => {
   
@@ -62,7 +73,14 @@ console.log('xxx',gengreText)
             <div className={styles.containerTop}>
               <div className={styles.container__left}>
                 <img src={data.Poster} alt="no" />
-                <div></div>
+                <div className={styles.plus}>
+                  <Popover content={content} title="">
+                    <PlusOutlined  className={styles.plusE}
+                          onClick={() => addFavoriteFnc(data)}
+                        />
+                    </Popover>
+                  
+                </div>
               </div>
               <div className={styles.container__right}>
                 <div className={styles.ParentItem}>
