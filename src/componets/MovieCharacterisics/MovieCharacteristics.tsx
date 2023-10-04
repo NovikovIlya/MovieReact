@@ -1,6 +1,6 @@
 import React, { useEffect ,useState} from 'react';
-import {  useNavigate, useParams } from 'react-router-dom';
-import { useAuthApiQuery, useFetchMoviesOneQuery } from '../../store/MovieApi';
+import {  Link, useNavigate, useParams } from 'react-router-dom';
+import { useAuthApiQuery, useFetchMoviesOneQuery, useTorrentFetchQuery } from '../../store/MovieApi';
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
@@ -21,6 +21,7 @@ const MovieCharacteristics = () => {
       <p>Add to favorites</p>
     </div>
   );
+  const [tor,setTor] = useState('')
   const [iconToggle,setIconToggle] = useState(false)
   const [gengreText,setGenreText] = useState<string>('')
   const navigate = useNavigate()
@@ -30,6 +31,7 @@ const MovieCharacteristics = () => {
     year: year,
     id: id,
   };
+  const {data:dataTorrent} = useTorrentFetchQuery(id)
   const { data: dataApi ,error} = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
@@ -62,6 +64,13 @@ const MovieCharacteristics = () => {
     setGenreText(text)
 }, [ data, navigate,dataApi,error]);
 
+ useEffect(()=>{
+  const torrent = dataTorrent?.data?.movies?.[0].torrents[1].url ?? '';
+  setTor(torrent)
+  console.log('v',torrent)
+ },[dataTorrent])
+
+ 
 
 
   return (
@@ -78,7 +87,12 @@ const MovieCharacteristics = () => {
           <div className={styles.container}>
             <div className={styles.containerTop}>
               <div className={styles.container__left}>
-                <img src={data.Poster} alt="no" />
+                <div> 
+                  <img src={data.Poster} alt="no" />
+                    <div><Link className={styles.lin2} to={tor}>Download</Link></div>
+                  
+                </div>
+               
                 <div className={styles.plus}>
                   <Popover content={content} title="">
                     {!iconToggle ? <PlusOutlined  className={styles.plusE}

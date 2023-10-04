@@ -28,16 +28,10 @@ const Layout = () => {
     <>
       <div className={darkModeThemeMain}>
         <div className={darkModeTheme}>
-        {!data ? (
-        isFetching && <> <div className={styles.zagr}>
-        <Spin tip="Loading" size="large">
-          <div className="content" />
-        </Spin>
-      </div></>
-      ) : <>
+        <>
             <MovieHeader /> 
             <Outlet />
-            </>}
+            </>
         </div>
       </div>
     </>

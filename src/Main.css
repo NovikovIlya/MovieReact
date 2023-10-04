@@ -1,3 +1,6 @@
+body{
+  background-color: black;
+}
 .movie-app > .row {
   overflow: hidden;
   flex-wrap: wrap;
@@ -39,4 +42,8 @@
 }
 .ant-pagination{
   display: none !important;
+}
+.ant-col-16{
+  max-width: 100%;
+  flex:0
 }

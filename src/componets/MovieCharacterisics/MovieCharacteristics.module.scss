@@ -109,10 +109,10 @@
 }
 .plus{
     position: relative;
-    top: -24px;
+    top: -28px;
     display: flex;
     justify-content: end;
-    background-color: black;
+    // background-color: black;
     opacity: 0.5;
 }
 .plusE:hover{
@@ -120,6 +120,15 @@
 }
 .plusE{
     margin-right: 10px;
+}
+.lin2{
+    position: relative;
+    z-index: 1000;
+    color:gray;
+    text-decoration: none;
+}
+.lin2:hover{
+    scale: 1.2;
 }
 
 

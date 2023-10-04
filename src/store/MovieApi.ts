@@ -81,6 +81,19 @@ export const similarApi = createApi({
   }),
 });
 
+export const torrentApi = createApi({
+  reducerPath: 'torrent',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2/' }),
+  tagTypes: ['torrent'],
+  endpoints: (builder) => ({
+    torrentFetch: builder.query<any, any>({
+      query: (imdb) => ({
+        url: `list_movies.json?query_term=${imdb}`,
+      }),
+    }),
+  }),
+});
+
 export const AddCommentApi = createApi({
   reducerPath: 'AddComment',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment/' }),
@@ -192,3 +205,4 @@ export const { useFetchRatingQuery} = fetchRatingApi
 export const {useAddRatingMutation} = AddRatingApi
 export const {useRenameApiSetMutation} = renameApi
 export const {useSimilarFetchQuery} = similarApi
+export const {useTorrentFetchQuery} = torrentApi

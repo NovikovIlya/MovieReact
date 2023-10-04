@@ -55,6 +55,7 @@ function LoginPage() {
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>({
@@ -81,6 +82,7 @@ function LoginPage() {
     }finally{
       setDis(false)
       setLama(false)
+      reset({username:'',password:''})
     }
   };
   const onSubmit1 = async () => {
@@ -136,11 +138,14 @@ function LoginPage() {
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.name}>
           <Controller
-            render={({ field }) => <AntdInput placeholder="Username" {...field} />}
+         
+            render={({ field }) =>( <AntdInput placeholder="Username" {...field}
+            />)}
             rules={{
-              required: 'Field cannot be empty',
+              required:'Field cannot be empty',
               minLength: { value: 4, message: 'Minimum 4 characters' },
-              
+              shouldUnregister:false,
+  
             }}
             name="username"
             disabled={dis}
