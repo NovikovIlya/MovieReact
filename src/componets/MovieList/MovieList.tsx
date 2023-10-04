@@ -9,6 +9,7 @@ import { Button, Divider, Popover } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { toogleEmpty } from '../../store/sliceMovie';
 import { addFavorite, deleteFavorite } from '../../store/sliceMovie';
+import TableZ from '../Table/Table';
 
 
 
@@ -44,6 +45,8 @@ const MovieList = ({ movie }: MovieListProps) => {
   const delFavoriteFnc = (item: movieType) => {
     dispatch(deleteFavorite(item));
   };
+
+  
 
   useEffect(() => {
     if (movie) {
@@ -93,6 +96,7 @@ const MovieList = ({ movie }: MovieListProps) => {
 
   return (
     <>
+      <h1 className={styles.head}>Popular movies:</h1>
       <Slider {...settings}>
         
         {movie.length > 0 &&
@@ -124,6 +128,8 @@ const MovieList = ({ movie }: MovieListProps) => {
      <div>
      <Divider className={styles.divi}/>
      </div>
+     <h1 className={styles.head}>Top Lifetime Grosses:</h1>
+    <TableZ/>
      
     </>
   );

@@ -1,5 +1,5 @@
 .movie-app > .row {
-  overflow: auto;
+  overflow: hidden;
   flex-wrap: wrap;
 }
 .rowChild {
@@ -36,4 +36,7 @@
 }
 .ant-menu-submenu-arrow{
   display: none;
+}
+.ant-pagination{
+  display: none !important;
 }

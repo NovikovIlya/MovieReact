@@ -14,6 +14,10 @@
     width: 100%;
     padding-left: 90px;
 }
+.head{
+    margin-left: 85px;
+}
+   
 
 .favorite{
     width: 100%;;
@@ -32,4 +36,10 @@
 }
 .divi{
     background-color: gray;
+}
+
+@media screen and (max-width:600px) {
+    .head{
+        margin-left: 0;
+    }
 }
