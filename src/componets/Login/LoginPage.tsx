@@ -16,7 +16,7 @@ import {
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { toggleRender } from '../../store/sliceMovie';
+import { switchAvatar, toggleRender } from '../../store/sliceMovie';
 import { FormInputs } from '../../types'; 
 
 
@@ -112,13 +112,21 @@ function LoginPage() {
   }, [dataApi, navigate,isFetching,dispatch]);
  
   useEffect(() => {
+    console.log('result',result)
+    //@ts-ignore
+    // if(result?.data?.user?.avatar){
+    //       //@ts-ignore
+    //       dispatch(switchAvatar(`https://backmovie.onrender.com/${result.data.user.avatar}`))
+    //     //@ts-ignore
+    //       console.log('bb',`https://backmovie.onrender.com/${result.data.user.avatar}`)
+    // }
     if (result.error) {
       const info = () => {
         messageApi.info('This user was not found!');
       };
       info();
     }
-  }, [result.error,messageApi]);
+  }, [result,messageApi]);
 
   if(!renderValue){
     return <><div className={styles.render}><p>Please wait, the server is waking up on Render (about 30 sec)</p></div></>

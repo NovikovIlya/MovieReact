@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, Form } from 'antd';
 import { auth, useAuthApiQuery, useRenameApiSetMutation } from '../../store/MovieApi';
+import { switchAvatar } from '../../store/sliceMovie';
+
 
 type FieldType = {
   username?: string;
@@ -13,7 +15,9 @@ type FieldType = {
 };
 
 const Profile = () => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate();
+  const [selectedFile,setSelectedFile] = useState()
   // const [kek1,setKek1] = useState('')
   const [error1,setError1] = useState('')
   const [text, setText] = useState('');
@@ -21,6 +25,7 @@ const Profile = () => {
   const [renameApiSet,{ error }] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data: dataApi, refetch } = auth.useAuthApiQuery('');
+  const ava = useAppSelector((state)=>state.sliceMovie.avatar)
 
   const handleInput = (e) => {
     setText(e.target.value);
@@ -39,6 +44,26 @@ const Profile = () => {
     refetch();
   };
 
+  const handleChange = (event) =>{
+    console.log(event.target.files)
+    setSelectedFile(event.target.files[0])
+  }
+  const onClickImage = async ()=>{
+    if(!selectedFile){
+      alert('Please select a file')
+      return;
+    }
+
+    const formData = new FormData()
+    formData.append('filedata',selectedFile)
+    formData.append('oldUsername',dataApi.username)
+    
+    let response = await fetch('https://backmovie.onrender.com/upload', {method:'POST',body:formData}); // завершается с заголовками ответа
+    let result = await response.json();  
+    console.log('rrr',result)
+    dispatch(switchAvatar(`https://backmovie.onrender.com/${result}`))
+  }
+
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   });
@@ -48,6 +73,10 @@ const Profile = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
+  useEffect(()=>{
+    console.log('ava',ava)
+  },[ava])
 
   useEffect(() => {
     if (errorApi) {
@@ -80,6 +109,14 @@ const Profile = () => {
   return (
     <div className={darkModeTheme}>
       <div className={styles.container}>
+      <img className={styles.ava} src={ava} alt='no'/>
+      {/* <form action="/upload" method="post" encType="multipart/form-data"/> */}
+        <div style={{width:'100%'}}>
+          <input type="file" name="filedata" onChange={handleChange}/>
+          <input type="submit" value="Send" onClick={onClickImage}/>
+        </div>
+      {/* <form/> */}
+
         <div className={styles.parent}>
           <div className={styles.text}>Current name: </div>
           <div className={styles.text}> {dataApi?.username}</div>

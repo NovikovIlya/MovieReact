@@ -1,4 +1,4 @@
-import  sliceMovie  from './sliceMovie';
+import  sliceMovie, { switchAvatar }  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { AddCommentApi, AddRatingApi, LoginApi, MovieApi, MovieApiOne,RegistrApi,auth,fetchCommentApi,fetchRatingApi,renameApi,similarApi,torrentApi,trailerApi } from './MovieApi'; 
 
@@ -29,8 +29,8 @@ const rootReducer = combineReducers({
     [renameApi.reducerPath]: renameApi.reducer,
     [similarApi.reducerPath]: similarApi.reducer,
     [torrentApi.reducerPath]: torrentApi.reducer,
-    sliceMovie
-
+    sliceMovie,
+    switchAvatar
 });
 
 

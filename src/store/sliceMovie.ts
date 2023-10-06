@@ -12,6 +12,7 @@ const initialState  = {
   favorite:[],
   darkMode: false,
   render: false,
+  avatar: 'https://innostudio.de/fileuploader/images/default-avatar.png'
 
 };
 
@@ -44,10 +45,13 @@ export const sliceMovie = createSlice({
     },
     toggleRender:(state)=>{
       state.render = true
+    },
+    switchAvatar:(state,action)=>{
+      state.avatar = action.payload;
     }
    
   },
 });
 
-export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite,darkMode,toggleRender} = sliceMovie.actions;
+export const { addMovie,addValue,toogleEmpty ,addFavorite,deleteFavorite,darkMode,toggleRender,switchAvatar} = sliceMovie.actions;
 export default sliceMovie.reducer;
