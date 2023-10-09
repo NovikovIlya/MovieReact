@@ -39,6 +39,19 @@
     justify-content: center;
     color:red
 }
+.imageParent{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
 .ava{
     width: 50px;
+}
+.btnImage{
+    border-radius: 20px 0 0 20px;
+}
+.inpImgae{
+    width: 50px;
+    border-radius: 0 20px 20px 0;
 }

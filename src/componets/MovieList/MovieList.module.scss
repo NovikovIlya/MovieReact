@@ -1,8 +1,22 @@
 .img{
-    height: 400px;
+    width: 300px;
+    height: 450px;
+}
+.td{
+    text-decoration: none;
+    color: white;
+}
+.td:hover{
+    opacity: 0.8;
 }
 .text{
-    height: 70px;
+    height: 80px;
+    padding: 8px;
+    position: relative;
+    bottom: -450px;
+    background-color: #0000008f;
+    width: 300px;
+    text-decoration: none;
 }
 .bottom{
     display: flex;
@@ -36,6 +50,9 @@
 }
 .divi{
     background-color: gray;
+}
+.tabl  ul{
+    display: none !important;
 }
 
 @media screen and (max-width:600px) {

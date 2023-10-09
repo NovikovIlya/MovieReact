@@ -1,0 +1,37 @@
+.td{
+    text-decoration: none;
+    color: white;
+}
+.td:hover{
+    opacity: 0.8;
+}
+.parent{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.img{
+    width: 300px;
+    height: 450px;
+}
+.pag{
+    background-color: gray;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+.btnDesc{
+    border-radius: 20px 0 0 20px;
+}
+.btnPlus{
+    border-radius: 0 20px 20px 0;
+}
+.text{
+    height: 80px;
+    padding: 8px;
+    position: relative;
+    bottom: -450px;
+    background-color: #0000008f;
+    width: 300px;
+    text-decoration: none;
+}

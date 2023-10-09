@@ -1,6 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login,  ratingType,  tokenType } from '../types';
 
+export const MovieApiPopular = createApi({
+  reducerPath: 'apiMoviesPopular',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2' }),
+  tagTypes: ['apiMoviesPopular'],
+  endpoints: (builder) => ({
+    fetchMoviesPopular: builder.query<any, string>({
+      query: (search) => ({
+        url: `list_movies.json?${search}`,
+      }),
+    }),
+  }),
+});
+
+
 export const MovieApi = createApi({
   reducerPath: 'apiMovies',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com' }),
@@ -206,3 +220,4 @@ export const {useAddRatingMutation} = AddRatingApi
 export const {useRenameApiSetMutation} = renameApi
 export const {useSimilarFetchQuery} = similarApi
 export const {useTorrentFetchQuery} = torrentApi
+export const {useFetchMoviesPopularQuery} = MovieApiPopular

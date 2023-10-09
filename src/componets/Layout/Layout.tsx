@@ -6,7 +6,7 @@ import cn from 'classnames';
 import styles from '../App/App.module.scss';
 import stylesDark from '../App/AppDark.module.scss';
 import { useAuthApiQuery } from '../../store/MovieApi';
-import { Spin } from 'antd';
+import Menubar from '../Memubar/Menubar';
 
 
 
@@ -30,6 +30,7 @@ const Layout = () => {
         <div className={darkModeTheme}>
         <>
             <MovieHeader /> 
+            <Menubar/>
             <Outlet />
             </>
         </div>

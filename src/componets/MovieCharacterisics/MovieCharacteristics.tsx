@@ -65,7 +65,8 @@ const MovieCharacteristics = () => {
 }, [ data, navigate,dataApi,error]);
 
  useEffect(()=>{
-  const torrent = dataTorrent?.data?.movies?.[0].torrents[1].url ?? '';
+  const torrent = dataTorrent?.data?.movies?.[0].torrents?.[1]?.url ?? '';
+
   setTor(torrent)
   console.log('v',torrent)
  },[dataTorrent])
@@ -88,7 +89,7 @@ const MovieCharacteristics = () => {
             <div className={styles.containerTop}>
               <div className={styles.container__left}>
                 <div> 
-                  <img src={data.Poster} alt="no" />
+                  <img src={data.Poster ? data.Poster : 'https://t4.ftcdn.net/jpg/04/72/65/73/360_F_472657366_6kV9ztFQ3OkIuBCkjjL8qPmqnuagktXU.jpg'} alt="no" />
                     <div><Link className={styles.lin2} to={tor}>Download</Link></div>
                   
                 </div>
@@ -163,7 +164,7 @@ const MovieCharacteristics = () => {
             <div className={styles.twoItem}>
               <div className={styles.containerTrailer}>
                 <div>
-                  <Trailer id={arg.id} />
+                  <Trailer id={arg.id} title={data.Title} year={data.Year}/>
                 </div>
               </div>
               <div className={styles.containerRating}>

@@ -10,10 +10,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { toogleEmpty } from '../../store/sliceMovie';
 import { addFavorite, deleteFavorite } from '../../store/sliceMovie';
 import TableZ from '../Table/Table';
+import { useFetchMoviesPopularQuery } from '../../store/MovieApi';
 
 
 
 const MovieList = ({ movie }: MovieListProps) => {
+  const {data:dataPopular} = useFetchMoviesPopularQuery('sort_by=download_count&order_by=desc&limit=10')
   const content = (
     <div>
       <p>Add to favorites</p>
@@ -49,12 +51,13 @@ const MovieList = ({ movie }: MovieListProps) => {
   
 
   useEffect(() => {
+    console.log('dataPopular',dataPopular)
     if (movie) {
       if (movie.length === 0) {
         dispatch(toogleEmpty(true));
       }
     }
-  }, [movie, dispatch]);
+  }, [movie, dispatch,dataPopular]);
 
   if (!movie) {
     return (<div >
@@ -62,42 +65,29 @@ const MovieList = ({ movie }: MovieListProps) => {
       <p>Movie not found!</p>
       </div>
       
-      {favorite.length > 0 && (
-        <div>
-          <h1 className={styles.head1}>Favorites</h1>
-        </div>
-      )}
-      <Slider {...settings2}>
-        {favorite.length > 0 &&
-          favorite.map((item) => {
-            return (
-              <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
-                <div className={styles.text}>{item.Title}</div>
-                <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
-                <div className={styles.bottom}>
-                  <Link to={`${item.imdbID}`}>
-                    <Button className={styles.btnDesc}>Go to moive</Button>
-                  </Link>
-                  <Popover content={content2} title="">
-                    <Button
-                      className={styles.btnPlus}
-                      onClick={() => delFavoriteFnc(item)}
-                      type="primary">
-                      -
-                    </Button>
-                  </Popover>
-                </div>
-              </div>
-            );
-          })}
-      </Slider>
     </div>);
   }
 
   return (
     <>
-      <h1 className={styles.head}>Popular movies:</h1>
+      {/* <h1 className={styles.head}>Popular movies:</h1> */}
       <Slider {...settings}>
+        
+        {
+          dataPopular?.data?.movies?.map((item) => {
+            return (
+              <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start m-3">
+                <Link className={styles.td} to={`${item.imdb_code}`}>
+                <div className={styles.text}>{item.title}</div>
+                <img className={styles.img} key={item.imdb_code} src={item.large_cover_image} alt="no" />
+                
+                </Link>
+              </div>
+            );
+          })}
+         
+      </Slider>
+      {/* <Slider {...settings}>
         
         {movie.length > 0 &&
           movie.map((item) => {
@@ -122,14 +112,18 @@ const MovieList = ({ movie }: MovieListProps) => {
             );
           })}
          
-      </Slider>
+      </Slider> */}
 
      
      <div>
      <Divider className={styles.divi}/>
      </div>
      <h1 className={styles.head}>Top Lifetime Grosses:</h1>
-    <TableZ/>
+
+     <div className={styles.tabl}>
+     <TableZ />
+     </div>
+   
      
     </>
   );

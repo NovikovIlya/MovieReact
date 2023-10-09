@@ -1,0 +1,23 @@
+.container > .ant-menu-overflow{
+   
+}
+.hidden{
+    display: none;
+}
+.menu{
+    padding-left: 90px;
+    background-color: black;
+}
+.menu li{
+    color: white;
+}
+.menu li:hover{
+    color: white;
+    scale: 1.2;
+}
+.menu li:active{
+    color: white !important; 
+}
+.menu .ant-menu-item-active{
+    color:white !important;
+}

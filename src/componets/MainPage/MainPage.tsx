@@ -9,6 +9,8 @@ import { useAuthApiQuery } from '../../store/MovieApi';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { Spin } from 'antd';
+import Menubar from '../Memubar/Menubar';
+import New from '../New/New';
 
 export type movieType = {
   Title: string;
@@ -66,7 +68,9 @@ function MainPage() {
             <div className="container-fluid movie-app">
               <div></div>
               <div className="row">
+            
                 <MovieList movie={MovieData} />
+            
               </div>
             </div>
           </div>

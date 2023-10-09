@@ -1,6 +1,6 @@
-import  sliceMovie, { switchAvatar }  from './sliceMovie';
+import  sliceMovie, { switchAvatar, toggleDropdown }  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { AddCommentApi, AddRatingApi, LoginApi, MovieApi, MovieApiOne,RegistrApi,auth,fetchCommentApi,fetchRatingApi,renameApi,similarApi,torrentApi,trailerApi } from './MovieApi'; 
+import { AddCommentApi, AddRatingApi, LoginApi, MovieApi, MovieApiOne,MovieApiPopular,RegistrApi,auth,fetchCommentApi,fetchRatingApi,renameApi,similarApi,torrentApi,trailerApi } from './MovieApi'; 
 
 
 import {
@@ -29,15 +29,17 @@ const rootReducer = combineReducers({
     [renameApi.reducerPath]: renameApi.reducer,
     [similarApi.reducerPath]: similarApi.reducer,
     [torrentApi.reducerPath]: torrentApi.reducer,
+    [MovieApiPopular.reducerPath]: MovieApiPopular.reducer,
     sliceMovie,
-    switchAvatar
+    switchAvatar,
+    toggleDropdown
 });
 
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist:[torrentApi.reducerPath,similarApi.reducerPath,renameApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,LoginApi.reducerPath,RegistrApi.reducerPath,auth.reducerPath]
+  blacklist:[MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,renameApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,LoginApi.reducerPath,RegistrApi.reducerPath,auth.reducerPath]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -49,7 +51,7 @@ const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(torrentApi.middleware,similarApi.middleware,renameApi.middleware,AddRatingApi.middleware,fetchRatingApi.middleware,RegistrApi.middleware,auth.middleware,LoginApi.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
+      }).concat(MovieApiPopular.middleware,torrentApi.middleware,similarApi.middleware,renameApi.middleware,AddRatingApi.middleware,fetchRatingApi.middleware,RegistrApi.middleware,auth.middleware,LoginApi.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
     },
 });
 

@@ -1,24 +1,45 @@
-import React from 'react';
+import React, {  useEffect, useState } from 'react';
 import { useFetcTrailerQuery } from '../../store/MovieApi';
-import styles from './Trailer.module.scss'
-import Skeleton from './Skeleton'
+import styles from './Trailer.module.scss';
+import Skeleton from './Skeleton';
 import { argType } from '../../types';
 
-
-const Trailer = ({id} : argType) => {
+const Trailer = ({ id, title, year }: argType) => {
   const { data, isLoading } = useFetcTrailerQuery(id);
+  const [alt, SetAlt] = useState('');
+  const [urlValue, setUrlValue] = useState('');
+
+  useEffect(() => {
+    const fetchYoutube = async () => {
+      let response = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${title} ${year}&type=video&key=AIzaSyC0eVRG5nSA0E-bPOjsBjq98YPeicDViSE`,
+      ); 
+      let result = await response.json();
+      const altYoutubeData = result?.items?.[0].id.videoId;
+      const urlYoutube = `https://www.youtube.com/embed/${altYoutubeData}`;
+      SetAlt(urlYoutube);
+    };
+    fetchYoutube();
+
+    const urlTrailer = data
+      ? data.error
+        ? alt
+        : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
+      : alt;
+    console.log('alt', alt);
+    console.log('tt', title);
+
+    setUrlValue(urlTrailer);
+  }, [alt, data, title, year]);
 
 
-  const urlTrailer = data
-    ? data.error
-      ? `https://www.youtube.com/embed/dQw4w9WgXcQ`
-      : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
-    : `https://www.youtube.com/embed/dQw4w9WgXcQ`;
-  
+
   return (
     <>
       {isLoading ? (
-        <div><Skeleton/></div>
+        <div>
+          <Skeleton />
+        </div>
       ) : (
         <>
           <div>
@@ -26,7 +47,7 @@ const Trailer = ({id} : argType) => {
               <iframe
                 width="600"
                 height="480"
-                src={urlTrailer}
+                src={urlValue}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
