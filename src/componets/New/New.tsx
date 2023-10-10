@@ -1,31 +1,21 @@
 import type { PaginationProps } from 'antd';
-import { Button, ConfigProvider, Empty, Pagination, Popover } from 'antd';
+import { ConfigProvider, Empty, Pagination, Select } from 'antd';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks/redux';
 import { useFetchMoviesPopularQuery } from '../../store/MovieApi';
-import { addFavorite } from '../../store/sliceMovie';
-import { movieType } from '../../types';
 import styles from './New.module.scss';
 
 const New = () => {
-  const dispatch = useAppDispatch();
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
+  const [genre, setGenre] = useState('');
+  const [sortHow, setSortHow] = useState('desc');
+  const [sort, setSort] = useState('year');
   const { data: dataPopular } = useFetchMoviesPopularQuery(
-    `sort_by=year&order_by=desc&limit=9&page=${num}`,
-  );
-  const content = (
-    <div>
-      <p>Add to favorites</p>
-    </div>
+    `sort_by=${sort}&order_by=${sortHow}&limit=9&page=${num}&genre=${genre}`,
   );
 
-
-  const addFavoriteFnc = (item: movieType) => {
-    dispatch(addFavorite(item));
-  };
-  const placeholderImage = 
+  const placeholderImage =
     'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
 
   const onErr = (error) => {
@@ -35,35 +25,111 @@ const New = () => {
 
   const onChange: PaginationProps['onChange'] = (pageNumber) => {
     console.log('Page: ', pageNumber);
-    setNum(pageNumber.toString())
+    setNum(pageNumber.toString());
   };
+
+  const onClickDrop = (value) => {
+    console.log('rr', value);
+    setGenre(value);
+  };
+  const onClickDropTwo = (value) => {
+    console.log('rr', value);
+    setSort(value);
+  };
+  const onClickDropThree = (value) => {
+    console.log('rr', value);
+    setSortHow(value);
+  };
+
+  const onSearch = (value: string) => {
+    console.log('search:', value);
+  };
+  const filterOption = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
     <>
-       
-      <div></div>
+      <div className={styles.parentDrop}>
+        <Select
+          showSearch
+          onSearch={onSearch}
+          filterOption={filterOption}
+          placeholder="Select a genre"
+          className={styles.drop}
+          style={{ width: 120 }}
+          onChange={onClickDrop}
+          options={[
+            { value: '', label: 'All' },
+            { value: 'Action', label: 'Action' },
+            { value: 'Adventure', label: 'Adventure' },
+            { value: 'Animation', label: 'Animation' },
+            { value: 'Biography', label: 'Biography' },
+            { value: 'Comedy', label: 'Comedy' },
+            { value: 'Crime', label: 'Crime' },
+            { value: 'Documentary', label: 'Documentary' },
+            { value: 'Drama', label: 'Drama' },
+            { value: 'Family', label: 'Family' },
+            { value: 'Fantasy', label: 'Fantasy' },
+            { value: 'Film-Noir', label: 'Film-Noir' },
+            { value: 'History', label: 'History' },
+            { value: 'Horror', label: 'Horror' },
+            { value: 'Music', label: 'Music' },
+            { value: 'Musical', label: 'Musical' },
+            { value: 'Mystery', label: 'Mystery' },
+            { value: 'Sci-Fi', label: 'Sci-Fi' },
+            { value: 'Romance', label: 'Romance' },
+            { value: 'Sport', label: 'Sport' },
+            { value: 'Thriller', label: 'Thriller' },
+            { value: 'War', label: 'War' },
+            { value: 'Western', label: 'Western' },
+          ]}
+        />
+        <Select
+          showSearch
+          onSearch={onSearch}
+          filterOption={filterOption}
+          placeholder="Select a sort"
+          className={styles.drop2}
+          style={{ width: 120 }}
+          onChange={onClickDropTwo}
+          options={[
+            { value: 'title', label: 'Title' },
+            { value: 'date_added', label: 'Date added' },
+          ]}
+        />
+        <Select
+          showSearch
+          onSearch={onSearch}
+          filterOption={filterOption}
+          placeholder="How to sort"
+          className={styles.drop2}
+          style={{ width: 120 }}
+          onChange={onClickDropThree}
+          options={[
+            { value: 'desc', label: 'desc' },
+            { value: 'asc', label: 'asc' },
+          ]}
+        />
+      </div>
       <div className={styles.parent}>
         {dataPopular?.data?.movies?.map((item) => {
           return (
-          
             <div key={item.imdb_code} className="mda rowChild f-flex justify-content-start m-3">
-                <Link className={styles.td} to={`/${item.imdb_code}`}>
               <div className={styles.text}>{item.title}</div>
               {item.large_cover_image ? (
-                <img
-                  className={styles.img}
-                  onError={onErr}
-                  key={item.imdb_code}
-                  src={imgSrc ? item.large_cover_image : placeholderImage}
-                  alt="no"
-                />
+                <Link className={styles.td} to={`/${item.imdb_code}`}>
+                  <img
+                    className={styles.img}
+                    onError={onErr}
+                    key={item.imdb_code}
+                    src={imgSrc ? item.large_cover_image : placeholderImage}
+                    alt="no"
+                  />
+                </Link>
               ) : (
                 <Empty />
               )}
-              
-              </Link>
             </div>
-           
           );
         })}
       </div>
@@ -76,7 +142,7 @@ const New = () => {
           },
         }}>
         <div className={styles.pag}>
-          <Pagination onChange={onChange}  defaultCurrent={1} total={500} />
+          <Pagination onChange={onChange} defaultCurrent={1} total={500} />
         </div>
       </ConfigProvider>
     </>
