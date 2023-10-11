@@ -27,6 +27,7 @@ const New = () => {
   const onChange: PaginationProps['onChange'] = (pageNumber) => {
     console.log('Page: ', pageNumber);
     setNum(pageNumber.toString());
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
   };
 
   const onClickDrop = (value) => {

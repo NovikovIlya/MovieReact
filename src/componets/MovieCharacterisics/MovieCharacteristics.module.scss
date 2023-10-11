@@ -128,11 +128,13 @@
 .lin2 {
   position: relative;
   z-index: 1000;
-  color: gray;
+  color: rgba(39, 97, 245, 0.8);
   text-decoration: none;
 }
 .lin2:hover {
-  scale: 1.2;
+  z-index: 10000;
+
+  color: white;
 }
 
 @media screen and (max-width: 600px) {

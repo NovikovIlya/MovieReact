@@ -145,7 +145,7 @@ const MovieCharacteristics = () => {
                             }
                             alt="no"
                           />
-                          <div>
+                          <div className={styles.lin2Parent}>
                             <Link className={styles.lin2} to={tor}>
                               Download
                             </Link>
