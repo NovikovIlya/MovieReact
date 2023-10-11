@@ -9,7 +9,8 @@ import {
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
-import { Divider, Popover, Spin } from 'antd';
+import { Divider, Popover, Spin, Breadcrumb, ConfigProvider } from 'antd';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { StarFilled, PlusOutlined, CheckOutlined } from '@ant-design/icons';
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
@@ -97,7 +98,41 @@ const MovieCharacteristics = () => {
                 </div>
               ) : (
                 <>
-                  <div className={styles.container2}>Хлебные крошки</div>
+                  <div className={styles.container2}>
+                    <ConfigProvider
+                      theme={{
+                        components: {
+                          Breadcrumb: {
+                            itemColor:'rgba(39, 97, 245, 0.8)',
+                            linkColor:'rgba(39, 97, 245, 0.8)',
+                            separatorColor:'rgba(39, 97, 245, 0.8)',
+                            lastItemColor:'rgba(39, 97, 245, 0.8)',
+                            linkHoverColor:'rgba(39, 97, 245, 0.8)'
+                          },
+                        },
+                      }}>
+                      <Breadcrumb
+                        items={[
+                          {
+                            href: '/',
+                            title: <HomeOutlined />,
+                          },
+                          {
+                            href: '/new',
+                            title: (
+                              <>
+                                <UserOutlined />
+                                <span>Movies</span>
+                              </>
+                            ),
+                          },
+                          {
+                            title: data.Title,
+                          },
+                        ]}
+                      />
+                    </ConfigProvider>
+                  </div>
                   <div className={styles.container}>
                     <div className={styles.containerTop}>
                       <div className={styles.container__left}>
