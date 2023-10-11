@@ -24,3 +24,11 @@
 .menu .ant-menu-item-active{
     color:white !important;
 }
+
+@media screen and (max-width:600px) {
+    .menu{
+        padding-left: 0;
+        display: flex;
+        justify-content: center;
+    }
+}

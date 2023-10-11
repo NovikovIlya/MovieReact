@@ -1,6 +1,7 @@
 .container{
     display: flex;
     align-items: center;
+    justify-content: end;
    
     &__username{
         margin-right: 10px;
@@ -8,10 +9,9 @@
     }
 }
 .menu{
-    position: absolute;
-    right:40px;
-    top:21px;
+
     border-radius: 10px;
+    width: 70%;
 }
 .lin{
     text-decoration: none;
@@ -19,13 +19,12 @@
 
 @media screen and (max-width:600px) {
     .container{
-        margin-bottom: 40px;
-        &__username{
-            display: none;
-        }
+        justify-content: center;
     }
     .menu{
-        right: 35%;
-        top:14%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+
     }
 }
