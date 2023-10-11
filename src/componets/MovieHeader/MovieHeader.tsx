@@ -17,10 +17,10 @@ const MovieHeader = () => {
       ) : (
         <div>
           <div className={styles.container}>
-            <div>
-              <MovieTitle />
+            <div className={styles.title}>
+              <MovieTitle  />
             </div>
-            <div>
+            <div className={styles.search}>
               <Search placeholder={placeholder} />
             </div>
             <div className={styles.userInfo}>

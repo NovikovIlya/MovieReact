@@ -1,11 +1,12 @@
 import type { PaginationProps } from 'antd';
-import { ConfigProvider, Empty, Pagination, Select } from 'antd';
+import { ConfigProvider, Empty, Pagination, Select, Spin } from 'antd';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useFetchMoviesPopularQuery } from '../../store/MovieApi';
+import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieApi';
 import styles from './New.module.scss';
 
 const New = () => {
+  const { data, refetch, isFetching, error } = useAuthApiQuery('');
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
@@ -48,7 +49,15 @@ const New = () => {
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   return (
-    <>
+    <> {!data ? (
+      isFetching && (
+        <div className={styles.zagr}>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div>
+      )
+    ) : (<>
       <div className={styles.parentDrop}>
         <Select
           showSearch
@@ -144,7 +153,7 @@ const New = () => {
         <div className={styles.pag}>
           <Pagination onChange={onChange} defaultCurrent={1} total={500} />
         </div>
-      </ConfigProvider>
+      </ConfigProvider> </>)}
     </>
   );
 };

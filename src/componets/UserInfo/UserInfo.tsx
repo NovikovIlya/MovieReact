@@ -1,23 +1,15 @@
-import React, { useRef } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
+import { DownOutlined, HomeOutlined, LogoutOutlined, MenuOutlined, StarOutlined, UserOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Button, Dropdown, Space } from 'antd';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../store/MovieApi';
 import styles from './UserInfo.module.scss';
-import { MenuOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import {
-  DownOutlined,
-  UserOutlined,
-  HomeOutlined,
-  StarOutlined,
-  LogoutOutlined,
-} from '@ant-design/icons';
-import { Button, Dropdown, Space } from 'antd';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const UserInfo = () => {
-  const refUser = useRef();
   function getItem(
     label: React.ReactNode,
     key: React.Key,

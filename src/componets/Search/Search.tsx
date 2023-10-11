@@ -1,6 +1,6 @@
 import { AutoComplete } from 'antd';
 import cn from 'classnames';
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useFetchMoviesQuery } from '../../store/MovieApi';
@@ -11,8 +11,7 @@ import styles from './Search.module.scss';
 const Search: React.FC<SearchProps> = (props) => {
   const navigate = useNavigate();
 
-  const [dataMass, setDataMass] = useState([
-  ]);
+  const [dataMass, setDataMass] = useState([]);
   const options = dataMass;
   const [val2, setVal2] = useState('');
   const [dis, setDis] = useState(true);
@@ -26,7 +25,7 @@ const Search: React.FC<SearchProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const onSelect = (data2: string) => {
-    const data3 = data2.split(',')[0]
+    const data3 = data2.split(',')[0];
     const es = data?.Search?.find((item) => {
       return item.Title === data3;
     });
@@ -60,7 +59,7 @@ const Search: React.FC<SearchProps> = (props) => {
     if (data) {
       if (data.Search) {
         const searchData = data.Search.map((item) => {
-          let { Title,Year } = item;
+          let { Title, Year } = item;
           return { ...item, value: `${Title}, ${Year}` };
         });
         console.log('vvvbbb', searchData);
