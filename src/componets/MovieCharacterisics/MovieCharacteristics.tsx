@@ -98,7 +98,9 @@ const MovieCharacteristics = () => {
                 </div>
               ) : (
                 <>
+                <div >
                   <div className={styles.container2}>
+                    <div className={styles.container2ss}>
                     <ConfigProvider
                       theme={{
                         components: {
@@ -132,6 +134,7 @@ const MovieCharacteristics = () => {
                         ]}
                       />
                     </ConfigProvider>
+                    </div>
                   </div>
                   <div className={styles.container}>
                     <div className={styles.containerTop}>
@@ -223,6 +226,7 @@ const MovieCharacteristics = () => {
                     <div className={styles.containerComment}>
                       <Comment id={id} />
                     </div>
+                  </div>
                   </div>
                 </>
               )}

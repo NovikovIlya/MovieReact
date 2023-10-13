@@ -25,6 +25,8 @@ const MovieList = ({ movie }: MovieListProps) => {
     centerMode: true,
     slidesToShow: mobile ? 1 : 3,
     speed: 500,
+    autoplay: true,
+    autoplaySpeed: 4000,
   };
   const settings2 = {
     centerMode: true,

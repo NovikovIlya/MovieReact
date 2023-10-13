@@ -15,7 +15,7 @@ const MovieHeader = () => {
       {!data ? (
         isFetching && <></>
       ) : (
-        <div>
+        <div className={styles.main}>
           <div className={styles.container}>
             <div className={styles.title}>
               <MovieTitle  />
@@ -27,7 +27,7 @@ const MovieHeader = () => {
               <UserInfo />
             </div>
           </div>
-          <div className={styles.container2}>
+          <div className={styles.container3}>
             <Divider className={styles.divi} />
           </div>
         </div>

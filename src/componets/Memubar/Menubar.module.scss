@@ -1,5 +1,5 @@
-.container > .ant-menu-overflow{
-   
+.container {
+   padding-top: 130px;
 }
 .hidden{
     display: none;
@@ -31,4 +31,7 @@
         display: flex;
         justify-content: center;
     }
+    .container {
+        padding-top: 13px;
+     }
 }

@@ -40,10 +40,13 @@
 .container2 {
   margin: 0 auto;
   margin-top: 50px;
-  width: 70%;
+  width: 1200px;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   flex-wrap: wrap;
+}
+.container2ss{
+  width: 70%;
 }
 .containerTop {
   display: flex;
@@ -136,12 +139,18 @@
 
   color: white;
 }
+.container2Parent{
+  width: 1200px;
+}
 
 @media screen and (max-width: 600px) {
   .plus {
     width: 300px;
   }
   .container {
+    width: 100%;
+  }
+  .container2 {
     width: 100%;
   }
   .containerTop {

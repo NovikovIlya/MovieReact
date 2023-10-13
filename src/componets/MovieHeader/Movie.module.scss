@@ -1,3 +1,9 @@
+.main{
+    position: fixed;
+    width: 100%;
+    background-color: black;
+    z-index: 10000;
+}
 .container{
     display: flex;
     justify-content: space-between;
@@ -12,11 +18,20 @@
     padding-top: 3px;
     align-items: center;
 }
+.container3{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-top: 3px;
+    align-items: center;
+    padding-bottom: 0;
+}
 .userInfo{
     width: 175px;
 }
 .divi{
     background-color: gray;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -32,6 +47,10 @@
         width: 100%;
         display: flex;
         justify-content: center;
+    }
+    .main{
+        position: relative;
+       
     }
     
 }
