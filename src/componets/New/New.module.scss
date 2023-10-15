@@ -8,7 +8,10 @@
 .parent{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    padding-left: 40px;
+    padding-right: 40px;
+    min-width: 1200px;
 }
 .img{
     width: 300px;
@@ -29,19 +32,22 @@
     border-radius: 0 20px 20px 0;
 }
 .text{
-    height: 80px;
+    height: 60px;
     padding: 8px;
     position: relative;
     bottom: -450px;
     background-color: #0000008f;
     width: 300px;
     text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
 }
 .parentDrop{
     margin-top: 10px;
 }
 .drop{
-    margin-left: 100px;
+    margin-left: 65px;
 }
 .drop2{
     margin-left: 10px;
@@ -54,6 +60,13 @@
 }
 
 @media screen and (max-width:600px) {
+    .parent{
+        min-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        justify-content: center;
+    }
     .parentDrop{
         margin-top: 30px;
         display: flex;

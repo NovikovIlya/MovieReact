@@ -140,6 +140,20 @@ export type ratingType = {
   rating: number,
 }
 
+export interface RootYts {
+  status: string
+  status_message: string
+  data: DataYts
+  "@meta": any,
+}
+
+
+export type  DataYts = {
+  movie_count: number
+  limit: number
+  page_number: number
+  movies: MovieYts[]
+}
 
 
 
@@ -188,3 +202,4 @@ export type Torrent = {
   date_uploaded: string
   date_uploaded_unix: number
 }
+

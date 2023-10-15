@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { MovieApiOneType, MovieArray, Root2, TrailerApi, argType, login,  ratingType,  tokenType } from '../types';
+import { MovieApiOneType, MovieArray, Root2, RootYts, TrailerApi, argType, login,  ratingType,  tokenType } from '../types';
 
 export const MovieApiPopular = createApi({
   reducerPath: 'apiMoviesPopular',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2' }),
   tagTypes: ['apiMoviesPopular'],
   endpoints: (builder) => ({
-    fetchMoviesPopular: builder.query<any, string>({
+    fetchMoviesPopular: builder.query<RootYts, string>({
       query: (search) => ({
         url: `list_movies.json?${search}`,
       }),

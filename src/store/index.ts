@@ -1,4 +1,4 @@
-import  sliceMovie, { switchAvatar, toggleDropdown }  from './sliceMovie';
+import  sliceMovie  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { AddCommentApi, AddRatingApi, LoginApi, MovieApi, MovieApiOne,MovieApiPopular,RegistrApi,auth,fetchCommentApi,fetchRatingApi,renameApi,similarApi,torrentApi,trailerApi } from './MovieApi'; 
 
@@ -13,7 +13,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage'; 
 
 const rootReducer = combineReducers({
     [MovieApi.reducerPath]: MovieApi.reducer,
@@ -31,15 +31,13 @@ const rootReducer = combineReducers({
     [torrentApi.reducerPath]: torrentApi.reducer,
     [MovieApiPopular.reducerPath]: MovieApiPopular.reducer,
     sliceMovie,
-    switchAvatar,
-    toggleDropdown
 });
 
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist:[MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,renameApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,LoginApi.reducerPath,RegistrApi.reducerPath,auth.reducerPath]
+  blacklist:['toggleDropdown',MovieApi.reducerPath,MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,renameApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,LoginApi.reducerPath,RegistrApi.reducerPath,auth.reducerPath]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

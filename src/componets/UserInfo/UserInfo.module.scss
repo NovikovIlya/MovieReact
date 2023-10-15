@@ -9,12 +9,16 @@
     }
 }
 .menu{
-
+    position: relative;
+    z-index: 10000000;
     border-radius: 10px;
     width: 70%;
 }
+
 .lin{
     text-decoration: none;
+    position: relative;
+    z-index: 10000000;
 }
 
 @media screen and (max-width:600px) {

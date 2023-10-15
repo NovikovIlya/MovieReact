@@ -11,7 +11,7 @@ const New = () => {
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
-  const [sort, setSort] = useState('year');
+  const [sort, setSort] = useState('date_added');
   const { data: dataPopular } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=9&page=${num}&genre=${genre}`,
   );
@@ -31,20 +31,16 @@ const New = () => {
   };
 
   const onClickDrop = (value) => {
-    console.log('rr', value);
     setGenre(value);
   };
   const onClickDropTwo = (value) => {
-    console.log('rr', value);
     setSort(value);
   };
   const onClickDropThree = (value) => {
-    console.log('rr', value);
     setSortHow(value);
   };
 
   const onSearch = (value: string) => {
-    console.log('search:', value);
   };
   const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
