@@ -13,7 +13,22 @@ const MovieHeader = () => {
   return (
     <>
       {!data ? (
-        isFetching && <></>
+        isFetching ? <></> : <><div className={styles.main}>
+        <div className={styles.container}>
+          <div className={styles.title}>
+            <MovieTitle  />
+          </div>
+          <div className={styles.search}>
+            <Search placeholder={placeholder} />
+          </div>
+          <div className={styles.userInfo}>
+            <UserInfo />
+          </div>
+        </div>
+        <div className={styles.container3}>
+          <Divider className={styles.divi} />
+        </div>
+      </div></>
       ) : (
         <div className={styles.main}>
           <div className={styles.container}>

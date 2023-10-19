@@ -46,7 +46,7 @@ const Similar = ({gengreText}:SimilarProps ) => {
   return (
     <>
         <div className={styles.container}>
-          <h2>If you liked this movie:</h2>
+          <h2 className={styles.head}>If you liked this movie:</h2>
            <Slider {...settings}>
             {isLoading ? <div></div> : arrayYts?.map((item)=>{
               return(

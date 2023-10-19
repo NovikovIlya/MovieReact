@@ -26,12 +26,16 @@
     align-items: center;
     padding-bottom: 0;
 }
+.container3 .ant-divider{
+    margin-top: 0 !important;
+}
 .userInfo{
     width: 175px;
 }
 .divi{
     background-color: gray;
     margin-bottom: 0;
+    margin-top: 0 !important;
 }
 
 @media screen and (max-width: 600px) {

@@ -56,6 +56,15 @@ body{
   position: relative;
   z-index: 100000000;
 } */
-.ant-dropdown{
+.ant-dropdown,.ant-select-dropdown{
   z-index: 100000000 !important;
+}
+.side-by-side,.fullscreen,.preview,.separator {
+  display: none !important;
+}
+/* .ant-form-item{
+  width: 100%;
+} */
+.ant-message{
+  z-index: 100000000;
 }

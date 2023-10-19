@@ -76,7 +76,7 @@ const MovieList = ({ movie }: MovieListProps) => {
         })}
       </Slider>
 
-      <div>
+      <div className={styles.papadivi}>
         <Divider className={styles.divi} />
       </div>
 

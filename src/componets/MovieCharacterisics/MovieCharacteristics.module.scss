@@ -143,6 +143,10 @@
 .container2Parent{
   width: 1200px;
 }
+.lin2Btn{
+  z-index: 1000000;
+  margin-bottom: 3px;
+}
 
 @media screen and (max-width: 600px) {
   .plus {
@@ -176,5 +180,8 @@
     &__right {
       margin-top: 10px;
     }
+  }
+  .container2{
+    padding-top: 40px;
   }
 }

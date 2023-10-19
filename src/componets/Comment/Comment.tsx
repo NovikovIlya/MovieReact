@@ -3,14 +3,20 @@ import { auth, useAddCommentMutation, useFetchCommentQuery } from '../../store/M
 import styles from './Comment.module.scss';
 import { Input as AntdInput, Button, Divider, Select, Space } from 'antd';
 import { UserOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import cn from 'classnames';
 import { CommentProps } from '../../types';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
+import Texteditor from '../TextEditor/Texteditor';
+import Markdown from 'react-markdown'
+import { addTextComment } from '../../store/sliceMovie';
+import { Link } from 'react-router-dom';
 
 const Comment: React.FC<CommentProps> = ({ id }) => {
+  const dispatch = useAppDispatch()
+  const textComment = useAppSelector((state)=>state.sliceMovie.textComment)
   const [objArray, setObjArray] = useState({
     all: null,
     positive: null,
@@ -49,7 +55,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
   };
 
   const handleCreate = async () => {
-    const title = text;
+    const title = textComment;
     const name = dataApi.username;
     if (name === '' || title === '') {
       return alert('You must enter a name or text!');
@@ -68,7 +74,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     alert(
       'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
     );
-    setText('');
+    dispatch(addTextComment(''))
   };
   const likeD = () => {
     let allAray = data?.length;
@@ -106,53 +112,24 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
 
   return (
     <div className={styles.MainParent}>
-      <div className={styles.parentBtn}>
-        <Controller
-          render={({ field }) => (
-            <AntdInput
-              className={styles.inp}
-              placeholder="Input comment"
-              {...field}
-              onChange={(e) => handleComment(e)}
-              value={text}
-            />
-          )}
-          rules={{
-            required: 'Field cannot be empty',
-            minLength: { value: 4, message: 'Minimum 4 characters' },
-          }}
-          name="comment"
-          control={control}
-          defaultValue=""
-        />
-        <ErrorMessage
-          errors={errors}
-          name="comment"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? _.entries(messages).map(([type, message]: [string, string]) => (
-                  <p className={styles.error} key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
-        />
-        <Select
+      <div className={styles.parentBtn}>  
+        {/* <Select
           className={styles.selec}
           defaultValue="like"
-          style={{ width: 120 }}
+
           onChange={handleChange}
           options={[
             { value: 'like', label: 'like' },
             { value: 'hate', label: 'hate' },
           ]}
-        />
-        <Button className={styles.btn} onClick={() => handleCreate()}>
+        /> */}
+         <Texteditor id={id}/>
+        {/* <Button className={styles.btn} onClick={() => handleCreate()}>
           Add comment
-        </Button>
+        </Button> */}
       </div>
+
+      {reversedArray.length > 0 && <Divider style={{background:'white'}}/>}
 
       <div className={styles.MainAll}>
         <div className={styles.Main}>
@@ -167,7 +144,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
                       <div key={child.name} className={styles.containerChilcd}>
                         <div>
                           <UserOutlined className={styles.out} />
-                          {child.name}
+                          <Link to={`/info/${child.name}`}>{child.name}</Link>
                         </div>
                         <Divider />
                         <div className={styles.containerChilcd__text}>
@@ -176,7 +153,11 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
                           ) : (
                             <DislikeOutlined className={styles.out} />
                           )}
-                          {child.text}
+                          <div className={styles.childText}>
+                          <Markdown>
+                            {child.text}
+                          </Markdown>
+                          </div>
                         </div>
                       </div>
                     );
@@ -186,6 +167,8 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
             })
           )}
         </div>
+
+        
 
         {data?.length > 0 && (
           <div className={styles.MainTwo}>

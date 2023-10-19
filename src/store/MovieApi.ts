@@ -172,6 +172,54 @@ export const renameApi = createApi({
   }),
 });
 
+export const repassApi = createApi({
+  reducerPath: 'repass',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/repassword' }),
+  tagTypes: ['repass'],
+  endpoints: (builder) => ({
+    repassApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'PUT',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['repass'],
+    }),
+  }),
+});
+export const info = createApi({
+  reducerPath: 'info',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/info' }),
+  tagTypes: ['info'],
+  endpoints: (builder) => ({
+    infoApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['info'],
+    }),
+  }),
+});
+
+export const getUser = createApi({
+  reducerPath: 'getUser',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/user' }),
+  tagTypes: ['getUser'],
+  endpoints: (builder) => ({
+    getUserApiSet: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: '',
+        body: add,
+      }),
+      invalidatesTags: ['getUser'],
+    }),
+  }),
+});
+
+
 export const RegistrApi = createApi({
   reducerPath: 'RegistrApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/registrationNew' }),
@@ -218,6 +266,9 @@ export const { useAuthApiQuery, useLazyAuthApiQuery } = auth;
 export const { useFetchRatingQuery} = fetchRatingApi
 export const {useAddRatingMutation} = AddRatingApi
 export const {useRenameApiSetMutation} = renameApi
+export const {useRepassApiSetMutation} = repassApi
 export const {useSimilarFetchQuery} = similarApi
 export const {useTorrentFetchQuery} = torrentApi
 export const {useFetchMoviesPopularQuery} = MovieApiPopular
+export const {useInfoApiSetMutation} = info
+export const {useGetUserApiSetMutation} = getUser

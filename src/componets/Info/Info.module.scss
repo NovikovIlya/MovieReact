@@ -1,0 +1,27 @@
+.container{
+    margin: 0 auto;
+    padding-top: 160px;
+    width: 400px;
+    display: grid;
+    grid-template-columns: 50% 50% ;
+
+}
+
+.el{
+   display: flex;
+   justify-content: left;
+   text-align: start;
+}
+
+.ava{
+    display: flex;
+    justify-content: center;
+    width: 30px;
+}
+
+
+@media screen and (max-width:600px) {
+    .container{
+        padding-top: 10px;
+    }
+}

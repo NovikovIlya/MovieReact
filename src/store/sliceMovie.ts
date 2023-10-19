@@ -9,6 +9,7 @@ const initialState = {
   render: false,
   avatar: 'https://innostudio.de/fileuploader/images/default-avatar.png',
   dropdown: 'mail',
+  textComment:'Enter comment',
 };
 
 export const sliceMovie = createSlice({
@@ -47,6 +48,9 @@ export const sliceMovie = createSlice({
     toggleDropdown: (state, action) => {
       state.dropdown = action.payload;
     },
+    addTextComment:(state, action) => {
+      state.textComment = action.payload;
+    },
   },
 });
 
@@ -60,5 +64,6 @@ export const {
   toggleRender,
   switchAvatar,
   toggleDropdown,
+  addTextComment,
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

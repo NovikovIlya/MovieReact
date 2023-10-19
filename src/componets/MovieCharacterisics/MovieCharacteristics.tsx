@@ -9,7 +9,7 @@ import {
 import styles from './MovieCharacteristics.module.scss';
 import Trailer from '../Trailer/Trailer';
 import Comment from '../Comment/Comment';
-import { Divider, Popover, Spin, Breadcrumb, ConfigProvider } from 'antd';
+import { Divider, Popover, Spin, Breadcrumb, ConfigProvider, Button, Modal } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { StarFilled, PlusOutlined, CheckOutlined } from '@ant-design/icons';
 import cn from 'classnames';
@@ -26,7 +26,8 @@ const MovieCharacteristics = () => {
       <p>Add to favorites</p>
     </div>
   );
-  const [tor, setTor] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tor, setTor] = useState([]);
   const [iconToggle, setIconToggle] = useState(false);
   const [gengreText, setGenreText] = useState<string>('');
   const navigate = useNavigate();
@@ -46,6 +47,17 @@ const MovieCharacteristics = () => {
   const addFavoriteFnc = (item: movieType) => {
     dispatch(addFavorite(item));
     setIconToggle(true);
+  };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -70,10 +82,18 @@ const MovieCharacteristics = () => {
   }, [data, navigate, dataApi, error]);
 
   useEffect(() => {
-    const torrent = dataTorrent?.data?.movies?.[0].torrents?.[1]?.url ?? '';
+    const dt = dataTorrent?.data?.movies?.[0].torrents.map((item) => {
+      return {
+        size: item.size,
+        url: item.url,
+        quality: item.quality,
+        type: item.type,
+      }; 
+    });
+    const torrentMassiv = dataTorrent?.data?.movies?.[0].torrents?.[1] ? dt : [];
+    setTor(torrentMassiv);
 
-    setTor(torrent);
-    console.log('v', torrent);
+    console.log('torrentMassiv', torrentMassiv);
   }, [dataTorrent]);
 
   return (
@@ -98,135 +118,157 @@ const MovieCharacteristics = () => {
                 </div>
               ) : (
                 <>
-                <div >
-                  <div className={styles.container2}>
-                    <div className={styles.container2ss}>
-                    <ConfigProvider
-                      theme={{
-                        components: {
-                          Breadcrumb: {
-                            itemColor:'rgba(39, 97, 245, 0.8)',
-                            linkColor:'rgba(39, 97, 245, 0.8)',
-                            separatorColor:'rgba(39, 97, 245, 0.8)',
-                            lastItemColor:'rgba(39, 97, 245, 0.8)',
-                            linkHoverColor:'rgba(39, 97, 245, 0.8)'
-                          },
-                        },
-                      }}>
-                      <Breadcrumb
-                        items={[
-                          {
-                            href: '/',
-                            title: <HomeOutlined />,
-                          },
-                          {
-                            href: '/new',
-                            title: (
-                              <>
-                                <UserOutlined />
-                                <span>Movies</span>
-                              </>
-                            ),
-                          },
-                          {
-                            title: data.Title,
-                          },
-                        ]}
-                      />
-                    </ConfigProvider>
-                    </div>
-                  </div>
-                  <div className={styles.container}>
-                    <div className={styles.containerTop}>
-                      <div className={styles.container__left}>
-                        <div>
-                          <img
-                            src={
-                              data.Poster
-                                ? data.Poster
-                                : 'https://t4.ftcdn.net/jpg/04/72/65/73/360_F_472657366_6kV9ztFQ3OkIuBCkjjL8qPmqnuagktXU.jpg'
-                            }
-                            alt="no"
+                  <div>
+                    <div className={styles.container2}>
+                      <div className={styles.container2ss}>
+                        <ConfigProvider
+                          theme={{
+                            components: {
+                              Breadcrumb: {
+                                itemColor: 'rgba(39, 97, 245, 0.8)',
+                                linkColor: 'rgba(39, 97, 245, 0.8)',
+                                separatorColor: 'rgba(39, 97, 245, 0.8)',
+                                lastItemColor: 'rgba(39, 97, 245, 0.8)',
+                                linkHoverColor: 'rgba(39, 97, 245, 0.8)',
+                              },
+                            },
+                          }}>
+                          <Breadcrumb
+                            items={[
+                              {
+                                href: '/',
+                                title: <HomeOutlined />,
+                              },
+                              {
+                                href: '/new',
+                                title: (
+                                  <>
+                                    <UserOutlined />
+                                    <span>Movies</span>
+                                  </>
+                                ),
+                              },
+                              {
+                                title: data.Title,
+                              },
+                            ]}
                           />
-                          <div className={styles.lin2Parent}>
-                            <Link className={styles.lin2} to={tor}>
-                              Download
-                            </Link>
-                          </div>
-                        </div>
-
-                        <div className={styles.plus}>
-                          <Popover content={content} title="">
-                            {!iconToggle ? (
-                              <PlusOutlined
-                                className={styles.plusE}
-                                onClick={() => addFavoriteFnc(data)}
-                              />
-                            ) : (
-                              <CheckOutlined
-                                className={styles.plusE}
-                                onClick={() => addFavoriteFnc(data)}
-                              />
-                            )}
-                          </Popover>
-                        </div>
-                      </div>
-                      <CharacherRight arg={arg} />
-                    </div>
-
-                    <Divider className={styles.divid} />
-
-                    <div className={styles.containerBottom}>
-                      <div className={styles.Bottom}>
-                        <div className={styles.itemRight}>{data.Plot}</div>
+                        </ConfigProvider>
                       </div>
                     </div>
-
-                    <Divider className={styles.divid} />
-
-                    <div className={styles.twoItemParent}>
-                      <div className={styles.twoItem}>
-                        <div className={styles.containerTrailer}>
+                    <div className={styles.container}>
+                      <div className={styles.containerTop}>
+                        <div className={styles.container__left}>
                           <div>
-                            <Trailer id={arg.id} title={data.Title} year={data.Year} />
+                            <img
+                              src={
+                                data.Poster
+                                  ? data.Poster
+                                  : 'https://t4.ftcdn.net/jpg/04/72/65/73/360_F_472657366_6kV9ztFQ3OkIuBCkjjL8qPmqnuagktXU.jpg'
+                              }
+                              alt="no"
+                            />
+                            <div className={styles.lin2Parent}>
+                              <Button className={styles.lin2Btn} type="primary" onClick={showModal}>
+                                Download
+                              </Button>
+                              <Modal
+                                title=""
+                                open={isModalOpen}
+                                onOk={handleOk}
+                                onCancel={handleCancel}>
+                                {tor.length > 0 &&
+                                  tor.map((item) => {
+                                    return (
+                                      <>
+                                        <Link to={item.url}>
+                                          <div>
+                                            {item.quality}, {item.size}, {item.type}
+                                          </div>
+                                        </Link>
+                                      </>
+                                    );
+                                  })}
+                              </Modal>
+
+                              {/* <Link className={styles.lin2} to={tor}>
+                              Download
+                            </Link> */}
+                            </div>
+                          </div>
+
+                          <div className={styles.plus}>
+                            <Popover content={content} title="">
+                              {!iconToggle ? (
+                                <PlusOutlined
+                                  className={styles.plusE}
+                                  onClick={() => addFavoriteFnc(data)}
+                                />
+                              ) : (
+                                <CheckOutlined
+                                  className={styles.plusE}
+                                  onClick={() => addFavoriteFnc(data)}
+                                />
+                              )}
+                            </Popover>
                           </div>
                         </div>
-                        <div className={styles.containerRating}>
-                          <div className={styles.Bottom}>
-                            <div className={styles.itemRight2}>
-                              {data.Ratings
-                                ? data.Ratings.map((item) => {
-                                    return (
-                                      <div key={item.Source} className={styles.ratingMass}>
-                                        <div>
-                                          <StarFilled className={styles.star} />
-                                          {item.Source}:
+                        <CharacherRight arg={arg} />
+                      </div>
+
+                      <Divider className={styles.divid} />
+
+                      <div className={styles.containerBottom}>
+                        <div className={styles.Bottom}>
+                          <div className={styles.itemRight}>{data.Plot}</div>
+                        </div>
+                      </div>
+
+                      <Divider className={styles.divid} />
+
+                      <div className={styles.twoItemParent}>
+                        <div className={styles.twoItem}>
+                          <div className={styles.containerTrailer}>
+                            <div>
+                              <Trailer id={arg.id} title={data.Title} year={data.Year} />
+                            </div>
+                          </div>
+                          <div className={styles.containerRating}>
+                            <div className={styles.Bottom}>
+                              <div className={styles.itemRight2}>
+                                {data.Ratings
+                                  ? data.Ratings.map((item) => {
+                                      return (
+                                        <div key={item.Source} className={styles.ratingMass}>
+                                          <div>
+                                            <StarFilled className={styles.star} />
+                                            {item.Source}:
+                                          </div>
+                                          <div>{item.Value}</div>
                                         </div>
-                                        <div>{item.Value}</div>
-                                      </div>
-                                    );
-                                  })
-                                : ''}
+                                      );
+                                    })
+                                  : ''}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+
+                      <Rating id={id} />
+
+                      <Divider className={styles.divid} />
+
+                      <div className="row wh">
+                        <Similar gengreText={gengreText} />
+                      </div>
+
+                      <Divider className={styles.divid} />
+
+                      <div className={styles.containerComment}>
+                        <Comment id={id} />
+                      </div>
                     </div>
-
-                    <Rating id={id} />
-
-                    <Divider className={styles.divid} />
-
-                    <div className="row wh">
-                      <Similar gengreText={gengreText} />
-                    </div>
-
-                    <Divider className={styles.divid} />
-
-                    <div className={styles.containerComment}>
-                      <Comment id={id} />
-                    </div>
-                  </div>
                   </div>
                 </>
               )}

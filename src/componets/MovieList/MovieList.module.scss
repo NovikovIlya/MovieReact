@@ -20,6 +20,7 @@
     background-color: #0000008f;
     width: 300px;
     text-decoration: none;
+    color:white;
 }
 .bottom{
     display: flex;
@@ -58,7 +59,9 @@
 .tabl  ul{
     display: none !important;
 }
-
+.papadivi{
+    margin-top: 20px;
+}
 @media screen and (max-width:600px) {
     .head{
         margin-left: 0;

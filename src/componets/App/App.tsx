@@ -12,6 +12,7 @@ import Profile from '../Profile/Profile';
 import Layout from '../Layout/Layout';
 import { Favorites } from '../Favorites/Favorites';
 import New from '../New/New';
+import Info from '../Info/Info';
 
 function App() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
@@ -31,6 +32,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/new" element={<New />} />
+              <Route path="/info/:name" element={<Info />} />
               <Route path="*" element={<>Нет такого</>} />
             </Route>
             </Route>

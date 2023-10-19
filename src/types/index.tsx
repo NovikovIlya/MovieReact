@@ -114,6 +114,7 @@ export type Video =  {
 export type login ={
   username : string,
   password: string,
+  info?: string,
 }
 
 export type tokenType = {
@@ -203,3 +204,8 @@ export type Torrent = {
   date_uploaded_unix: number
 }
 
+export type FieldType = {
+  username?: string;
+  password?: string;
+  remember?: string;
+};
