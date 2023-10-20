@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { LoginApi, useAuthApiQuery } from '../../store/MovieApi';
+import {  useAuthApiQuery, useLoginApiSetMutation } from '../../store/MovieApi';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
 import { Input as AntdInput, Button as AndtdButton, message, Spin } from 'antd';
 import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
   LoginOutlined,
   DatabaseOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { switchAvatar, toggleRender } from '../../store/sliceMovie';
+import {  toggleRender } from '../../store/sliceMovie';
 import { FormInputs } from '../../types'; 
-
 
 
 
@@ -47,14 +43,13 @@ function LoginPage() {
   const [dis,setDis] = useState(false)
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
-  const [LoginApiSet, result] = LoginApi.useLoginApiSetMutation();
+  const [LoginApiSet, result] = useLoginApiSetMutation();
   const { data: dataApi, refetch,isFetching } = useAuthApiQuery('');
   const renderValue = useAppSelector((state)=>state.sliceMovie.render)
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
   const {
     control,
-    register,
     reset,
     handleSubmit,
     formState: { errors },
@@ -113,13 +108,6 @@ function LoginPage() {
  
   useEffect(() => {
     console.log('result',result)
-    //@ts-ignore
-    // if(result?.data?.user?.avatar){
-    //       //@ts-ignore
-    //       dispatch(switchAvatar(`https://backmovie.onrender.com/${result.data.user.avatar}`))
-    //     //@ts-ignore
-    //       console.log('bb',`https://backmovie.onrender.com/${result.data.user.avatar}`)
-    // }
     if (result.error) {
       const info = () => {
         messageApi.info('This user was not found!');

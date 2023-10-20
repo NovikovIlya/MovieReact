@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { RegistrApi } from '../../store/MovieApi';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
@@ -10,6 +9,7 @@ import { LoginOutlined, DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { FormInputs } from '../../types';
+import { useRegistrApiSetMutation } from '../../store/MovieApi';
 
 
 function Auth() {
@@ -40,7 +40,7 @@ function Auth() {
     setCurrent(e.key);
   };
 
-  const [RegistrApiSet, result] = RegistrApi.useRegistrApiSetMutation();
+  const [RegistrApiSet, result] = useRegistrApiSetMutation();
   const {
     control,
     register,
@@ -51,7 +51,7 @@ function Auth() {
   });
   const onSubmit = async (data) => {
     try {
-      const tok = await RegistrApiSet(data);
+       await RegistrApiSet(data);
     } catch (e) {
       console.log(e);
     }

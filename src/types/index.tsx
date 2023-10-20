@@ -115,6 +115,7 @@ export type login ={
   username : string,
   password: string,
   info?: string,
+  avatar?:any,
 }
 
 export type tokenType = {

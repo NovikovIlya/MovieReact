@@ -1,6 +1,6 @@
 import  sliceMovie  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { AddCommentApi, AddRatingApi, LoginApi, MovieApi, MovieApiOne,MovieApiPopular,RegistrApi,auth,fetchCommentApi,fetchRatingApi,getUser,info,renameApi,repassApi,similarApi,torrentApi,trailerApi } from './MovieApi'; 
+import { AddCommentApi, AddRatingApi,  MovieApi, MovieApiOne,MovieApiPopular,auth,fetchCommentApi,fetchRatingApi,info,infoTag,similarApi,torrentApi,trailerApi } from './MovieApi'; 
 
 
 import {
@@ -22,18 +22,14 @@ const rootReducer = combineReducers({
     [trailerApi.reducerPath]: trailerApi.reducer,
     [fetchCommentApi.reducerPath]: fetchCommentApi.reducer,
     [AddCommentApi.reducerPath]: AddCommentApi.reducer,
-    [LoginApi.reducerPath]: LoginApi.reducer,
-    [RegistrApi.reducerPath]: RegistrApi.reducer,
     [auth.reducerPath]: auth.reducer,
     [fetchRatingApi.reducerPath]: fetchRatingApi.reducer,
     [AddRatingApi.reducerPath]: AddRatingApi.reducer,
-    [renameApi.reducerPath]: renameApi.reducer,
     [similarApi.reducerPath]: similarApi.reducer,
     [torrentApi.reducerPath]: torrentApi.reducer,
     [MovieApiPopular.reducerPath]: MovieApiPopular.reducer,
-    [repassApi.reducerPath]: repassApi.reducer,
     [info.reducerPath]: info.reducer,
-    [getUser.reducerPath]: getUser.reducer,
+    [infoTag.reducerPath]: infoTag.reducer,
     sliceMovie,
 });
 
@@ -41,7 +37,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist:['toggleDropdown',getUser.reducerPath,info.reducerPath,repassApi.reducerPath,MovieApi.reducerPath,MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,renameApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,LoginApi.reducerPath,RegistrApi.reducerPath,auth.reducerPath]
+  blacklist:['toggleDropdown',infoTag.reducerPath,info.reducerPath,MovieApi.reducerPath,MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,auth.reducerPath]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,7 +49,7 @@ const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(getUser.middleware,info.middleware,repassApi.middleware,MovieApiPopular.middleware,torrentApi.middleware,similarApi.middleware,renameApi.middleware,AddRatingApi.middleware,fetchRatingApi.middleware,RegistrApi.middleware,auth.middleware,LoginApi.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
+      }).concat(infoTag.middleware,info.middleware,MovieApiPopular.middleware,torrentApi.middleware,similarApi.middleware,AddRatingApi.middleware,fetchRatingApi.middleware,auth.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
     },
 });
 

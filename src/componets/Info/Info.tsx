@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import styles from './Info.module.scss';
-import { useGetUserApiSetMutation } from '../../store/MovieApi';
+import {  useGetUserApiSetMutation, useGetUserApiSetTwoMutation, useInfoApiSetTwoQuery } from '../../store/MovieApi';
 import { useParams } from 'react-router-dom';
 
 const Info = () => {
   const { name } = useParams();
   const [getUserApiSet, { data }] = useGetUserApiSetMutation();
+  const {data:danaSet} = useInfoApiSetTwoQuery('')
+  const [getKek] = useGetUserApiSetTwoMutation()
+  
 
   useEffect(() => {
     const getUser = () => {
@@ -24,7 +27,7 @@ const Info = () => {
           <div className={styles.el}>
             <img
               className={styles.ava}
-              src={`https://backmovie.onrender.com/${data.avatar}`}
+              src={`https://backmovie.onrender.com${data?.avatar}`}
               alt="no"
             />
           </div>

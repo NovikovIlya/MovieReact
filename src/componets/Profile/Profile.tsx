@@ -115,7 +115,6 @@ const Profile = () => {
     });
     let result = await response.json();
     console.log('rrr', result);
-    dispatch(switchAvatar(`https://backmovie.onrender.com/${result}`));
   };
 
   const darkModeTheme = cn({
@@ -167,6 +166,8 @@ const Profile = () => {
     console.log('status', statusRepass);
   }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess]);
 
+  console.log('dataApi',dataApi)
+
   useEffect(() => {
     if (errorApi) {
       if ('data' in errorApi) {
@@ -199,7 +200,7 @@ const Profile = () => {
       <div className={styles.mess}>{contextHolder}</div>
       <div className={darkModeTheme}>
         <div className={styles.container}>
-          <img className={styles.ava} src={ava} alt="no" />
+          <img className={styles.ava} src={`https://backmovie.onrender.com/${dataApi?.avatar ? dataApi.avatar : 'uploads/test.png'}`} alt="no" />
 
           <div className={styles.imageParent} style={{ width: '100%' }}>
             <Button className={styles.btnImage} onClick={selFile}>
