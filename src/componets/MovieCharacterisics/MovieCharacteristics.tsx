@@ -1,6 +1,6 @@
 import { CharacherRight } from '../characterRight/CharacherRight';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   useAuthApiQuery,
   useFetchMoviesOneQuery,
@@ -20,6 +20,7 @@ import { addFavorite } from '../../store/sliceMovie';
 import { movieType } from '../../types';
 
 const MovieCharacteristics = () => {
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const content = (
     <div>
@@ -81,6 +82,13 @@ const MovieCharacteristics = () => {
     setGenreText(text);
   }, [data, navigate, dataApi, error]);
 
+  useEffect(()=>{
+    const kek = ()=>{
+      window.scrollTo(0,0)
+    }
+    setTimeout(kek,1000)
+  },[])
+
   useEffect(() => {
     const dt = dataTorrent?.data?.movies?.[0].torrents.map((item) => {
       return {
@@ -98,8 +106,8 @@ const MovieCharacteristics = () => {
 
   return (
     <>
-      {!data ? (
-        isFetching && (
+      {isFetching ? (
+       (
           <div className={styles.zagr}>
             <Spin tip="Loading" size="large">
               <div className="content" />
@@ -273,7 +281,7 @@ const MovieCharacteristics = () => {
                 </>
               )}
             </div>
-          </div>{' '}
+          </div>
         </>
       )}
     </>

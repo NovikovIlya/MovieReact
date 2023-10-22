@@ -10,7 +10,8 @@
   color: white;
 }
 .zagr {
-  margin-top: 150px;
+  position: absolute;
+  top:300px;
   width: 100%;
   &__hed1 {
     display: flex;
@@ -144,7 +145,7 @@
   width: 1200px;
 }
 .lin2Btn{
-  z-index: 1000000;
+  z-index: 1000;
   margin-bottom: 3px;
 }
 
