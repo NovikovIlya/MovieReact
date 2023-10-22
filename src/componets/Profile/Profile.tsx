@@ -200,7 +200,7 @@ const Profile = () => {
       <div className={styles.mess}>{contextHolder}</div>
       <div className={darkModeTheme}>
         <div className={styles.container}>
-          <img className={styles.ava} src={`https://backmovie.onrender.com/${dataApi?.avatar ? dataApi.avatar : 'uploads/test.png'}`} alt="no" />
+          <img className={styles.ava} src={`https://backmovie.onrender.com/${dataApi.avatar}`} alt="Add image" />
 
           <div className={styles.imageParent} style={{ width: '100%' }}>
             <Button className={styles.btnImage} onClick={selFile}>

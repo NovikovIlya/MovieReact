@@ -48,23 +48,14 @@ body{
 .mda1{
   margin-bottom: 50px;
 }
-/* .ant-dropdown-menu-item{
-  position: relative;
-  z-index: 100000000;
-}
-.ant-dropdown-menu{
-  position: relative;
-  z-index: 100000000;
-} */
+
 .ant-dropdown,.ant-select-dropdown{
   z-index: 100000000 !important;
 }
 .side-by-side,.fullscreen,.preview,.separator {
   display: none !important;
 }
-/* .ant-form-item{
-  width: 100%;
-} */
-.ant-message{
+
+.ant-message,.ant-modal-wrap{
   z-index: 100000000;
 }

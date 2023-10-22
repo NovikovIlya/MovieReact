@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from '../Login/LoginPage.module.scss';
-import { Input as AntdInput, Button as AndtdButton, message } from 'antd';
+import { Input as AntdInput, Button as AndtdButton, message, Spin } from 'antd';
 import { LoginOutlined, DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -13,6 +13,7 @@ import { useRegistrApiSetMutation } from '../../store/MovieApi';
 
 
 function Auth() {
+  const [lama,setLama] = useState(false)
   const items: MenuProps['items'] = [
     {
       label: (
@@ -50,8 +51,10 @@ function Auth() {
     criteriaMode: 'all',
   });
   const onSubmit = async (data) => {
+    setLama(true)
     try {
        await RegistrApiSet(data);
+       setLama(false)
     } catch (e) {
       console.log(e);
     }
@@ -143,6 +146,9 @@ function Auth() {
           </AndtdButton>
         </div>
       </form>
+      {lama&&     <Spin className={styles.spin} tip="Loading" size="large">
+            <div className="content" />
+          </Spin>}
       </div>
     </>
   );
