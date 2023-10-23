@@ -11,13 +11,11 @@ import {
   useRenameApiSetMutation,
   useRepassApiSetMutation,
 } from '../../store/MovieApi';
-import { switchAvatar } from '../../store/sliceMovie';
 import { FieldType } from '../../types';
 import TextArea from 'antd/es/input/TextArea';
 
 const Profile = () => {
   const refImage = useRef<HTMLInputElement>();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const [repassApiSet, { data: dataRepass, error: errorRepass, status: statusRepass }] =
@@ -31,9 +29,8 @@ const Profile = () => {
   const [renameApiSet, { error }] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data: dataApi, refetch } = auth.useAuthApiQuery('');
-  const ava = useAppSelector((state) => state.sliceMovie.avatar);
-  const [area,setArea] = useState('')
-  const [infoApiSet,{data:dataInfo}] = useInfoApiSetMutation()
+  const [area, setArea] = useState('');
+  const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
 
   const errorMessage = () => {
     messageApi.open({
@@ -83,7 +80,6 @@ const Profile = () => {
 
   const handleClickPassword = async () => {
     if (oldPass.length < 1) {
-      // alert('Пожалуста впишите текущий паспорт');
       errorMessage();
       return;
     }
@@ -96,9 +92,9 @@ const Profile = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.files);
     setSelectedFile(event.target.files[0]);
   };
+
   const onClickImage = async () => {
     if (!selectedFile) {
       alert('Please select a file');
@@ -115,47 +111,48 @@ const Profile = () => {
     });
     let result = await response.json();
     console.log('rrr', result);
-    refetch()
+    refetch();
   };
 
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   });
+
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
+
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
+
   const selFile = () => {
     refImage?.current?.click();
   };
 
-  const handleArea = (e)=>{
-    setArea(e.target.value)
-    console.log('ss',e.target.value)
-  }
+  const handleArea = (e) => {
+    setArea(e.target.value);
+  };
 
-  const cliclArea = ()=>{
+  const cliclArea = () => {
     const data = {
       username: dataApi.username,
-      info:area
-    }
-    infoApiSet(data)
-    setArea('')
-   
-  }
-  const placeholderImage =
-    'https://cdn-icons-png.flaticon.com/512/219/219983.png';
+      info: area,
+    };
+    infoApiSet(data);
+    setArea('');
+  };
+
+  const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
 
   const onErr = (error) => {
     console.log('e', error);
     error.target.src = placeholderImage;
   };
 
-  useEffect(()=>{
-    refetch()
-  },[refetch,dataInfo])
+  useEffect(() => {
+    refetch();
+  }, [refetch, dataInfo]);
 
   useEffect(() => {
     if (dataRepass) {
@@ -169,12 +166,9 @@ const Profile = () => {
     if (statusRepass === 'rejected') {
       errorMessageTwo();
     }
-    console.log('dataRepass', dataRepass);
-    console.log('errorRepass', errorRepass);
-    console.log('status', statusRepass);
+    
   }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess]);
 
-  console.log('dataApi',dataApi)
 
   useEffect(() => {
     if (errorApi) {
@@ -202,17 +196,23 @@ const Profile = () => {
       }
     }
   }, [error, error1]);
-  console.log('dataApi', dataApi);
+ 
+
+  if (!dataApi) {
+    navigate('/');
+  }
+
   return (
     <>
       <div className={styles.mess}>{contextHolder}</div>
       <div className={darkModeTheme}>
         <div className={styles.container}>
-          <img 
-          onError={onErr}
-          className={styles.ava} 
-          src={`https://backmovie.onrender.com/${dataApi.avatar}`} 
-          alt="Add" />
+          <img
+            onError={onErr}
+            className={styles.ava}
+            src={`https://backmovie.onrender.com/${dataApi?.avatar}`}
+            alt="Add"
+          />
 
           <div className={styles.imageParent} style={{ width: '100%' }}>
             <Button className={styles.btnImage} onClick={selFile}>
@@ -334,23 +334,29 @@ const Profile = () => {
             </div>
           </div>
 
-          <Divider  />
+          <Divider />
 
           <div>
             <h1>Information</h1>
             <div className={styles.textInfo}>{dataApi && dataApi.info}</div>
           </div>
 
-          <Divider  />
+          <Divider />
 
           <div>
-              <div>Change information</div>
-              <div>
-                <TextArea value={area} onChange={(e)=>handleArea(e)}  rows={4} placeholder="maxLength is 60" maxLength={60}/>
-              </div>
-              <div className={styles.btnInfo}>
-                <Button onClick={cliclArea}>Click</Button>
-              </div>
+            <div>Change information</div>
+            <div>
+              <TextArea
+                value={area}
+                onChange={(e) => handleArea(e)}
+                rows={4}
+                placeholder="maxLength is 60"
+                maxLength={60}
+              />
+            </div>
+            <div className={styles.btnInfo}>
+              <Button onClick={cliclArea}>Click</Button>
+            </div>
           </div>
         </div>
         {error ? <div className={styles.err}>{error1}</div> : ''}

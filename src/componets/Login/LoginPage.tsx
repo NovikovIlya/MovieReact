@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import {  useAuthApiQuery, useLoginApiSetMutation } from '../../store/MovieApi';
+import { useAuthApiQuery, useLoginApiSetMutation } from '../../store/MovieApi';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash';
 import styles from './LoginPage.module.scss';
 import { Input as AntdInput, Button as AndtdButton, message, Spin } from 'antd';
-import {
-  LoginOutlined,
-  DatabaseOutlined,
-} from '@ant-design/icons';
+import { LoginOutlined, DatabaseOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {  toggleRender } from '../../store/sliceMovie';
-import { FormInputs } from '../../types'; 
-
-
+import { toggleRender } from '../../store/sliceMovie';
+import { FormInputs } from '../../types';
 
 function LoginPage() {
   const items: MenuProps['items'] = [
     {
       label: (
-        <Link className={styles.lin}  to="/login" rel="noopener noreferrer">
+        <Link className={styles.lin} to="/login" rel="noopener noreferrer">
           Login
         </Link>
       ),
@@ -31,7 +26,7 @@ function LoginPage() {
     },
     {
       label: (
-        <Link className={styles.lin} to="/auth" >
+        <Link className={styles.lin} to="/auth">
           Sign up
         </Link>
       ),
@@ -39,15 +34,15 @@ function LoginPage() {
       key: 'alipay',
     },
   ];
-  const [lama,setLama] = useState(false)
-  const [dis,setDis] = useState(false)
+  const [lama, setLama] = useState(false);
+  const [dis, setDis] = useState(false);
   const [current, setCurrent] = useState('mail');
   const [messageApi, contextHolder] = message.useMessage();
   const [LoginApiSet, result] = useLoginApiSetMutation();
-  const { data: dataApi, refetch,isFetching } = useAuthApiQuery('');
-  const renderValue = useAppSelector((state)=>state.sliceMovie.render)
+  const { data: dataApi, refetch, isFetching } = useAuthApiQuery('');
+  const renderValue = useAppSelector((state) => state.sliceMovie.render);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const {
     control,
     reset,
@@ -63,61 +58,64 @@ function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      setLama(true)
-      setDis(true)
-      const tok  = await LoginApiSet(data);
-     
-      if('data' in tok){
-        localStorage.setItem('token', tok.data.token);
-        refetch()
-      }
-    } catch (e) {
-      console.log(e);
+      setLama(true);
+      setDis(true);
+      const tok = await LoginApiSet(data);
 
-    }finally{
-      setDis(false)
-      setLama(false)
-      reset({username:'',password:''})
-    }
-  };
-  const onSubmit1 = async () => {
-    try {
-      setLama(true)
-      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
-      if('data' in tok){
+      if ('data' in tok) {
         localStorage.setItem('token', tok.data.token);
         refetch();
       }
     } catch (e) {
       console.log(e);
-    }finally{
-      setLama(false)
+    } finally {
+      setDis(false);
+      setLama(false);
+      reset({ username: '', password: '' });
+    }
+  };
+  const onSubmit1 = async () => {
+    try {
+      setLama(true);
+      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
+      if ('data' in tok) {
+        localStorage.setItem('token', tok.data.token);
+        refetch();
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLama(false);
     }
   };
 
-
-
   useEffect(() => {
-    if(!isFetching){
-      dispatch(toggleRender())
+    if (!isFetching) {
+      dispatch(toggleRender());
     }
     if (dataApi) {
       navigate('/');
     }
-  }, [dataApi, navigate,isFetching,dispatch]);
- 
+  }, [dataApi, navigate, isFetching, dispatch]);
+
   useEffect(() => {
-    console.log('result',result)
+    console.log('result', result);
     if (result.error) {
       const info = () => {
         messageApi.info('This user was not found!');
       };
       info();
     }
-  }, [result,messageApi]);
+  }, [result, messageApi]);
 
-  if(!renderValue){
-    return <><div className={styles.render}><p>Please wait, the server is waking up on Render (about 30 sec)</p></div></>
+  if (!renderValue) {
+    return (
+      <>
+        <div className={styles.render}>
+          <p>Please wait, the server is waking up on Render (about 30 sec)</p>
+        </div>
+      </>
+    );
   }
 
   return (
@@ -131,26 +129,53 @@ function LoginPage() {
         items={items}
       />
       <div className={styles.Main}>
-      <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.name}>
+        <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+          <div className={styles.name}>
+            <Controller
+              render={({ field }) => <AntdInput placeholder="Username" {...field} />}
+              rules={{
+                required: 'Field cannot be empty',
+                minLength: { value: 4, message: 'Minimum 4 characters' },
+                shouldUnregister: false,
+              }}
+              name="username"
+              disabled={dis}
+              control={control}
+              defaultValue=""
+            />
+            <ErrorMessage
+              errors={errors}
+              name="username"
+              render={({ messages }) => {
+                console.log('messages', messages);
+                return messages
+                  ? _.entries(messages).map(([type, message]: [string, string]) => (
+                      <p className={styles.error} key={type}>
+                        {message}
+                      </p>
+                    ))
+                  : null;
+              }}
+            />
+          </div>
+
           <Controller
-         
-            render={({ field }) =>( <AntdInput placeholder="Username" {...field}
-            />)}
+            render={({ field }) => (
+              <AntdInput disabled={dis} placeholder="Password" type="password" {...field} />
+            )}
             rules={{
-              required:'Field cannot be empty',
+              required: 'Field cannot be empty',
               minLength: { value: 4, message: 'Minimum 4 characters' },
-              shouldUnregister:false,
-  
             }}
-            name="username"
             disabled={dis}
+            name="password"
             control={control}
             defaultValue=""
           />
+
           <ErrorMessage
             errors={errors}
-            name="username"
+            name="password"
             render={({ messages }) => {
               console.log('messages', messages);
               return messages
@@ -162,50 +187,26 @@ function LoginPage() {
                 : null;
             }}
           />
-        </div>
-
-        <Controller
-          render={({ field }) => <AntdInput disabled={dis} placeholder="Password" type="password" {...field} />}
-          rules={{
-            required: 'Field cannot be empty',
-            minLength: { value: 4, message: 'Minimum 4 characters' },
-          }}
-          disabled={dis}
-          name="password"
-          control={control}
-          defaultValue=""
-        />
-
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) => {
-            console.log('messages', messages);
-            return messages
-              ? _.entries(messages).map(([type, message]: [string, string]) => (
-                  <p className={styles.error} key={type}>
-                    {message}
-                  </p>
-                ))
-              : null;
-          }}
-        />
-        <div className={styles.container__btn}>
-          <AndtdButton type="primary" htmlType="submit">
-            Send
-          </AndtdButton>
-        </div>
-        <div className={styles.container__btn}>
-          <AndtdButton type="primary" htmlType="button" onClick={onSubmit1}>
-            Enter test user
-          </AndtdButton>
-        </div>
-      </form>
-      {lama&&     <Spin className={styles.spin} tip="Loading" size="large">
+          <div className={styles.container__btn}>
+            <AndtdButton type="primary" htmlType="submit">
+              Send
+            </AndtdButton>
+          </div>
+          <div className={styles.container__btn}>
+            <AndtdButton type="primary" htmlType="button" onClick={onSubmit1}>
+              Enter test user
+            </AndtdButton>
+          </div>
+        </form>
+        {lama && (<>
+          <Spin className={styles.spin} tip="Loading" size="large">
             <div className="content" />
-          </Spin>}
+          </Spin>
+          <div>Please wait, the server is waking up on Render (about 30 sec)</div>
+        </>
+        )}
+        
       </div>
-
     </>
   );
 }
