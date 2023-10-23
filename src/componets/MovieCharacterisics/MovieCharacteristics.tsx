@@ -19,6 +19,7 @@ import Similar from '../Similar/Similar';
 import { addFavorite } from '../../store/sliceMovie';
 import { movieType } from '../../types';
 
+
 const MovieCharacteristics = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
@@ -82,12 +83,12 @@ const MovieCharacteristics = () => {
     setGenreText(text);
   }, [data, navigate, dataApi, error]);
 
-  useEffect(()=>{
-    const kek = ()=>{
-      window.scrollTo(0,0)
-    }
-    setTimeout(kek,1000)
-  },[])
+  useEffect(() => {
+    const kek = () => {
+      window.scrollTo(0, 0);
+    };
+    setTimeout(kek, 1000);
+  }, [pathname]);
 
   useEffect(() => {
     const dt = dataTorrent?.data?.movies?.[0].torrents.map((item) => {
@@ -96,7 +97,7 @@ const MovieCharacteristics = () => {
         url: item.url,
         quality: item.quality,
         type: item.type,
-      }; 
+      };
     });
     const torrentMassiv = dataTorrent?.data?.movies?.[0].torrents?.[1] ? dt : [];
     setTor(torrentMassiv);
@@ -107,13 +108,11 @@ const MovieCharacteristics = () => {
   return (
     <>
       {isFetching ? (
-       (
-          <div className={styles.zagr}>
-            <Spin tip="Loading" size="large">
-              <div className="content" />
-            </Spin>
-          </div>
-        )
+        <div className={styles.zagr}>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div>
       ) : (
         <>
           <div className={styles.mt}>
@@ -198,10 +197,6 @@ const MovieCharacteristics = () => {
                                     );
                                   })}
                               </Modal>
-
-                              {/* <Link className={styles.lin2} to={tor}>
-                              Download
-                            </Link> */}
                             </div>
                           </div>
 

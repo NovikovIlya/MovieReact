@@ -1,36 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import styles from './Texteditor.module.scss';
-import SimpleMDE, { SimpleMdeReact } from 'react-simplemde-editor';
-import "easymde/dist/easymde.min.css";
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addTextComment } from '../../store/sliceMovie';
-import sliceMovie from '../../store/sliceMovie';
+import { Button, Select, message } from 'antd';
+import 'easymde/dist/easymde.min.css';
+import { useMemo, useState } from 'react';
+import { SimpleMdeReact } from 'react-simplemde-editor';
+import { useAppDispatch } from '../../hooks/redux';
 import { useAddCommentMutation, useAuthApiQuery } from '../../store/MovieApi';
-import { Button, Select } from 'antd';
+import { addTextComment } from '../../store/sliceMovie';
+import styles from './Texteditor.module.scss';
 
-
-
-
-const Texteditor = ({id}) => {
+const Texteditor = ({ id }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [valueSelect, setValueSelect] = useState(true);
-  const [valueZ,setValueZ] = useState('')
+  const [valueZ, setValueZ] = useState('');
   const { data: dataApi } = useAuthApiQuery('');
   const [AddCommentApi] = useAddCommentMutation();
-  const dispatch = useAppDispatch()
-  const textComment = useAppSelector((state)=>state.sliceMovie.textComment)
+  const dispatch = useAppDispatch();
 
+
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'You must enter text!',
+    });
+  };
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content:
+        'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
+    });
+  };
 
   const onChange = (value: string) => {
-    setValueZ(value)
-    // dispatch(addTextComment(value))
-    
-  }
+    setValueZ(value);
+  };
 
   const handleCreate = async () => {
     const title = valueZ;
     const name = dataApi.username;
     if (name === '' || title === '') {
-      return alert('You must enter a name or text!');
+      error();
+      return;
     }
     await AddCommentApi({
       imdbid: id,
@@ -43,55 +53,50 @@ const Texteditor = ({id}) => {
         },
       ],
     });
-    alert(
-      'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
-    );
-    dispatch(addTextComment(''))
-    setValueZ('')
+    success();
+    dispatch(addTextComment(''));
+    setValueZ('');
   };
 
-  const onClickl = (e)=>{
-    console.log('ss',e)
-  }
+  // const onClickl = (e) => {
+  //   console.log('ss', e);
+  // };
 
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
     const zero = value === 'like' ? true : false;
     setValueSelect(zero);
   };
 
-  useEffect(()=>{
-    console.log('vvb',textComment)
-  },[textComment])
-
   const autofocusNoSpellcheckerOptions = useMemo(() => {
     return {
-      maxHeight: "100px",
+      maxHeight: '100px',
       autofocus: true,
       spellChecker: false,
-    } 
+    };
   }, []);
 
   return (
     <>
-     <Select
-          className={styles.selec}
-          defaultValue="like"
-
-          onChange={handleChange}
-          options={[
-            { value: 'like', label: 'like' },
-            { value: 'hate', label: 'hate' },
-          ]}
+      {contextHolder}
+      <Select
+        className={styles.selec}
+        defaultValue="like"
+        onChange={handleChange}
+        options={[
+          { value: 'like', label: 'like' },
+          { value: 'hate', label: 'hate' },
+        ]}
+      />
+      <div className={styles.bc}>
+        <SimpleMdeReact
+          options={autofocusNoSpellcheckerOptions}
+          value={valueZ}
+          onChange={onChange}
         />
-    <div className={styles.bc}>
-     
-      <SimpleMdeReact options={autofocusNoSpellcheckerOptions} value={valueZ} onChange={onChange} />
-      
-    </div>
-    <Button className={styles.btn} onClick={() => handleCreate()}>
-          Add comment
-        </Button>
+      </div>
+      <Button className={styles.btn} onClick={() => handleCreate()}>
+        Add comment
+      </Button>
     </>
   );
 };

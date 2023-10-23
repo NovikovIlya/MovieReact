@@ -1,33 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { auth, useAddCommentMutation, useFetchCommentQuery } from '../../store/MovieApi';
-import styles from './Comment.module.scss';
-import { Input as AntdInput, Button, Divider, Select, Space } from 'antd';
-import { UserOutlined, LikeOutlined, DislikeOutlined } from '@ant-design/icons';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { DislikeOutlined, LikeOutlined, UserOutlined } from '@ant-design/icons';
+import { Divider } from 'antd';
 import cn from 'classnames';
-import { CommentProps } from '../../types';
-import { Controller, useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import _ from 'lodash';
-import Texteditor from '../TextEditor/Texteditor';
-import Markdown from 'react-markdown'
-import { addTextComment } from '../../store/sliceMovie';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Markdown from 'react-markdown';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/redux';
+import { auth, useFetchCommentQuery } from '../../store/MovieApi';
+import { CommentProps } from '../../types';
+import Texteditor from '../TextEditor/Texteditor';
+import styles from './Comment.module.scss';
 
 const Comment: React.FC<CommentProps> = ({ id }) => {
-  const dispatch = useAppDispatch()
-  const textComment = useAppSelector((state)=>state.sliceMovie.textComment)
   const [objArray, setObjArray] = useState({
     all: null,
     positive: null,
     negative: null,
   });
-  const [valueSelect, setValueSelect] = useState(true);
-  const [text, setText] = useState('');
+
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
-  const { data, isLoading } = useFetchCommentQuery(id,{refetchOnFocus:true});
-  const [AddCommentApi] = useAddCommentMutation();
-  const { data: dataApi } = auth.useAuthApiQuery('');
+  const { data, isLoading } = useFetchCommentQuery(id, { refetchOnFocus: true });
+
+  // const { data: dataApi } = auth.useAuthApiQuery('');
   const mass = data ? data : [];
 
   const darkModeTheme = cn({
@@ -43,39 +37,54 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     criteriaMode: 'all',
   });
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-    const zero = value === 'like' ? true : false;
-    setValueSelect(zero);
-  };
+  // const success = () => {
+  //   messageApi.open({
+  //     type: 'success',
+  //     content:
+  //       'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
+  //   });
+  // };
 
-  const handleComment = (e) => {
-    console.log(e.target.value);
-    setText(e.target.value);
-  };
+  // const error = () => {
+  //   messageApi.open({
+  //     type: 'error',
+  //     content: 'You must enter text!',
+  //   });
+  // };
 
-  const handleCreate = async () => {
-    const title = textComment;
-    const name = dataApi.username;
-    if (name === '' || title === '') {
-      return alert('You must enter a name or text!');
-    }
-    await AddCommentApi({
-      imdbid: id,
-      body: [
-        {
-          postId: 10,
-          name: name,
-          text: title,
-          like: valueSelect,
-        },
-      ],
-    });
-    alert(
-      'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
-    );
-    dispatch(addTextComment(''))
-  };
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  //   const zero = value === 'like' ? true : false;
+  //   setValueSelect(zero);
+  // };
+
+  // const handleComment = (e) => {
+  //   console.log(e.target.value);
+  //   setText(e.target.value);
+  // };
+
+  // const handleCreate = async () => {
+  //   const title = textComment;
+  //   const name = dataApi.username;
+  //   if (name === '' || title === '') {
+  //     error();
+  //     return;
+  //   }
+  //   await AddCommentApi({
+  //     imdbid: id,
+  //     body: [
+  //       {
+  //         postId: 10,
+  //         name: name,
+  //         text: title,
+  //         like: valueSelect,
+  //       },
+  //     ],
+  //   });
+  //   success();
+
+  //   dispatch(addTextComment(''));
+  // };
   const likeD = () => {
     let allAray = data?.length;
     let likeArray = 0;
@@ -108,28 +117,15 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     const valueAtIndex = mass[i];
     reversedArray.push(valueAtIndex);
   }
-  console.log('data', data);
 
   return (
     <div className={styles.MainParent}>
-      <div className={styles.parentBtn}>  
-        {/* <Select
-          className={styles.selec}
-          defaultValue="like"
 
-          onChange={handleChange}
-          options={[
-            { value: 'like', label: 'like' },
-            { value: 'hate', label: 'hate' },
-          ]}
-        /> */}
-         <Texteditor id={id}/>
-        {/* <Button className={styles.btn} onClick={() => handleCreate()}>
-          Add comment
-        </Button> */}
+      <div className={styles.parentBtn}>
+        <Texteditor id={id} />
       </div>
 
-      {reversedArray.length > 0 && <Divider style={{background:'white'}}/>}
+      {reversedArray.length > 0 && <Divider style={{ background: 'white' }} />}
 
       <div className={styles.MainAll}>
         <div className={styles.Main}>
@@ -154,9 +150,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
                             <DislikeOutlined className={styles.out} />
                           )}
                           <div className={styles.childText}>
-                          <Markdown>
-                            {child.text}
-                          </Markdown>
+                            <Markdown>{child.text}</Markdown>
                           </div>
                         </div>
                       </div>
@@ -167,8 +161,6 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
             })
           )}
         </div>
-
-        
 
         {data?.length > 0 && (
           <div className={styles.MainTwo}>

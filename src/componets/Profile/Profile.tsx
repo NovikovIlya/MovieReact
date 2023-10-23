@@ -115,6 +115,7 @@ const Profile = () => {
     });
     let result = await response.json();
     console.log('rrr', result);
+    refetch()
   };
 
   const darkModeTheme = cn({
@@ -144,6 +145,13 @@ const Profile = () => {
     setArea('')
    
   }
+  const placeholderImage =
+    'https://cdn-icons-png.flaticon.com/512/219/219983.png';
+
+  const onErr = (error) => {
+    console.log('e', error);
+    error.target.src = placeholderImage;
+  };
 
   useEffect(()=>{
     refetch()
@@ -200,7 +208,11 @@ const Profile = () => {
       <div className={styles.mess}>{contextHolder}</div>
       <div className={darkModeTheme}>
         <div className={styles.container}>
-          <img className={styles.ava} src={`https://backmovie.onrender.com/${dataApi.avatar}`} alt="Add image" />
+          <img 
+          onError={onErr}
+          className={styles.ava} 
+          src={`https://backmovie.onrender.com/${dataApi.avatar}`} 
+          alt="Add" />
 
           <div className={styles.imageParent} style={{ width: '100%' }}>
             <Button className={styles.btnImage} onClick={selFile}>

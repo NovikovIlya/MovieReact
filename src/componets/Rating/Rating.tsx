@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Rate } from 'antd';
+import { Rate, message } from 'antd';
 import styles from './Rating.module.scss';
 import { useAddRatingMutation, useFetchRatingQuery } from '../../store/MovieApi';
 
 const Rating = ({ id }) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [resRating, setResRating] = useState(0);
   const { data } = useFetchRatingQuery(id);
-  const [AddRatingApi] = useAddRatingMutation()
+  const [AddRatingApi] = useAddRatingMutation();
 
-  const rating = async(e:number) => {
-    console.log(e);
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content:
+        'Your rating has been successfully submitted! It will be summarized with all scores within 30 seconds',
+    });
+  };
+
+  const rating = async (e: number) => {
     await AddRatingApi({
       imdbid: id,
-      rating: e
-    })
-    alert('Your rating has been successfully submitted! It will be summarized with all scores within 30 seconds')
+      rating: e,
+    });
+    success();
   };
- 
 
   useEffect(() => {
     if (data) {
@@ -38,6 +45,7 @@ const Rating = ({ id }) => {
 
   return (
     <div className={styles.container}>
+      {contextHolder}
       <Rate value={resRating} className={styles.star} onChange={(e) => rating(e)} />
     </div>
   );
