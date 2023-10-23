@@ -1,4 +1,11 @@
-import { DownOutlined, HomeOutlined, LogoutOutlined, MenuOutlined, StarOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  DownOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  MenuOutlined,
+  StarOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space } from 'antd';
 import React from 'react';
@@ -10,6 +17,10 @@ import styles from './UserInfo.module.scss';
 type MenuItem = Required<MenuProps>['items'][number];
 
 const UserInfo = () => {
+  const navigate = useNavigate();
+  const { data: dataApi, refetch } = auth.useAuthApiQuery('');
+  const dispatch = useAppDispatch();
+
   function getItem(
     label: React.ReactNode,
     key: React.Key,
@@ -25,12 +36,14 @@ const UserInfo = () => {
       type,
     } as MenuItem;
   }
+
   const exitFnc = () => {
     localStorage.setItem('token', '');
     dispatch(auth.util.resetApiState());
     refetch();
     navigate('/login');
   };
+
   const items: MenuProps['items'] = [
     getItem(
       <Link className={styles.lin} to="/">
@@ -56,13 +69,11 @@ const UserInfo = () => {
     getItem(<div onClick={exitFnc}>Exit</div>, '6', <LogoutOutlined />),
     ,
   ];
-  const navigate = useNavigate();
-  const { data: dataApi, refetch } = auth.useAuthApiQuery('');
-  const dispatch = useAppDispatch();
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
     console.log('click', e);
   };
+
   const menuProps = {
     items,
     onClick: handleMenuClick,

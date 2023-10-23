@@ -6,7 +6,7 @@ import { useAddRatingMutation, useFetchRatingQuery } from '../../store/MovieApi'
 const Rating = ({ id }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [resRating, setResRating] = useState(0);
-  const { data } = useFetchRatingQuery(id);
+  const { data } = useFetchRatingQuery(id,{refetchOnFocus:true});
   const [AddRatingApi] = useAddRatingMutation();
 
   const success = () => {

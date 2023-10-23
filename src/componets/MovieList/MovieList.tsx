@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { useFetchMoviesPopularQuery } from '../../store/MovieApi';
 import { toogleEmpty } from '../../store/sliceMovie';
 import { MovieListProps } from '../../types';
@@ -16,7 +16,6 @@ const MovieList = ({ movie }: MovieListProps) => {
     'sort_by=download_count&order_by=desc&limit=10',
   );
   const dispatch = useAppDispatch();
-  const favorite = useAppSelector((state) => state.sliceMovie.favorite);
   const mobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
       navigator.userAgent,
@@ -28,15 +27,8 @@ const MovieList = ({ movie }: MovieListProps) => {
     autoplay: true,
     autoplaySpeed: 4000,
   };
-  const settings2 = {
-    centerMode: true,
-    slidesToShow: mobile ? 1 : favorite.length > 2 ? 3 : favorite.length > 1 ? 2 : 1,
-    speed: 500,
-  };
-
 
   useEffect(() => {
-    console.log('dataPopular', dataPopular);
     if (movie) {
       if (movie.length === 0) {
         dispatch(toogleEmpty(true));
@@ -60,9 +52,7 @@ const MovieList = ({ movie }: MovieListProps) => {
         {dataPopular?.data?.movies?.map((item) => {
           return (
             <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start ">
-            
               <div className={styles.text}>{item.title}</div>
-            
               <Link className={styles.td} to={`${item.imdb_code}`}>
                 <img
                   className={styles.img}
@@ -81,7 +71,6 @@ const MovieList = ({ movie }: MovieListProps) => {
       </div>
 
       <h1 className={styles.head}>Top Lifetime Grosses:</h1>
-
       <div className={styles.tabl}>
         <TableZ />
       </div>

@@ -6,8 +6,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Link } from 'react-router-dom';
 
 
-
-
 const MovieTitle = () => {
   const darkMode = useAppSelector((state)=>state.sliceMovie.darkMode)
   const dispatch = useAppDispatch()

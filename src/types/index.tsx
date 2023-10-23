@@ -210,3 +210,12 @@ export type FieldType = {
   password?: string;
   remember?: string;
 };
+
+export type DataType = {
+  key: React.Key;
+  rank: string;
+  title: string;
+  lifetime: string;
+  year: string;
+  imdb?: string;
+};

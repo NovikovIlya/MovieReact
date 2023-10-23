@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styles from './Profile.module.scss';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { Button, Divider, Form, Input, message } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import cn from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Input, Form, Divider, message } from 'antd';
+import { useAppSelector } from '../../hooks/redux';
 import {
   auth,
   useAuthApiQuery,
@@ -12,7 +12,7 @@ import {
   useRepassApiSetMutation,
 } from '../../store/MovieApi';
 import { FieldType } from '../../types';
-import TextArea from 'antd/es/input/TextArea';
+import styles from './Profile.module.scss';
 
 const Profile = () => {
   const refImage = useRef<HTMLInputElement>();

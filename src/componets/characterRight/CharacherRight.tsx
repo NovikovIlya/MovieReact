@@ -3,7 +3,7 @@ import styles from '../MovieCharacterisics/MovieCharacteristics.module.scss';
 import { useFetchMoviesOneQuery } from '../../store/MovieApi';
 
 export function CharacherRight({arg}) {
-  const { data, isLoading } = useFetchMoviesOneQuery(arg);
+  const { data } = useFetchMoviesOneQuery(arg);
   return (
     <div className={styles.container__right}>
       <div className={styles.ParentItem}>

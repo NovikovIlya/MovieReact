@@ -57,5 +57,5 @@ body{
 }
 
 .ant-message,.ant-modal-wrap{
-  z-index: 100000000;
+  z-index: 100000000 !important;
 }

@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import { Spin } from 'antd';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '../App/App.module.scss';
-import stylesDark from '../App/AppDark.module.scss';
-import MovieList from '../MovieList/MovieList';
+import cn from 'classnames';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../Main.css';
 import { useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
-import { useNavigate } from 'react-router-dom';
-import cn from 'classnames';
-import { Spin } from 'antd';
-import Menubar from '../Memubar/Menubar';
-import New from '../New/New';
+import styles from '../App/App.module.scss';
+import stylesDark from '../App/AppDark.module.scss';
+import MovieList from '../MovieList/MovieList';
 
 export type movieType = {
   Title: string;
@@ -68,9 +66,7 @@ function MainPage() {
             <div className="container-fluid movie-app">
               <div></div>
               <div className="row">
-            
                 <MovieList movie={MovieData} />
-            
               </div>
             </div>
           </div>

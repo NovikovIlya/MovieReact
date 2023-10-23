@@ -4,36 +4,31 @@ import Search from '../Search/Search';
 import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
 import { Divider } from 'antd';
-import { useAuthApiQuery } from '../../store/MovieApi';
 import { useLocation } from 'react-router-dom';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
 const MovieHeader = () => {
-  const { data, isFetching } = useAuthApiQuery('');
-  const [hidd,setHidd] = useState(false)
-  const location = useLocation()
-  console.log('',location)
+  const [hidd, setHidd] = useState(false);
+  const location = useLocation();;
 
-  useEffect(()=>{
-    if(location.pathname === '/login' || location.pathname=== '/auth'){
-      setHidd(true)
-    }else{
-      setHidd(false)
+  useEffect(() => {
+    if (location.pathname === '/login' || location.pathname === '/auth') {
+      setHidd(true);
+    } else {
+      setHidd(false);
     }
-    
-  },[location.pathname])
+  }, [location.pathname]);
 
-  console.log('sz',hidd)
 
   const placeholder = 'input text';
 
   return (
-    <div className={hidd ?  styles.hiddenZ : ''}>
+    <div className={hidd ? styles.hiddenZ : ''}>
       {
         <div className={styles.main}>
           <div className={styles.container}>
             <div className={styles.title}>
-              <MovieTitle  />
+              <MovieTitle />
             </div>
             <div className={styles.search}>
               <Search placeholder={placeholder} />
@@ -46,7 +41,6 @@ const MovieHeader = () => {
             <Divider className={styles.divi} />
           </div>
         </div>
-        
       }
     </div>
   );

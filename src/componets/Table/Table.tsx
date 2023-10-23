@@ -1,17 +1,10 @@
 import React from 'react';
-import { Space, Table as Tables, Tag } from 'antd';
+import { Table as Tables } from 'antd';
 import styles from './Table.module.scss';
 import { Link } from 'react-router-dom';
 import type { ColumnsType } from 'antd/es/table';
+import { DataType } from '../../types';
 
-type DataType = {
-  key: React.Key;
-  rank: string;
-  title: string;
-  lifetime: string;
-  year: string;
-  imdb?: string;
-};
 
 const TableZ = () => {
   const dataSource: DataType[] = [
@@ -125,12 +118,6 @@ const TableZ = () => {
       key: 'imdb',
       render: (imdb) => <Link to={`${imdb}`}>Go to movie</Link>,
     },
-    // {
-    //     title: 'Action',
-    //     key: '9',
-
-    //     render: () => <Link to='/'>Go to movie</Link>,
-    //   },
   ];
 
   return (

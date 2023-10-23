@@ -10,14 +10,12 @@ import styles from './Search.module.scss';
 
 const Search: React.FC<SearchProps> = (props) => {
   const navigate = useNavigate();
-
   const [dataMass, setDataMass] = useState([]);
   const options = dataMass;
   const [val2, setVal2] = useState('');
   const [dis, setDis] = useState(true);
   const {
     children = 'Search',
-    placeholder,
     onChange = (e: React.ChangeEvent<HTMLInputElement>) => handleMovie(e),
   } = props;
   const val = useAppSelector((state) => state.sliceMovie.value);

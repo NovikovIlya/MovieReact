@@ -6,7 +6,7 @@ import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieAp
 import styles from './New.module.scss';
 
 const New = () => {
-  const { data, refetch, isFetching, error } = useAuthApiQuery('');
+  const { data,  isFetching } = useAuthApiQuery('');
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');

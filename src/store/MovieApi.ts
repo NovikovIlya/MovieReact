@@ -80,6 +80,7 @@ export const fetchCommentApi = createApi({
 
 export const fetchRatingApi = createApi({
   reducerPath: 'fetchRating',
+  refetchOnFocus:true,
   baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items' }),
   tagTypes: ['fetchRating'],
   endpoints: (builder) => ({

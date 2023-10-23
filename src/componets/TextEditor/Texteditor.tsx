@@ -58,9 +58,6 @@ const Texteditor = ({ id }) => {
     setValueZ('');
   };
 
-  // const onClickl = (e) => {
-  //   console.log('ss', e);
-  // };
 
   const handleChange = (value: string) => {
     const zero = value === 'like' ? true : false;
