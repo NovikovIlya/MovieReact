@@ -1,4 +1,4 @@
-import { Divider } from 'antd';
+import { Divider, Spin } from 'antd';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
@@ -48,32 +48,45 @@ const MovieList = ({ movie }: MovieListProps) => {
 
   return (
     <>
-      <Slider {...settings}>
-        {dataPopular?.data?.movies?.map((item) => {
-          return (
-            <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start ">
-              <div className={styles.text}>{item.title}</div>
-              <Link className={styles.td} to={`${item.imdb_code}`}>
-                <img
-                  className={styles.img}
-                  key={item.imdb_code}
-                  src={item.large_cover_image}
-                  alt="no"
-                />
-              </Link>
-            </div>
-          );
-        })}
-      </Slider>
+      {dataPopular ? (
+        <>
+          <Slider {...settings}>
+            {dataPopular?.data?.movies?.map((item) => {
+              return (
+                <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start ">
+                  <div className={styles.text}>{item.title}</div>
+                  <Link className={styles.td} to={`${item.imdb_code}`}>
+                    <img
+                      className={styles.img}
+                      key={item.imdb_code}
+                      src={item.large_cover_image}
+                      alt="no"
+                    />
+                  </Link>
+                </div>
+              );
+            })}
+          </Slider>
 
-      <div className={styles.papadivi}>
-        <Divider className={styles.divi} />
-      </div>
+          {/* <div className={styles.papadivi}>
+            <Divider className={styles.divi} />
+          </div>
 
-      <h1 className={styles.head}>Top Lifetime Grosses:</h1>
-      <div className={styles.tabl}>
-        <TableZ />
-      </div>
+          <h1 className={styles.head}>Top Lifetime Grosses:</h1>
+          <div className={styles.tabl}>
+            <TableZ />
+          </div> */}
+        </>
+      ) : (
+        <>
+          {' '}
+          <div className={styles.zagr}>
+            <Spin tip="Loading" size="large">
+              <div className="content" />
+            </Spin>
+          </div>
+        </>
+      )}
     </>
   );
 };

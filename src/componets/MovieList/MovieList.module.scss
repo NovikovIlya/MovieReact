@@ -62,6 +62,15 @@
 .papadivi{
     margin-top: 20px;
 }
+.zagr {
+    position: absolute;
+    top:300px;
+    width: 100%;
+    &__hed1 {
+      display: flex;
+      justify-content: center;
+    }
+  }
 @media screen and (max-width:600px) {
     .head{
         margin-left: 0;

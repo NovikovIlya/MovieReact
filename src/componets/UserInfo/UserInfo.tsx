@@ -61,7 +61,7 @@ const UserInfo = () => {
     ),
     getItem(
       <Link className={styles.lin} to="/favorites">
-        Favorites
+        Favorite
       </Link>,
       '3',
       <StarOutlined />,

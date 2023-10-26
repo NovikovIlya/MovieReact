@@ -113,10 +113,28 @@ export type Video =  {
 
 export type login ={
   username : string,
-  password: string,
+  password?: string,
   info?: string,
   avatar?:any,
   imdbID? :any,
+}
+export type getInfoUser = {
+  username : string,
+  password: string,
+  info: string,
+  avatar?:any,
+  roles?: any;
+}
+
+export type repassType = {
+    oldPassword: string,
+      newPassord: string,
+      oldUsername: string,
+      message?:any,
+}
+export type renameType = {
+  newUsername: string,
+  oldUsername: string,
 }
 
 export type tokenType = {

@@ -12,7 +12,7 @@ const New = () => {
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
-  const { data: dataPopular } = useFetchMoviesPopularQuery(
+  const { data: dataPopular,isLoading } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=9&page=${num}&genre=${genre}`,
   );
 
@@ -20,12 +20,10 @@ const New = () => {
     'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
 
   const onErr = (error) => {
-    console.log('e', error);
     error.target.src = placeholderImage;
   };
 
   const onChange: PaginationProps['onChange'] = (pageNumber) => {
-    console.log('Page: ', pageNumber);
     setNum(pageNumber.toString());
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
@@ -62,9 +60,8 @@ const New = () => {
 
   return (
     <>
-      {' '}
       {!data ? (
-        isFetching && (
+        isLoading && (
           <div className={styles.zagr}>
             <Spin tip="Loading" size="large">
               <div className="content" />
@@ -144,10 +141,10 @@ const New = () => {
           <div className={styles.parent}>
             {dataPopular?.data?.movies?.map((item) => {
               return (
-                <div key={item.imdb_code} className="mda rowChild f-flex justify-content-start m-3">
+                <div key={item.imdb_code} className=" ">
                   <div className={styles.text}>{item.title}</div>
                   {item.large_cover_image ? (
-                    <Link className={styles.td} to={`/${item.imdb_code}`}>
+                    <Link  to={`/${item.imdb_code}`}>
                       <img
                         className={styles.img}
                         onError={onErr}

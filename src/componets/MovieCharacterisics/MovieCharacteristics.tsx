@@ -133,13 +133,7 @@ const MovieCharacteristics = () => {
 
   return (
     <>
-      {isFetching ? (
-        <div className={styles.zagr}>
-          <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-        </div>
-      ) : (
+
         <>
           <div className={styles.mt}>
             <div className={darkModeTheme}>
@@ -309,7 +303,7 @@ const MovieCharacteristics = () => {
             </div>
           </div>
         </>
-      )}
+      
     </>
   );
 };

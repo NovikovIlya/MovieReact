@@ -101,6 +101,15 @@
     display: flex;
     justify-content: center;
 }
+.zagr {
+    position: absolute;
+    top:300px;
+    width: 100%;
+    &__hed1 {
+      display: flex;
+      justify-content: center;
+    }
+  }
 
 @media screen and (max-width:600px) {
     .parent{

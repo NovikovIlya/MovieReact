@@ -6,23 +6,15 @@ import {
   RootYts,
   TrailerApi,
   argType,
+  getInfoUser,
   login,
   ratingType,
+  renameType,
+  repassType,
   tokenType,
 } from '../types';
 
-export const MovieApiPopular = createApi({
-  reducerPath: 'apiMoviesPopular',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2' }),
-  tagTypes: ['apiMoviesPopular'],
-  endpoints: (builder) => ({
-    fetchMoviesPopular: builder.query<RootYts, string>({
-      query: (search) => ({
-        url: `list_movies.json?${search}`,
-      }),
-    }),
-  }),
-});
+
 
 export const MovieApi = createApi({
   reducerPath: 'apiMovies',
@@ -34,14 +26,6 @@ export const MovieApi = createApi({
         url: `?apikey=55ce87c0&s=${search}`,
       }),
     }),
-  }),
-});
-
-export const MovieApiOne = createApi({
-  reducerPath: 'MovieApiOne',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://www.omdbapi.com/' }),
-  tagTypes: ['FetchMovie'],
-  endpoints: (builder) => ({
     fetchMoviesOne: builder.query<MovieApiOneType, argType>({
       query: (arg) => ({
         url: `?apikey=55ce87c0&i=${arg.id}`,
@@ -49,6 +33,7 @@ export const MovieApiOne = createApi({
     }),
   }),
 });
+
 
 export const trailerApi = createApi({
   reducerPath: 'trailerApi',
@@ -67,44 +52,39 @@ export const trailerApi = createApi({
 
 export const fetchCommentApi = createApi({
   reducerPath: 'fetchComment',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/' }),
   tagTypes: ['fetchComment'],
   endpoints: (builder) => ({
     fetchComment: builder.query<Root2[], string>({
       query: (id) => ({
-        url: `?imdbid=${id}`,
+        url: `comment/?imdbid=${id}`,
       }),
     }),
-  }),
-});
-
-export const fetchRatingApi = createApi({
-  reducerPath: 'fetchRating',
-  refetchOnFocus:true,
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items' }),
-  tagTypes: ['fetchRating'],
-  endpoints: (builder) => ({
     fetchRating: builder.query<ratingType[], string>({
       query: (id) => ({
-        url: `?imdbid=${id}`,
+        url: `items/?imdbid=${id}`,
       }),
+    }),
+    AddRating: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'items',
+        body: add,
+      }),
+      invalidatesTags: ['fetchComment'],
+    }),
+    AddComment: builder.mutation<Root2, Root2>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'comment',
+        body: add,
+      }),
+      invalidatesTags: ['fetchComment'],
     }),
   }),
 });
 
-export const similarApi = createApi({
-  reducerPath: 'similar',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://yts.mx/api/v2/' }),
-  tagTypes: ['similar'],
-  endpoints: (builder) => ({
-    similarFetch: builder.query<any, string>({
-      query: (genre) => ({
-        url: `list_movies.json?genre=${genre}&limit=10`,
-      }),
-      providesTags:['similar']
-    }),
-  }),
-});
+
 
 export const torrentApi = createApi({
   reducerPath: 'torrent',
@@ -117,47 +97,27 @@ export const torrentApi = createApi({
       }),
       providesTags:['torrent']
     }),
-  }),
-});
-
-export const AddCommentApi = createApi({
-  reducerPath: 'AddComment',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/comment/' }),
-  tagTypes: ['AddComment'],
-  endpoints: (builder) => ({
-    AddComment: builder.mutation<Root2, Root2>({
-      query: (add) => ({
-        method: 'POST',
-        url: '',
-        body: add,
+    similarFetch: builder.query<any, string>({
+      query: (genre) => ({
+        url: `list_movies.json?genre=${genre}&limit=10`,
       }),
-      invalidatesTags: ['AddComment'],
+      providesTags:['torrent']
+    }),
+    fetchMoviesPopular: builder.query<RootYts, string>({
+      query: (search) => ({
+        url: `list_movies.json?${search}`,
+      }),
     }),
   }),
 });
 
-export const AddRatingApi = createApi({
-  reducerPath: 'AddRating',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://64b7de9021b9aa6eb079301d.mockapi.io/items/' }),
-  tagTypes: ['AddRating'],
-  endpoints: (builder) => ({
-    AddRating: builder.mutation<any, any>({
-      query: (add) => ({
-        method: 'POST',
-        url: '',
-        body: add,
-      }),
-      invalidatesTags: ['AddRating'],
-    }),
-  }),
-});
 
 export const info = createApi({
   reducerPath: 'Info',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/' }),
   tagTypes: ['getuser','info'],
   endpoints: (builder) => ({
-    infoApiSet: builder.mutation<any, any>({
+    infoApiSet: builder.mutation<getInfoUser, login>({
       query: (add) => ({
         method: 'POST',
         url: 'info',
@@ -165,7 +125,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['getuser'],
     }),
-    getUserApiSet: builder.mutation<any, any>({
+    getUserApiSet: builder.mutation<getInfoUser, login>({
       query: (add) => ({
         method: 'POST',
         url: 'user',
@@ -181,7 +141,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info'],
     }),
-    repassApiSet: builder.mutation<any, any>({
+    repassApiSet: builder.mutation<repassType, repassType>({
       query: (add) => ({
         method: 'PUT',
         url: 'repassword',
@@ -189,7 +149,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info'],
     }),
-    renameApiSet: builder.mutation<any, any>({
+    renameApiSet: builder.mutation<any, renameType>({
       query: (add) => ({
         method: 'PUT',
         url: 'rename',
@@ -253,17 +213,13 @@ export const auth = createApi({
   }),
 });
 
-export const { useFetchMoviesQuery } = MovieApi;
-export const { useFetchMoviesOneQuery } = MovieApiOne;
+export const { useFetchMoviesQuery,useFetchMoviesOneQuery } = MovieApi;
 export const { useFetcTrailerQuery } = trailerApi;
-export const { useFetchCommentQuery } = fetchCommentApi;
-export const { useAddCommentMutation } = AddCommentApi;
+export const { useFetchCommentQuery,useFetchRatingQuery ,useAddRatingMutation,useAddCommentMutation} = fetchCommentApi;
 export const { useAuthApiQuery, useLazyAuthApiQuery } = auth;
-export const { useFetchRatingQuery } = fetchRatingApi;
-export const { useAddRatingMutation } = AddRatingApi;
-export const { useSimilarFetchQuery } = similarApi;
-export const { useTorrentFetchQuery } = torrentApi;
-export const { useFetchMoviesPopularQuery } = MovieApiPopular;
+
+export const { useTorrentFetchQuery,useSimilarFetchQuery,useFetchMoviesPopularQuery } = torrentApi;
+
 export const {
   useInfoApiSetMutation,
   useGetUserApiSetMutation,

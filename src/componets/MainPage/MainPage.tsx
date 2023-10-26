@@ -25,12 +25,12 @@ function MainPage() {
   const { data, refetch, isFetching, error } = useAuthApiQuery('');
 
   const darkModeTheme = cn({
-    [styles.container]: !darkMode,
-    [stylesDark.container]: darkMode,
+    [styles.container2]: !darkMode,
+    [stylesDark.container2]: darkMode,
   });
   const darkModeThemeMain = cn({
-    [styles.Main]: !darkMode,
-    [stylesDark.Main]: darkMode,
+    [styles.Main2]: !darkMode,
+    [stylesDark.Main2]: darkMode,
   });
 
   useEffect(() => {
@@ -52,20 +52,11 @@ function MainPage() {
 
   return (
     <>
-      {!data ? (
-        isFetching && (
-          <div className={styles.zagr}>
-            <Spin tip="Loading" size="large">
-              <div className="content" />
-            </Spin>
-          </div>
-        )
-      ) : (
+      { (
         <div className={darkModeThemeMain}>
           <div className={darkModeTheme}>
-            <div className="container-fluid movie-app">
-              <div></div>
-              <div className="row">
+            <div className="">
+              <div className="">
                 <MovieList movie={MovieData} />
               </div>
             </div>

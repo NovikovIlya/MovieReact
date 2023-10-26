@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, message } from 'antd';
+import { Button, Divider, Form, Input, Spin, message } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
@@ -25,10 +25,10 @@ const Profile = () => {
   const [text, setText] = useState('');
   const [oldPass, setOldPass] = useState('');
   const [newPass, setNewPass] = useState('');
-  const { data, isFetching, error: errorApi } = useAuthApiQuery('');
+  // const { data, isFetching, error: errorApi } = useAuthApiQuery('');
   const [renameApiSet, { error }] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
-  const { data: dataApi, refetch } = auth.useAuthApiQuery('');
+  const { data: dataApi, refetch, error: errorApi,isFetching} = auth.useAuthApiQuery('');
   const [area, setArea] = useState('');
   const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
 
@@ -181,7 +181,7 @@ const Profile = () => {
         }
       }
     }
-  }, [data, navigate, isFetching, errorApi]);
+  }, [dataApi, navigate, isFetching, errorApi]);
 
   useEffect(() => {
     console.log('er', error);
@@ -203,6 +203,13 @@ const Profile = () => {
   }
 
   return (
+    <>
+    {isFetching ? <div className={styles.zagr}>
+                  <Spin tip="Loading" size="large">
+                    <div className="content" />
+                  </Spin>
+                </div>
+    :
     <>
       <div className={styles.mess}>{contextHolder}</div>
       <div className={darkModeTheme}>
@@ -361,6 +368,7 @@ const Profile = () => {
         </div>
         {error ? <div className={styles.err}>{error1}</div> : ''}
       </div>
+    </>}
     </>
   );
 };

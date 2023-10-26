@@ -1,7 +1,7 @@
 import  sliceMovie  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import { AddCommentApi, AddRatingApi,  MovieApi, MovieApiOne,MovieApiPopular,auth,fetchCommentApi,fetchRatingApi,info,infoTag,similarApi,torrentApi,trailerApi } from './MovieApi'; 
-import { getFavorites } from './sliceMovie';
+import {   MovieApi,auth,fetchCommentApi,info,infoTag,torrentApi,trailerApi } from './MovieApi'; 
+
 
 import {
   persistStore,
@@ -18,16 +18,10 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 const rootReducer = combineReducers({
     [MovieApi.reducerPath]: MovieApi.reducer,
-    [MovieApiOne.reducerPath]: MovieApiOne.reducer,
     [trailerApi.reducerPath]: trailerApi.reducer,
     [fetchCommentApi.reducerPath]: fetchCommentApi.reducer,
-    [AddCommentApi.reducerPath]: AddCommentApi.reducer,
     [auth.reducerPath]: auth.reducer,
-    [fetchRatingApi.reducerPath]: fetchRatingApi.reducer,
-    [AddRatingApi.reducerPath]: AddRatingApi.reducer,
-    [similarApi.reducerPath]: similarApi.reducer,
     [torrentApi.reducerPath]: torrentApi.reducer,
-    [MovieApiPopular.reducerPath]: MovieApiPopular.reducer,
     [info.reducerPath]: info.reducer,
     [infoTag.reducerPath]: infoTag.reducer,
     sliceMovie,
@@ -37,7 +31,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist:['toggleDropdown',infoTag.reducerPath,info.reducerPath,MovieApi.reducerPath,MovieApiPopular.reducerPath,torrentApi.reducerPath,similarApi.reducerPath,AddRatingApi.reducerPath,fetchRatingApi.reducerPath,MovieApiOne.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,AddCommentApi.reducerPath,auth.reducerPath]
+  blacklist:['toggleDropdown',infoTag.reducerPath,info.reducerPath,MovieApi.reducerPath,torrentApi.reducerPath,trailerApi.reducerPath,fetchCommentApi.reducerPath,auth.reducerPath]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -49,7 +43,7 @@ const store = configureStore({
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }).concat(infoTag.middleware,info.middleware,MovieApiPopular.middleware,torrentApi.middleware,similarApi.middleware,AddRatingApi.middleware,fetchRatingApi.middleware,auth.middleware,MovieApi.middleware,MovieApiOne.middleware,trailerApi.middleware,fetchCommentApi.middleware,AddCommentApi.middleware);
+      }).concat(infoTag.middleware,info.middleware,torrentApi.middleware,auth.middleware,MovieApi.middleware,trailerApi.middleware,fetchCommentApi.middleware);
     },
 });
 
