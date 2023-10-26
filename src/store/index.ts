@@ -1,7 +1,7 @@
 import  sliceMovie  from './sliceMovie';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { AddCommentApi, AddRatingApi,  MovieApi, MovieApiOne,MovieApiPopular,auth,fetchCommentApi,fetchRatingApi,info,infoTag,similarApi,torrentApi,trailerApi } from './MovieApi'; 
-
+import { getFavorites } from './sliceMovie';
 
 import {
   persistStore,

@@ -1,4 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+type MyData ={
+  oldUsername:string
+  favorites?: any;
+  imdbID?: any;
+}
+
+export const deleteFavorites = createAsyncThunk('post/deleteFavorites', async (dataBody:MyData) => {
+  const {data} = await axios.delete('https://backmovie.onrender.com/auth/deleteFavorites', {
+  data:{oldUsername : dataBody.oldUsername,
+    imdbID: dataBody.imdbID}
+  });
+  return data
+});
+
+export const getFavorites = createAsyncThunk('post/getFavorites', async (dataBody:MyData) => {
+  const {data} = await axios.post('https://backmovie.onrender.com/auth/getfavorites', {
+  oldUsername : dataBody.oldUsername,
+  });
+  return data
+});
+
+export const addFavorites = createAsyncThunk('post/addFavorites', async (dataBody:any) => {
+  const {data} = await axios.post('https://backmovie.onrender.com/auth/addfavorites', {
+  oldUsername: dataBody.oldUsername,
+  favoritesNew: dataBody.favorites,
+  });
+  return data
+});
 
 const initialState = {
   films: [],
@@ -9,7 +39,9 @@ const initialState = {
   render: false,
   avatar: 'https://innostudio.de/fileuploader/images/default-avatar.png',
   dropdown: 'mail',
-  textComment:'Enter comment',
+  textComment: 'Enter comment',
+  favoritesNew: [],
+  isLoad: false
 };
 
 export const sliceMovie = createSlice({
@@ -48,9 +80,30 @@ export const sliceMovie = createSlice({
     toggleDropdown: (state, action) => {
       state.dropdown = action.payload;
     },
-    addTextComment:(state, action) => {
+    addTextComment: (state, action) => {
       state.textComment = action.payload;
     },
+    deletefavoritesNew:(state,action)=>{
+      state.favoritesNew = state.favoritesNew.filter((item)=>{
+        return(
+          item.imdbID !== action.payload
+        )
+      })
+    }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getFavorites.pending, (state) => {
+      state.favoritesNew = [];
+      state.isLoad = true;
+    });
+    builder.addCase(getFavorites.fulfilled, (state, action) => {
+      state.favoritesNew = action.payload;
+      state.isLoad = false;
+    });
+    builder.addCase(getFavorites.rejected, (state) => {
+      state.favoritesNew = [];
+      state.isLoad = false;
+    });
   },
 });
 
@@ -65,5 +118,6 @@ export const {
   switchAvatar,
   toggleDropdown,
   addTextComment,
+  deletefavoritesNew
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

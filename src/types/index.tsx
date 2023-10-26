@@ -116,6 +116,7 @@ export type login ={
   password: string,
   info?: string,
   avatar?:any,
+  imdbID? :any,
 }
 
 export type tokenType = {

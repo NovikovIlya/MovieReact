@@ -16,11 +16,13 @@ import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
 import Similar from '../Similar/Similar';
-import { addFavorite } from '../../store/sliceMovie';
+import { addFavorite, addFavorites } from '../../store/sliceMovie';
 import { movieType } from '../../types';
 
 
 const MovieCharacteristics = () => {
+  const [haveFav,setHaveFav] = useState(false)
+  const favoriteMovie = useAppSelector((state)=>state.sliceMovie.favoritesNew)
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const content = (
@@ -46,10 +48,34 @@ const MovieCharacteristics = () => {
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   });
+
+
+  useEffect(()=>{
+    const proverka = ()=>{
+      const favoriteMovieImdb = favoriteMovie.map((item)=>{
+        return(item.imdbID)
+      })
+      console.log('favoriteMovieImdb',favoriteMovieImdb)
+      console.log('ahaha',haveFav)
+      console.log('hehehe',id)
+      setHaveFav(favoriteMovieImdb.includes(id))
+    }
+    proverka()
+  },[id,favoriteMovie])
+
+  const addFavoritesNew = (data)=>{
+    const mainData = {
+      favorites: data,
+      oldUsername : dataApi.username
+    }
+    dispatch(addFavorites(mainData))
+  }
+
   const addFavoriteFnc = (item: movieType) => {
     dispatch(addFavorite(item));
     setIconToggle(true);
   };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -202,15 +228,20 @@ const MovieCharacteristics = () => {
 
                           <div className={styles.plus}>
                             <Popover content={content} title="">
-                              {!iconToggle ? (
+                              {!haveFav ? (
                                 <PlusOutlined
                                   className={styles.plusE}
-                                  onClick={() => addFavoriteFnc(data)}
+                                  onClick={() => {
+                                   setHaveFav(true)
+                                    addFavoritesNew(data)
+                                    console.log('favoriteMoviefavoriteMovie',favoriteMovie)
+                                    console.log('haveFavhaveFav',haveFav)}}
+                                    
                                 />
                               ) : (
                                 <CheckOutlined
                                   className={styles.plusE}
-                                  onClick={() => addFavoriteFnc(data)}
+                                  onClick={() => addFavoritesNew(data)}
                                 />
                               )}
                             </Popover>

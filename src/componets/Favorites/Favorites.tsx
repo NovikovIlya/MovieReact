@@ -1,19 +1,27 @@
-import React, { useEffect } from 'react';
-import styles from './Favorite.module.scss';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { Button, Popover, Spin } from 'antd';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Popover } from 'antd';
-import { deleteFavorite } from '../../store/sliceMovie';
-import { movieType } from '../../types';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
+import {
+  deleteFavorites,
+  deletefavoritesNew,
+  getFavorites
+} from '../../store/sliceMovie';
+import styles from './Favorite.module.scss';
 
 export const Favorites = () => {
+  const isLoad = useAppSelector((state) => state.sliceMovie.isLoad);
+  const favoriteMovie = useAppSelector((state) => state.sliceMovie.favoritesNew);
+  const favoriteMovieUnique = favoriteMovie.filter((elem, index) => {
+    return favoriteMovie.findIndex((item) => item.Title === elem.Title) === index;
+  });
+  const { data: dataApi } = useAuthApiQuery('');
   const navigate = useNavigate();
-  const favorite = useAppSelector((state) => state.sliceMovie.favorite);
-  const {  error } = useAuthApiQuery('');
+  const { error } = useAuthApiQuery('');
   const dispatch = useAppDispatch();
   const content2 = (
     <div>
@@ -26,12 +34,41 @@ export const Favorites = () => {
     );
   const settings2 = {
     centerMode: true,
-    slidesToShow: mobile ? 1 : favorite.length > 2 ? 3 : favorite.length > 1 ? 2 : 1,
+    slidesToShow: mobile
+      ? 1
+      : favoriteMovieUnique.length > 2
+      ? 3
+      : favoriteMovieUnique.length > 1
+      ? 1
+      : 1,
     speed: 500,
   };
-  const delFavoriteFnc = (item: movieType) => {
-    dispatch(deleteFavorite(item));
+
+  console.log('isLoad', isLoad);
+  const delFavoriteNew = async (item) => {
+    const data = {
+      oldUsername: dataApi.username,
+      imdbID: item.imdbID,
+    };
+    await dispatch(deleteFavorites(data));
+    await dispatch(deletefavoritesNew(data.imdbID));
   };
+
+  useEffect(() => {
+    const data = { oldUsername: dataApi?.username };
+    dispatch(getFavorites(data));
+  }, []);
+
+  useEffect(() => {
+    if (dataApi) {
+      if ('username' in dataApi) {
+        const data = { oldUsername: dataApi?.username };
+        const dataFav = dispatch(getFavorites(data));
+        console.log('favoriteMovie', favoriteMovie);
+        console.log('dataFav', dataFav);
+      }
+    }
+  }, [dataApi, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -44,35 +81,44 @@ export const Favorites = () => {
         }
       }
     }
-  }, [error,navigate]);
+  }, [error, navigate]);
 
   return (
     <>
-    <h1 className={styles.head}>Favorites:</h1>
-    <Slider {...settings2}>
-      {favorite.length > 0 &&
-        favorite.map((item) => {
-          return (
-            <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
-              <div className={styles.text}>{item.Title}</div>
-              <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
-              <div className={styles.bottom}>
-                <Link to={`/${item.imdbID}`}>
-                  <Button className={styles.btnDesc}>Go to moive</Button>
-                </Link>
-                <Popover content={content2} title="">
-                  <Button
-                    className={styles.btnPlus}
-                    onClick={() => delFavoriteFnc(item)}
-                    type="primary">
-                    -
-                  </Button>
-                </Popover>
-              </div>
-            </div>
-          );
-        })}
-    </Slider>
+      {isLoad ? (
+        <div className={styles.zagr}>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <Slider {...settings2}>
+            {favoriteMovie.length > 0 &&
+              favoriteMovieUnique.map((item) => {
+                return (
+                  <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
+                    <div className={styles.text}>{item.Title}</div>
+                    <img className={styles.img} key={item.imdbID} src={item.Poster} alt="no" />
+                    <div className={styles.bottom}>
+                      <Link to={`/${item.imdbID}`}>
+                        <Button className={styles.btnDesc}>Go to moive</Button>
+                      </Link>
+                      <Popover content={content2} title="">
+                        <Button
+                          className={styles.btnPlus}
+                          onClick={() => delFavoriteNew(item)}
+                          type="primary">
+                          -
+                        </Button>
+                      </Popover>
+                    </div>
+                  </div>
+                );
+              })}
+          </Slider>
+        </div>
+      )}
     </>
   );
 };
