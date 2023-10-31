@@ -18,10 +18,12 @@ const MovieHeader = () => {
   const [ChatAll,{data}] = useChatAllMutation()
 
   useEffect(()=>{
-    ChatAll({
-      username: dataApi?.username
-    })
-  },[])
+    const data = {
+      username: dataApi?.username,
+      time: new Date().toLocaleTimeString()
+    }
+    ChatAll(data)
+  },[dataApi])
 
   useEffect(()=>{
     if(data){
