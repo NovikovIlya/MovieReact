@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
 import {
   auth,
-  useAuthApiQuery,
   useInfoApiSetMutation,
   useRenameApiSetMutation,
   useRepassApiSetMutation,
@@ -25,11 +24,11 @@ const Profile = () => {
   const [text, setText] = useState('');
   const [oldPass, setOldPass] = useState('');
   const [newPass, setNewPass] = useState('');
-  // const { data, isFetching, error: errorApi } = useAuthApiQuery('');
   const [renameApiSet, { error }] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
-  const { data: dataApi, refetch, error: errorApi,isFetching} = auth.useAuthApiQuery('');
-  const [area, setArea] = useState('');
+  const { data: dataApi, refetch, error: errorApi, isFetching } = auth.useAuthApiQuery('');
+  const val = dataApi ? dataApi.info  : ''
+  const [area, setArea] = useState<any>(val);
   const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
 
   const errorMessage = () => {
@@ -155,6 +154,18 @@ const Profile = () => {
   }, [refetch, dataInfo]);
 
   useEffect(() => {
+    const successMess = () => {
+      messageApi.open({
+        type: 'success',
+        content: 'Password changed!',
+      });
+    };
+    const errorMessageTwo = () => {
+      messageApi.open({
+        type: 'error',
+        content: 'Incorrect old password',
+      });
+    };
     if (dataRepass) {
       if ('message' in dataRepass) {
         if (dataRepass.message.includes('Паспорт пользователя')) {
@@ -166,9 +177,7 @@ const Profile = () => {
     if (statusRepass === 'rejected') {
       errorMessageTwo();
     }
-    
-  }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess]);
-
+  }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess,messageApi]);
 
   useEffect(() => {
     if (errorApi) {
@@ -196,7 +205,6 @@ const Profile = () => {
       }
     }
   }, [error, error1]);
- 
 
   if (!dataApi) {
     navigate('/');
@@ -204,171 +212,178 @@ const Profile = () => {
 
   return (
     <>
-    {isFetching ? <div className={styles.zagr}>
-                  <Spin tip="Loading" size="large">
-                    <div className="content" />
-                  </Spin>
-                </div>
-    :
-    <>
-      <div className={styles.mess}>{contextHolder}</div>
-      <div className={darkModeTheme}>
-        <div className={styles.container}>
-          <img
-            onError={onErr}
-            className={styles.ava}
-            src={`https://backmovie.onrender.com/${dataApi?.avatar}`}
-            alt="Add"
-          />
+      {isFetching ? (
+        <div className={styles.zagr}>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div>
+      ) : (
+        <>
+          <div className={styles.mess}>{contextHolder}</div>
+          <div className={darkModeTheme}>
+            <div className={styles.container}>
+              <img
+                onError={onErr}
+                className={styles.ava}
+                src={`https://backmovie.onrender.com/${dataApi?.avatar}`}
+                alt="Add"
+              />
 
-          <div className={styles.imageParent} style={{ width: '100%' }}>
-            <Button className={styles.btnImage} onClick={selFile}>
-              Select file
-            </Button>
-            <input
-              style={{ display: 'none' }}
-              ref={refImage}
-              type="file"
-              name="filedata"
-              onChange={handleChange}
-            />
-            <Input className={styles.inpImgae} type="submit" value="Send" onClick={onClickImage} />
-          </div>
-
-          <Divider className={styles.divid} />
-
-          <div className={styles.parent}>
-            <div className={styles.text}>Current name: </div>
-            <div className={styles.text}> {dataApi?.username}</div>
-          </div>
-
-          <div className={styles.parent1}>
-            <div className={styles.text}>New username: </div>
-            <div className={styles.newUsername}>
-              <Form
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ display: 'flex' }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off">
-                <Form.Item<FieldType>
-                  label=""
-                  name="username"
-                  rules={[
-                    { required: true, message: 'Please input your username!' },
-                    { min: 4, message: 'Minimum 4 characters.' },
-                  ]}>
-                  <Input
-                    className={styles.inp}
-                    value={text}
-                    onChange={(e) => handleInput(e)}
-                    placeholder=""></Input>
-                </Form.Item>
-                <Button className={styles.btn} onClick={handleClick} htmlType="submit">
-                  Send
+              <div className={styles.imageParent} style={{ width: '100%' }}>
+                <Button className={styles.btnImage} onClick={selFile}>
+                  Select file
                 </Button>
-              </Form>
-            </div>
-          </div>
+                <input
+                  style={{ display: 'none' }}
+                  ref={refImage}
+                  type="file"
+                  name="filedata"
+                  onChange={handleChange}
+                />
+                <Input
+                  className={styles.inpImgae}
+                  type="submit"
+                  value="Send"
+                  onClick={onClickImage}
+                />
+              </div>
 
-          <Divider className={styles.divid} />
+              <Divider className={styles.divid} />
 
-          <div className={styles.parent3}>
-            <div className={styles.text}>Current password: </div>
-            <div className={styles.inp2}>
-              <Form
-                name="basicPassword"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ display: 'flex' }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                className={styles.inp3}
-                autoComplete="off">
-                <Form.Item<FieldType>
-                  label=""
-                  name="username"
-                  rules={[
-                    { required: true, message: 'Please input your password!' },
-                    { min: 4, message: 'Minimum 4 characters.' },
-                  ]}>
-                  <Input
+              <div className={styles.parent}>
+                <div className={styles.text}>Current name: </div>
+                <div className={styles.text}> {dataApi?.username}</div>
+              </div>
+
+              <div className={styles.parent1}>
+                <div className={styles.text}>New username: </div>
+                <div className={styles.newUsername}>
+                  <Form
+                    name="basic"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ display: 'flex' }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off">
+                    <Form.Item<FieldType>
+                      label=""
+                      name="username"
+                      rules={[
+                        { required: true, message: 'Please input your username!' },
+                        { min: 4, message: 'Minimum 4 characters.' },
+                      ]}>
+                      <Input
+                        className={styles.inp}
+                        value={text}
+                        onChange={(e) => handleInput(e)}
+                        placeholder=""></Input>
+                    </Form.Item>
+                    <Button className={styles.btn} onClick={handleClick} htmlType="submit">
+                      Send
+                    </Button>
+                  </Form>
+                </div>
+              </div>
+
+              <Divider className={styles.divid} />
+
+              <div className={styles.parent3}>
+                <div className={styles.text}>Current password: </div>
+                <div className={styles.inp2}>
+                  <Form
+                    name="basicPassword"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ display: 'flex' }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     className={styles.inp3}
-                    value={text}
-                    onChange={(e) => handleInputOldPassword(e)}
-                    placeholder=""></Input>
-                </Form.Item>
-                {/* <Button  className={styles.btn} onClick={handleClick} htmlType="submit">
+                    autoComplete="off">
+                    <Form.Item<FieldType>
+                      label=""
+                      name="username"
+                      rules={[
+                        { required: true, message: 'Please input your password!' },
+                        { min: 4, message: 'Minimum 4 characters.' },
+                      ]}>
+                      <Input
+                        className={styles.inp3}
+                        value={text}
+                        onChange={(e) => handleInputOldPassword(e)}
+                        placeholder=""></Input>
+                    </Form.Item>
+                    {/* <Button  className={styles.btn} onClick={handleClick} htmlType="submit">
                 Send
               </Button> */}
-              </Form>
+                  </Form>
+                </div>
+              </div>
+
+              <div className={styles.parent}>
+                <div className={styles.text}>New password: </div>
+                <div className={styles.newUsername}>
+                  <Form
+                    name="basicPasswordNew"
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    style={{ display: 'flex' }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off">
+                    <Form.Item<FieldType>
+                      label=""
+                      name="username"
+                      rules={[
+                        { required: true, message: 'Please input your new password!' },
+                        { min: 4, message: 'Minimum 4 characters.' },
+                      ]}>
+                      <Input
+                        className={styles.inp}
+                        value={text}
+                        onChange={(e) => handleInputNewPassword(e)}
+                        placeholder=""></Input>
+                    </Form.Item>
+                    <Button className={styles.btn} onClick={handleClickPassword} htmlType="submit">
+                      Send
+                    </Button>
+                  </Form>
+                </div>
+              </div>
+
+              <Divider />
+
+              <div>
+                <h1>Information</h1>
+                <div className={styles.textInfo}>{dataApi && dataApi.info}</div>
+              </div>
+
+              <Divider />
+
+              <div>
+                <div>Change information</div>
+                <div>
+                  <TextArea
+                    value={area}
+                    onChange={(e) => handleArea(e)}
+                    rows={4}
+                    placeholder={dataApi.info}
+                    maxLength={60}
+                  />
+                </div>
+                <div className={styles.btnInfo}>
+                  <Button onClick={cliclArea}>Click</Button>
+                </div>
+              </div>
             </div>
+            {error ? <div className={styles.err}>{error1}</div> : ''}
           </div>
-
-          <div className={styles.parent}>
-            <div className={styles.text}>New password: </div>
-            <div className={styles.newUsername}>
-              <Form
-                name="basicPasswordNew"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ display: 'flex' }}
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off">
-                <Form.Item<FieldType>
-                  label=""
-                  name="username"
-                  rules={[
-                    { required: true, message: 'Please input your new password!' },
-                    { min: 4, message: 'Minimum 4 characters.' },
-                  ]}>
-                  <Input
-                    className={styles.inp}
-                    value={text}
-                    onChange={(e) => handleInputNewPassword(e)}
-                    placeholder=""></Input>
-                </Form.Item>
-                <Button className={styles.btn} onClick={handleClickPassword} htmlType="submit">
-                  Send
-                </Button>
-              </Form>
-            </div>
-          </div>
-
-          <Divider />
-
-          <div>
-            <h1>Information</h1>
-            <div className={styles.textInfo}>{dataApi && dataApi.info}</div>
-          </div>
-
-          <Divider />
-
-          <div>
-            <div>Change information</div>
-            <div>
-              <TextArea
-                value={area}
-                onChange={(e) => handleArea(e)}
-                rows={4}
-                placeholder="maxLength is 60"
-                maxLength={60}
-              />
-            </div>
-            <div className={styles.btnInfo}>
-              <Button onClick={cliclArea}>Click</Button>
-            </div>
-          </div>
-        </div>
-        {error ? <div className={styles.err}>{error1}</div> : ''}
-      </div>
-    </>}
+        </>
+      )}
     </>
   );
 };

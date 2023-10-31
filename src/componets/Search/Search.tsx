@@ -28,7 +28,12 @@ const Search: React.FC<SearchProps> = (props) => {
       return item.Title === data3;
     });
     console.log('ssffv', es);
-    navigate(`/${es.imdbID}`);
+    if(es){
+      navigate(`/${es.imdbID}`);
+    }else{
+      navigate('/not')
+    }
+    
   };
 
   const handleMovie = (e) => {
@@ -39,6 +44,10 @@ const Search: React.FC<SearchProps> = (props) => {
       setDataMass([]);
     }
   };
+
+  useEffect(()=>{
+    
+  },[])
 
   useEffect(() => {
     if (data) {

@@ -13,6 +13,9 @@ import Layout from '../Layout/Layout';
 import { Favorites } from '../Favorites/Favorites';
 import New from '../New/New';
 import Info from '../Info/Info';
+import Chat from '../Chat/Chat';
+import Main from '../Chat/Main';
+import Not from '../Not/Not';
 
 function App() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
@@ -25,14 +28,18 @@ function App() {
         <Routes>
         <Route>
             <Route path="/" element={<Layout />}>
-              <Route index element={<MainPage />} />
+              <Route path='popular' element={<MainPage />} />
               <Route path="/:id" element={<MovieCharacteristics />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/favorites" element={<Favorites />} />
-              <Route path="/new" element={<New />} />
+              <Route index element={<New />} />
+              <Route index element={<MainPage />} />
+              <Route path="/chat" element={<Chat />} />
+              <Route path="/mainchat" element={<Main />} />
               <Route path="/info/:name" element={<Info />} />
+              <Route path="/not" element={<Not />} />
               <Route path="*" element={<>Нет такого</>} />
             </Route>
             </Route>

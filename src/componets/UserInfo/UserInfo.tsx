@@ -5,6 +5,7 @@ import {
   MenuOutlined,
   StarOutlined,
   UserOutlined,
+  WechatOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space } from 'antd';
@@ -65,6 +66,13 @@ const UserInfo = () => {
       </Link>,
       '3',
       <StarOutlined />,
+    ),
+    getItem(
+      <Link className={styles.lin} to={`/chat?name=${dataApi?.username}&room=main`}>
+        Chat
+      </Link>,
+      '7',
+      <WechatOutlined />,
     ),
     getItem(<div onClick={exitFnc}>Exit</div>, '6', <LogoutOutlined />),
     ,

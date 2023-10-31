@@ -198,11 +198,12 @@ function LoginPage() {
             </AndtdButton>
           </div>
         </form>
+        
         {lama && (<>
           <Spin className={styles.spin} tip="Loading" size="large">
             <div className="content" />
           </Spin>
-          <div>Please wait, the server is waking up on Render (about 30 sec)</div>
+          <div className={styles.spin2} >Please wait, the server is waking up on Render (about 30 sec)</div>
         </>
         )}
         

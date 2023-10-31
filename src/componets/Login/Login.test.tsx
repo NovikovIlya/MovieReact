@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 describe('LoginPage', () => {
   it('renders correctly', () => {
-    const { getByText } = render(<Provider store={store}>
+   render(<Provider store={store}>
         <BrowserRouter>
           <LoginPage />
         </BrowserRouter>

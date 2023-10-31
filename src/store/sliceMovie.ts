@@ -38,7 +38,7 @@ const initialState = {
   darkMode: false,
   render: false,
   avatar: 'https://innostudio.de/fileuploader/images/default-avatar.png',
-  dropdown: 'mail',
+  dropdown: 'alipay',
   textComment: 'Enter comment',
   favoritesNew: [],
   isLoad: false

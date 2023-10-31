@@ -114,13 +114,13 @@ export const torrentApi = createApi({
 
 export const info = createApi({
   reducerPath: 'Info',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/auth/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://backmovie.onrender.com/' }),
   tagTypes: ['getuser','info'],
   endpoints: (builder) => ({
     infoApiSet: builder.mutation<getInfoUser, login>({
       query: (add) => ({
         method: 'POST',
-        url: 'info',
+        url: 'auth/info',
         body: add,
       }),
       invalidatesTags: ['getuser'],
@@ -128,7 +128,7 @@ export const info = createApi({
     getUserApiSet: builder.mutation<getInfoUser, login>({
       query: (add) => ({
         method: 'POST',
-        url: 'user',
+        url: 'auth/user',
         body: add,
       }),
       invalidatesTags: ['info']
@@ -136,7 +136,7 @@ export const info = createApi({
     RegistrApiSet: builder.mutation<login, login>({
       query: (add) => ({
         method: 'POST',
-        url: 'registrationNew',
+        url: 'auth/registrationNew',
         body: add,
       }),
       invalidatesTags: ['info'],
@@ -144,7 +144,7 @@ export const info = createApi({
     repassApiSet: builder.mutation<repassType, repassType>({
       query: (add) => ({
         method: 'PUT',
-        url: 'repassword',
+        url: 'auth/repassword',
         body: add,
       }),
       invalidatesTags: ['info'],
@@ -152,7 +152,7 @@ export const info = createApi({
     renameApiSet: builder.mutation<any, renameType>({
       query: (add) => ({
         method: 'PUT',
-        url: 'rename',
+        url: 'auth/rename',
         body: add,
       }),
       invalidatesTags: ['info'],
@@ -161,7 +161,15 @@ export const info = createApi({
     LoginApiSet: builder.mutation<tokenType, login>({
       query: (add) => ({
         method: 'POST',
-        url: 'login',
+        url: 'auth/login',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    ChatAll: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'chatall',
         body: add,
       }),
       invalidatesTags: ['info']
@@ -227,6 +235,7 @@ export const {
   useRepassApiSetMutation,
   useRenameApiSetMutation,
   useLoginApiSetMutation,
+  useChatAllMutation
 } = info;
 
 export const { useInfoApiSetTwoQuery,useGetUserApiSetTwoMutation } = infoTag;

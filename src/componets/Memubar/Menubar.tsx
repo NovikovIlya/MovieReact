@@ -15,23 +15,24 @@ const Menubar = () => {
   const [puk, setPuk] = useState(true);
   const numerKey = useAppSelector((state) => state.sliceMovie.dropdown);
   const items: MenuProps['items'] = [
+    
     {
       label: (
-        <Link className={styles.lin} to="/" rel="noopener noreferrer">
-          Popular
-        </Link>
-      ),
-      key: 'mail',
-      icon: <TrophyOutlined />,
-    },
-    {
-      label: (
-        <Link className={styles.lin} to="/new">
+        <Link className={styles.lin} to="/">
           All
         </Link>
       ),
       icon: <StarOutlined />,
       key: 'alipay',
+    },
+    {
+      label: (
+        <Link className={styles.lin} to="/popular" rel="noopener noreferrer">
+          Popular
+        </Link>
+      ),
+      key: 'mail',
+      icon: <TrophyOutlined />,
     },
   ];
   const onClick: MenuProps['onClick'] = (e) => {
@@ -41,7 +42,7 @@ const Menubar = () => {
 
   useEffect(() => {
     let url = location;
-    if (url.pathname === '/' || url.pathname === '/new') {
+    if (url.pathname === '/popular' || url.pathname === '/') {
       console.log('ne pukl');
       setPuk(true);
     } else {
@@ -50,19 +51,17 @@ const Menubar = () => {
       return;
     }
 
-    if (url.pathname === '/') {
+    if (url.pathname === '/popular') {
       dispatch(toggleDropdown('mail'));
     }
-    if (url.pathname === '/new') {
+    if (url.pathname === '/') {
       dispatch(toggleDropdown('alipay'));
     }
   }, [location, dispatch]);
 
   return (
     <>
-      {!data ? (
-        isFetching && <></>
-      ) : (
+      { (
         <ConfigProvider
           theme={{
             components: {

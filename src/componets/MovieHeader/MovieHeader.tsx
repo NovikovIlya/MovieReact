@@ -3,13 +3,35 @@ import MovieTitle from '../MovieTitle/MovieTitle';
 import Search from '../Search/Search';
 import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
-import { Divider } from 'antd';
+import { Divider,message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useAuthApiQuery, useChatAllMutation } from '../../store/MovieApi';
+
+
 
 const MovieHeader = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [hidd, setHidd] = useState(false);
-  const location = useLocation();;
+  const location = useLocation();
+  const { data: dataApi, refetch } = useAuthApiQuery('');
+  const [ChatAll,{data}] = useChatAllMutation()
+
+  useEffect(()=>{
+    ChatAll({
+      username: dataApi?.username
+    })
+  },[])
+
+  useEffect(()=>{
+    if(data){
+      if(data.length > 0){
+        success()
+      }
+
+    }
+  
+  },[data])
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {
@@ -18,6 +40,13 @@ const MovieHeader = () => {
       setHidd(false);
     }
   }, [location.pathname]);
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'New message!',
+    });
+  };
 
 
   const placeholder = 'input text';

@@ -28,23 +28,23 @@ const MovieList = ({ movie }: MovieListProps) => {
     autoplaySpeed: 4000,
   };
 
-  useEffect(() => {
-    if (movie) {
-      if (movie.length === 0) {
-        dispatch(toogleEmpty(true));
-      }
-    }
-  }, [movie, dispatch, dataPopular]);
+  // useEffect(() => {
+  //   if (movie) {
+  //     if (movie.length === 0) {
+  //       dispatch(toogleEmpty(true));
+  //     }
+  //   }
+  // }, [movie, dispatch, dataPopular]);
 
-  if (!movie) {
-    return (
-      <div>
-        <div className={styles.notFound}>
-          <p>Movie not found!</p>
-        </div>
-      </div>
-    );
-  }
+  // if (!movie) {
+  //   return (
+  //     <div>
+  //       <div className={styles.notFound}>
+  //         <p>Movie not found!</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -55,7 +55,7 @@ const MovieList = ({ movie }: MovieListProps) => {
               return (
                 <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start ">
                   <div className={styles.text}>{item.title}</div>
-                  <Link className={styles.td} to={`${item.imdb_code}`}>
+                  <Link className={styles.td} to={`/${item.imdb_code}`}>
                     <img
                       className={styles.img}
                       key={item.imdb_code}

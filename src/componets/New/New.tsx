@@ -60,8 +60,8 @@ const New = () => {
 
   return (
     <>
-      {!data ? (
-        isLoading && (
+      {isLoading ? (
+       (
           <div className={styles.zagr}>
             <Spin tip="Loading" size="large">
               <div className="content" />
@@ -141,7 +141,7 @@ const New = () => {
           <div className={styles.parent}>
             {dataPopular?.data?.movies?.map((item) => {
               return (
-                <div key={item.imdb_code} className=" ">
+                <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start">
                   <div className={styles.text}>{item.title}</div>
                   {item.large_cover_image ? (
                     <Link  to={`/${item.imdb_code}`}>
