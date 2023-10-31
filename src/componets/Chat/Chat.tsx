@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import icon from '../../images/emoji.svg';
 import EmojiPicker from 'emoji-picker-react';
 import Message from './Message';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setClosed } from '../../store/sliceMovie';
 
 //@ts-ignore
 const socket = io.connect('http://localhost:5000');
@@ -20,6 +22,8 @@ const Chat = () => {
   const [users, setUser] = useState(0);
   const [history,setHistory] = useState<any>([])
   const [not,setNot] = useState(false)
+  const dispatch = useAppDispatch()
+  const closed = useAppSelector((state)=>state.sliceMovie.closed)
 
   useEffect(() => {
     //Имя и комната
@@ -29,6 +33,7 @@ const Chat = () => {
   }, [search]);
 
   useEffect(() => {
+    dispatch(setClosed(true))
     socket.on('message', ({ data }) => {
       setState((_state) => [..._state, data]);
       setNot(true)

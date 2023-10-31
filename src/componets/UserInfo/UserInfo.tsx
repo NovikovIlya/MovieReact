@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux';
 import { auth } from '../../store/MovieApi';
 import styles from './UserInfo.module.scss';
+import { setClosed } from '../../store/sliceMovie';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -42,8 +43,11 @@ const UserInfo = () => {
     localStorage.setItem('token', '');
     dispatch(auth.util.resetApiState());
     refetch();
+    dispatch(setClosed(false))
     navigate('/login');
   };
+
+
 
   const items: MenuProps['items'] = [
     getItem(
@@ -68,7 +72,7 @@ const UserInfo = () => {
       <StarOutlined />,
     ),
     getItem(
-      <Link className={styles.lin} to={`/chat?name=${dataApi?.username}&room=main`}>
+      <Link  className={styles.lin} to={`/chat?name=${dataApi?.username}&room=main`}>
         Chat
       </Link>,
       '7',

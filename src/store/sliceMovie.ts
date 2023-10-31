@@ -41,7 +41,8 @@ const initialState = {
   dropdown: 'alipay',
   textComment: 'Enter comment',
   favoritesNew: [],
-  isLoad: false
+  isLoad: false,
+  closed:false,
 };
 
 export const sliceMovie = createSlice({
@@ -89,6 +90,9 @@ export const sliceMovie = createSlice({
           item.imdbID !== action.payload
         )
       })
+    },
+    setClosed:(state,action)=>{
+      state.closed = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -118,6 +122,8 @@ export const {
   switchAvatar,
   toggleDropdown,
   addTextComment,
-  deletefavoritesNew
+  deletefavoritesNew,
+  setClosed
+
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

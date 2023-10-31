@@ -7,6 +7,7 @@ import { Divider,message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuthApiQuery, useChatAllMutation } from '../../store/MovieApi';
+import { useAppSelector } from '../../hooks/redux';
 
 
 
@@ -15,25 +16,29 @@ const MovieHeader = () => {
   const [hidd, setHidd] = useState(false);
   const location = useLocation();
   const { data: dataApi, refetch } = useAuthApiQuery('');
-  const [ChatAll,{data}] = useChatAllMutation()
+  const [ChatAll,{data:dataChat}] = useChatAllMutation()
+  const closed = useAppSelector((state)=>state.sliceMovie.closed)
 
   useEffect(()=>{
+    if(dataApi){
+    if(dataApi.username){
     const data = {
-      username: dataApi?.username,
+      username: dataApi.username,
       time: new Date().toLocaleTimeString()
     }
-    ChatAll(data)
+    ChatAll(data)}}
   },[dataApi])
 
   useEffect(()=>{
-    if(data){
-      if(data.length > 0){
+    if(dataChat && closed===false){
+      if(dataChat.length > 0){
         success()
       }
 
     }
   
-  },[data])
+  },[dataChat])
+  console.log('closed',closed)
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {
@@ -55,6 +60,7 @@ const MovieHeader = () => {
 
   return (
     <div className={hidd ? styles.hiddenZ : ''}>
+       {contextHolder}
       {
         <div className={styles.main}>
           <div className={styles.container}>

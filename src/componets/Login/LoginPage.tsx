@@ -76,8 +76,9 @@ function LoginPage() {
   };
   const onSubmit1 = async () => {
     try {
+      const time =  new Date().toLocaleTimeString('ru-RU')
       setLama(true);
-      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321' });
+      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321',time: time});
       if ('data' in tok) {
         localStorage.setItem('token', tok.data.token);
         refetch();

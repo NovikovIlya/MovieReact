@@ -117,6 +117,7 @@ export type login ={
   info?: string,
   avatar?:any,
   imdbID? :any,
+  time?: any,
 }
 export type getInfoUser = {
   username : string,
