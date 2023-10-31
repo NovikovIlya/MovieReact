@@ -174,6 +174,22 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
+    emailRead: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'auth/emailReading',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    getEmail: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'auth/getemail',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
    
   }),
 });
@@ -235,7 +251,9 @@ export const {
   useRepassApiSetMutation,
   useRenameApiSetMutation,
   useLoginApiSetMutation,
-  useChatAllMutation
+  useChatAllMutation,
+  useEmailReadMutation,
+  useGetEmailMutation
 } = info;
 
 export const { useInfoApiSetTwoQuery,useGetUserApiSetTwoMutation } = infoTag;

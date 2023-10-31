@@ -6,14 +6,13 @@ import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieAp
 import styles from './New.module.scss';
 
 const New = () => {
-  const { data,  isFetching } = useAuthApiQuery('');
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
   const { data: dataPopular,isLoading } = useFetchMoviesPopularQuery(
-    `sort_by=${sort}&order_by=${sortHow}&limit=9&page=${num}&genre=${genre}`,
+    `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
 
   const placeholderImage =

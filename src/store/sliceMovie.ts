@@ -1,33 +1,35 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-type MyData ={
-  oldUsername:string
+type MyData = {
+  oldUsername: string;
   favorites?: any;
   imdbID?: any;
-}
+};
 
-export const deleteFavorites = createAsyncThunk('post/deleteFavorites', async (dataBody:MyData) => {
-  const {data} = await axios.delete('https://backmovie.onrender.com/auth/deleteFavorites', {
-  data:{oldUsername : dataBody.oldUsername,
-    imdbID: dataBody.imdbID}
+export const deleteFavorites = createAsyncThunk(
+  'post/deleteFavorites',
+  async (dataBody: MyData) => {
+    const { data } = await axios.delete('https://backmovie.onrender.com/auth/deleteFavorites', {
+      data: { oldUsername: dataBody.oldUsername, imdbID: dataBody.imdbID },
+    });
+    return data;
+  },
+);
+
+export const getFavorites = createAsyncThunk('post/getFavorites', async (dataBody: MyData) => {
+  const { data } = await axios.post('https://backmovie.onrender.com/auth/getfavorites', {
+    oldUsername: dataBody.oldUsername,
   });
-  return data
+  return data;
 });
 
-export const getFavorites = createAsyncThunk('post/getFavorites', async (dataBody:MyData) => {
-  const {data} = await axios.post('https://backmovie.onrender.com/auth/getfavorites', {
-  oldUsername : dataBody.oldUsername,
+export const addFavorites = createAsyncThunk('post/addFavorites', async (dataBody: any) => {
+  const { data } = await axios.post('https://backmovie.onrender.com/auth/addfavorites', {
+    oldUsername: dataBody.oldUsername,
+    favoritesNew: dataBody.favorites,
   });
-  return data
-});
-
-export const addFavorites = createAsyncThunk('post/addFavorites', async (dataBody:any) => {
-  const {data} = await axios.post('https://backmovie.onrender.com/auth/addfavorites', {
-  oldUsername: dataBody.oldUsername,
-  favoritesNew: dataBody.favorites,
-  });
-  return data
+  return data;
 });
 
 const initialState = {
@@ -42,7 +44,8 @@ const initialState = {
   textComment: 'Enter comment',
   favoritesNew: [],
   isLoad: false,
-  closed:false,
+  closed: false,
+  emailAll: 0,
 };
 
 export const sliceMovie = createSlice({
@@ -84,16 +87,17 @@ export const sliceMovie = createSlice({
     addTextComment: (state, action) => {
       state.textComment = action.payload;
     },
-    deletefavoritesNew:(state,action)=>{
-      state.favoritesNew = state.favoritesNew.filter((item)=>{
-        return(
-          item.imdbID !== action.payload
-        )
-      })
+    deletefavoritesNew: (state, action) => {
+      state.favoritesNew = state.favoritesNew.filter((item) => {
+        return item.imdbID !== action.payload;
+      });
     },
-    setClosed:(state,action)=>{
+    setClosed: (state, action) => {
       state.closed = action.payload;
-    }
+    },
+    setEmailAll: (state, action) => {
+      state.emailAll = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getFavorites.pending, (state) => {
@@ -123,7 +127,7 @@ export const {
   toggleDropdown,
   addTextComment,
   deletefavoritesNew,
-  setClosed
-
+  setClosed,
+  setEmailAll,
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

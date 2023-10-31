@@ -7,23 +7,26 @@ import EmojiPicker from 'emoji-picker-react';
 import Message from './Message';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setClosed } from '../../store/sliceMovie';
+import { useAuthApiQuery, useEmailReadMutation } from '../../store/MovieApi';
 
 //@ts-ignore
 const socket = io.connect('http://localhost:5000');
 
 const Chat = () => {
-  const click = useRef<HTMLInputElement>()
-  const navigate = useNavigate()
+  const click = useRef<HTMLInputElement>();
+  const navigate = useNavigate();
   const { search } = useLocation();
   const [params, setParams] = useState<any>({ room: '', user: '' });
   const [state, setState] = useState([]);
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUser] = useState(0);
-  const [history,setHistory] = useState<any>([])
-  const [not,setNot] = useState(false)
-  const dispatch = useAppDispatch()
-  const closed = useAppSelector((state)=>state.sliceMovie.closed)
+  const [history, setHistory] = useState<any>([]);
+  const [not, setNot] = useState(false);
+  const dispatch = useAppDispatch();
+  const [emailRead, { data }] = useEmailReadMutation();
+  const emailAll = useAppSelector((state) => state.sliceMovie.emailAll);
+  const { data: dataApi, refetch } = useAuthApiQuery('');
 
   useEffect(() => {
     //Имя и комната
@@ -33,14 +36,25 @@ const Chat = () => {
   }, [search]);
 
   useEffect(() => {
-    dispatch(setClosed(true))
+    dispatch(setClosed(true));
+    if (dataApi) {
+      if (dataApi.username) {
+        const dataInfo = {
+          username: dataApi.username,
+          //@ts-ignore
+          email: emailAll?.length,
+        };
+        emailRead(dataInfo);
+      }
+    }
+  }, [dataApi]);
+
+  useEffect(() => {
     socket.on('message', ({ data }) => {
       setState((_state) => [..._state, data]);
-      setNot(true)
-      console.log('data', data);
+      setNot(true);
     });
   }, []);
-  console.log('nn',not)
 
   useEffect(() => {
     socket.on('joinRoom', ({ data: { users } }) => {
@@ -50,20 +64,18 @@ const Chat = () => {
 
   useEffect(() => {
     socket.emit('getChatHistory', params.room);
-    socket.on('chatHistory', ( {data}  ) => {
+    socket.on('chatHistory', ({ data }) => {
       setHistory(data);
     });
   }, [params.room]);
-  console.log('history',history)
-  console.log('params.room',params.room)
 
-  const clickIcon = ()=>{
-    click.current.click()
-  }
+  const clickIcon = () => {
+    click.current.click();
+  };
 
   const leftRoom = () => {
-    socket.emit('leftRoom', {  params });
-    navigate('/')
+    socket.emit('leftRoom', { params });
+    navigate('/');
   };
 
   const handleChange = ({ target: { value } }) => {
@@ -120,8 +132,19 @@ const Chat = () => {
         </div>
 
         <div className={styles.button}>
-          <input ref={click} style={{display:'none'}} type="submit" onSubmit={handleSumbit} value="Send a message" />
-          <img onClick={clickIcon} className={styles.btnIcon} src='https://visualpharm.com/assets/584/Sent-595b40b85ba036ed117da306.svg' alt='ni'/>
+          <input
+            ref={click}
+            style={{ display: 'none' }}
+            type="submit"
+            onSubmit={handleSumbit}
+            value="Send a message"
+          />
+          <img
+            onClick={clickIcon}
+            className={styles.btnIcon}
+            src="https://visualpharm.com/assets/584/Sent-595b40b85ba036ed117da306.svg"
+            alt="ni"
+          />
         </div>
       </form>
     </div>

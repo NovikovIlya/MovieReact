@@ -6,16 +6,13 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Link, useLocation } from 'react-router-dom';
 import { TrophyOutlined, StarOutlined } from '@ant-design/icons';
 import { toggleDropdown } from '../../store/sliceMovie';
-import { useAuthApiQuery } from '../../store/MovieApi';
 
 const Menubar = () => {
-  const { data, isFetching } = useAuthApiQuery('');
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [puk, setPuk] = useState(true);
   const numerKey = useAppSelector((state) => state.sliceMovie.dropdown);
   const items: MenuProps['items'] = [
-    
     {
       label: (
         <Link className={styles.lin} to="/">
@@ -35,6 +32,7 @@ const Menubar = () => {
       icon: <TrophyOutlined />,
     },
   ];
+
   const onClick: MenuProps['onClick'] = (e) => {
     dispatch(toggleDropdown(e.key));
     console.log(e.key);
@@ -43,10 +41,8 @@ const Menubar = () => {
   useEffect(() => {
     let url = location;
     if (url.pathname === '/popular' || url.pathname === '/') {
-      console.log('ne pukl');
       setPuk(true);
     } else {
-      console.log('pukl');
       setPuk(false);
       return;
     }
@@ -61,7 +57,7 @@ const Menubar = () => {
 
   return (
     <>
-      { (
+      {
         <ConfigProvider
           theme={{
             components: {
@@ -80,7 +76,7 @@ const Menubar = () => {
             />
           </div>
         </ConfigProvider>
-      )}
+      }
     </>
   );
 };

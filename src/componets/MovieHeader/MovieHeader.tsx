@@ -1,44 +1,60 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import MovieTitle from '../MovieTitle/MovieTitle';
 import Search from '../Search/Search';
 import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
-import { Divider,message } from 'antd';
+import { Divider, message } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useAuthApiQuery, useChatAllMutation } from '../../store/MovieApi';
-import { useAppSelector } from '../../hooks/redux';
-
-
+import {
+  useAuthApiQuery,
+  useChatAllMutation, useGetEmailMutation
+} from '../../store/MovieApi';
+import { useAppDispatch } from '../../hooks/redux';
+import { setEmailAll } from '../../store/sliceMovie';
 
 const MovieHeader = () => {
+  const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
   const [hidd, setHidd] = useState(false);
   const location = useLocation();
   const { data: dataApi, refetch } = useAuthApiQuery('');
-  const [ChatAll,{data:dataChat}] = useChatAllMutation()
-  const closed = useAppSelector((state)=>state.sliceMovie.closed)
+  const [ChatAll, { data: dataChat }] = useChatAllMutation();
+  const [cccvalue, setCccValue] = useState('');
+  const [getUserApiSetTwo, { data: dataGetEmail }] = useGetEmailMutation({});
+  const [mess,setMess] = useState(false)
 
-  useEffect(()=>{
-    if(dataApi){
-    if(dataApi.username){
-    const data = {
-      username: dataApi.username,
-      time: new Date().toLocaleTimeString()
-    }
-    ChatAll(data)}}
-  },[dataApi])
-
-  useEffect(()=>{
-    if(dataChat && closed===false){
-      if(dataChat.length > 0){
-        success()
+  useEffect(() => {
+    if (dataApi) {
+      if (dataApi.username) {
+        getUserApiSetTwo({ username: dataApi.username });
+        const data = {
+          username: dataApi.username,
+          time: new Date().toLocaleTimeString(),
+        };
+        ChatAll(data);
       }
-
     }
-  
-  },[dataChat])
-  console.log('closed',closed)
+  }, [dataApi]);
+
+  useEffect(() => {
+    if (dataChat) {
+      const ccc = dataChat.filter((element) => element !== null);
+      dispatch(setEmailAll(ccc));
+      setCccValue(ccc);
+    }
+  }, [dataChat]);
+
+  useEffect(() => {
+    if (dataGetEmail < cccvalue.length) {
+      success();
+      setMess(true)
+    }else{
+      setMess(false)
+    }
+    
+  }, [dataGetEmail, cccvalue]);
+  console.log('dataGetEmail', dataGetEmail, '-----', 'cccvalue', cccvalue.length);
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {
@@ -55,14 +71,14 @@ const MovieHeader = () => {
     });
   };
 
-
   const placeholder = 'input text';
 
   return (
     <div className={hidd ? styles.hiddenZ : ''}>
-       {contextHolder}
+      {contextHolder}
       {
         <div className={styles.main}>
+          {/* <div>{mess && <>Есть сообщение</>}</div> */}
           <div className={styles.container}>
             <div className={styles.title}>
               <MovieTitle />
@@ -71,6 +87,7 @@ const MovieHeader = () => {
               <Search placeholder={placeholder} />
             </div>
             <div className={styles.userInfo}>
+
               <UserInfo />
             </div>
           </div>
