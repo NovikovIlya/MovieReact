@@ -52,9 +52,15 @@ const MovieHeader = () => {
     }else{
       setMess(false)
     }
-    
   }, [dataGetEmail, cccvalue]);
   console.log('dataGetEmail', dataGetEmail, '-----', 'cccvalue', cccvalue.length);
+
+  useEffect(()=>{
+    // const interval = setInterval(() => {
+    //   console.log('This will run every second!');
+    // }, 1000);
+    // return () => clearInterval(interval);
+  },[])
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {

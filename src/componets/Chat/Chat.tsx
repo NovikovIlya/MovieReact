@@ -10,7 +10,7 @@ import { setClosed } from '../../store/sliceMovie';
 import { useAuthApiQuery, useEmailReadMutation } from '../../store/MovieApi';
 
 //@ts-ignore
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect('https://backmovie.onrender.com/');
 
 const Chat = () => {
   const click = useRef<HTMLInputElement>();
