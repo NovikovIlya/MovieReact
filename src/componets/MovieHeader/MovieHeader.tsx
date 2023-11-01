@@ -3,36 +3,50 @@ import MovieTitle from '../MovieTitle/MovieTitle';
 import Search from '../Search/Search';
 import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
-import { Divider, message } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { Divider, FloatButton, message } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import {
-  useAuthApiQuery,
-  useChatAllMutation, useGetEmailMutation
-} from '../../store/MovieApi';
+import { CommentOutlined } from '@ant-design/icons';
+import { useAuthApiQuery, useChatAllMutation, useGetEmailMutation } from '../../store/MovieApi';
 import { useAppDispatch } from '../../hooks/redux';
 import { setEmailAll } from '../../store/sliceMovie';
 
 const MovieHeader = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [messageApi, contextHolder] = message.useMessage();
+
   const [hidd, setHidd] = useState(false);
   const location = useLocation();
   const { data: dataApi, refetch } = useAuthApiQuery('');
   const [ChatAll, { data: dataChat }] = useChatAllMutation();
   const [cccvalue, setCccValue] = useState('');
   const [getUserApiSetTwo, { data: dataGetEmail }] = useGetEmailMutation({});
-  const [mess,setMess] = useState(false)
+  const [mess, setMess] = useState(false);
 
   useEffect(() => {
     if (dataApi) {
       if (dataApi.username) {
-        getUserApiSetTwo({ username: dataApi.username });
         const data = {
           username: dataApi.username,
           time: new Date().toLocaleTimeString(),
         };
         ChatAll(data);
+      }
+    }
+  }, [dataApi]);
+
+  useEffect(() => {
+    if (dataApi) {
+      if (dataApi.username && dataApi.username !== undefined) {
+        const interval = setInterval(() => {
+          getUserApiSetTwo({ username: dataApi.username });
+          const data = {
+            username: dataApi.username,
+            time: new Date().toLocaleTimeString(),
+          };
+          ChatAll(data);
+        }, 10000);
+        return () => clearInterval(interval);
       }
     }
   }, [dataApi]);
@@ -46,21 +60,15 @@ const MovieHeader = () => {
   }, [dataChat]);
 
   useEffect(() => {
-    if (dataGetEmail < cccvalue.length) {
-      success();
-      setMess(true)
-    }else{
-      setMess(false)
+    if (dataGetEmail !== undefined) {
+      if (dataGetEmail < cccvalue.length) {
+        setMess(true);
+      } else {
+        setMess(false);
+      }
     }
   }, [dataGetEmail, cccvalue]);
-  console.log('dataGetEmail', dataGetEmail, '-----', 'cccvalue', cccvalue.length);
-
-  useEffect(()=>{
-    // const interval = setInterval(() => {
-    //   console.log('This will run every second!');
-    // }, 1000);
-    // return () => clearInterval(interval);
-  },[])
+  // console.log('dataGetEmail', dataGetEmail, '-----', 'cccvalue', cccvalue.length);
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {
@@ -70,21 +78,30 @@ const MovieHeader = () => {
     }
   }, [location.pathname]);
 
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'New message!',
-    });
-  };
-
   const placeholder = 'input text';
+
+  const onClickMess = () => {
+    navigate(`/chat?name=${dataApi.username}&room=main`);
+  };
 
   return (
     <div className={hidd ? styles.hiddenZ : ''}>
-      {contextHolder}
       {
         <div className={styles.main}>
-          {/* <div>{mess && <>Есть сообщение</>}</div> */}
+          <div>
+            {mess && (
+              <div>
+                {' '}
+                <FloatButton
+                  icon={<CommentOutlined />}
+                  description="New message in chat"
+                  shape="square"
+                  style={{ right: 24 }}
+                  onClick={onClickMess}
+                />
+              </div>
+            )}
+          </div>
           <div className={styles.container}>
             <div className={styles.title}>
               <MovieTitle />
@@ -93,7 +110,6 @@ const MovieHeader = () => {
               <Search placeholder={placeholder} />
             </div>
             <div className={styles.userInfo}>
-
               <UserInfo />
             </div>
           </div>

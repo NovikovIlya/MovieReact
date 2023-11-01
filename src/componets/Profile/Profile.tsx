@@ -27,7 +27,7 @@ const Profile = () => {
   const [renameApiSet, { error }] = useRenameApiSetMutation();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data: dataApi, refetch, error: errorApi, isFetching } = auth.useAuthApiQuery('');
-  const val = dataApi ? dataApi.info  : ''
+  const val = dataApi ? dataApi.info : '';
   const [area, setArea] = useState<any>(val);
   const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
 
@@ -177,7 +177,7 @@ const Profile = () => {
     if (statusRepass === 'rejected') {
       errorMessageTwo();
     }
-  }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess,messageApi]);
+  }, [dataRepass, errorRepass, statusRepass, errorMessageTwo, successMess, messageApi]);
 
   useEffect(() => {
     if (errorApi) {
@@ -198,10 +198,7 @@ const Profile = () => {
       if ('data' in error) {
         //@ts-ignore
         setError1(error.data.message);
-        console.log('44', error1);
-        // you can access all properties of `FetchBaseQueryError` here
       } else {
-        // you can access all properties of `SerializedError` here
       }
     }
   }, [error, error1]);
@@ -359,13 +356,13 @@ const Profile = () => {
 
               <div>
                 <h1>Information</h1>
-                <div className={styles.textInfo}>{dataApi && dataApi.info}</div>
+                
               </div>
 
               <Divider />
 
               <div>
-                <div>Change information</div>
+                
                 <div>
                   <TextArea
                     value={area}
@@ -376,7 +373,7 @@ const Profile = () => {
                   />
                 </div>
                 <div className={styles.btnInfo}>
-                  <Button onClick={cliclArea}>Click</Button>
+                  <Button onClick={cliclArea}>Send</Button>
                 </div>
               </div>
             </div>

@@ -42,6 +42,11 @@
 .hiddenZ{
     display: none;
 }
+.messa{
+    position: absolute;
+    top:22px;
+    right: 250px;
+}
 
 @media screen and (max-width: 600px) {
     .container{
