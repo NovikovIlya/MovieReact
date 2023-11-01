@@ -49,6 +49,7 @@ const MovieCharacteristics = () => {
   });
 
   useEffect(() => {
+    if(favoriteMovie){
     const proverka = () => {
       const favoriteMovieImdb = favoriteMovie.map((item) => {
         return item.imdbID;
@@ -58,7 +59,7 @@ const MovieCharacteristics = () => {
       console.log('hehehe', id);
       setHaveFav(favoriteMovieImdb.includes(id));
     };
-    proverka();
+    proverka();}
   }, [id, favoriteMovie]);
 
   const addFavoritesNew = (data) => {
