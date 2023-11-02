@@ -368,7 +368,7 @@ const Profile = () => {
                     value={area}
                     onChange={(e) => handleArea(e)}
                     rows={4}
-                    placeholder={dataApi.info}
+                    placeholder={dataApi?.info}
                     maxLength={60}
                   />
                 </div>

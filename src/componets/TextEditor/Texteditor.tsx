@@ -50,6 +50,7 @@ const Texteditor = ({ id }) => {
           name: name,
           text: title,
           like: valueSelect,
+          date: new Date().toISOString().slice(0,10).split('-').reverse().join('.')
         },
       ],
     });

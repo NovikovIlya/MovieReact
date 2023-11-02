@@ -43,6 +43,8 @@ const MovieCharacteristics = () => {
   const { data: dataTorrent } = useTorrentFetchQuery(id);
   const { data: dataApi, error, isFetching } = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
+  //@ts-ignore
+  const {data:dataPoster} = useTorrentFetchQuery(id)
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
@@ -133,6 +135,14 @@ const MovieCharacteristics = () => {
 
     console.log('torrentMassiv', torrentMassiv);
   }, [dataTorrent]);
+  //@ts-ignore
+  if(dataPoster){
+    var placeholderImage = dataPoster.data.movies[0].large_cover_image
+  }
+
+  const onErr = (error) => {
+    error.target.src = placeholderImage;
+  };
 
   return (
     <>
@@ -190,6 +200,8 @@ const MovieCharacteristics = () => {
                       <div className={styles.container__left}>
                         <div>
                           <img
+                          className={styles.imag}
+                          onError={onErr}
                             src={
                               data.Poster
                                 ? data.Poster

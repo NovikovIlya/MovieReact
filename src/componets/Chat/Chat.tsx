@@ -35,18 +35,25 @@ const Chat = () => {
     socket.emit('join', searchParams);
   }, [search]);
 
+  // if(search.includes('main')){
+  //   console.log('содержит!!!!!!!!!!!!!!!!!!!!!!!!')  
+  // }
+
   useEffect(() => {
-    dispatch(setClosed(true));
-    if (dataApi) {
-      if (dataApi.username) {
-        const dataInfo = {
-          username: dataApi.username,
-          //@ts-ignore
-          email: emailAll?.length,
-        };
-        emailRead(dataInfo);
+    if(search.includes('main')){
+      console.log('содержит!!!!!!!!!!!!!!!!!!!!!!!!')
+      dispatch(setClosed(true));
+      if (dataApi) {
+        if (dataApi.username) {
+          const dataInfo = {
+            username: dataApi.username,
+            //@ts-ignore
+            email: emailAll?.length,
+          };
+          emailRead(dataInfo);
       }
     }
+  }
   }, [dataApi]);
 
   useEffect(() => {

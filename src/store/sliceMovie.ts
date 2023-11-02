@@ -46,6 +46,7 @@ const initialState = {
   isLoad: false,
   closed: false,
   emailAll: 0,
+  myName: ''
 };
 
 export const sliceMovie = createSlice({
@@ -98,6 +99,9 @@ export const sliceMovie = createSlice({
     setEmailAll: (state, action) => {
       state.emailAll = action.payload;
     },
+    setMyName: (state,action ) =>{
+      state.myName = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getFavorites.pending, (state) => {
@@ -129,5 +133,6 @@ export const {
   deletefavoritesNew,
   setClosed,
   setEmailAll,
+  setMyName,
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

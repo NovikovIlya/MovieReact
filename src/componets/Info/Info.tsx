@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import styles from './Info.module.scss';
 import {  useGetUserApiSetMutation } from '../../store/MovieApi';
-import { useParams } from 'react-router-dom';
-import { Spin } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button, Spin } from 'antd';
+import { useAppSelector } from '../../hooks/redux';
 
 const Info = () => {
+  const navigate = useNavigate()
+  const myName = useAppSelector((state)=>state.sliceMovie.myName)
   const { name } = useParams();
   const [getUserApiSet, { data,isLoading }] = useGetUserApiSetMutation();
   const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
@@ -12,6 +15,21 @@ const Info = () => {
     console.log('e', error);
     error.target.src = placeholderImage;
   };
+
+  const onClickMessage = ()=>{
+    if(data.username === myName){
+      console.log('это мое имя')
+      alert('its your profile')
+      return;
+    }
+    if(data.username[0] < (myName[0])){
+      console.log(data.username + myName)
+      navigate(`/chat?name=${myName}&room=${data.username + myName}`);
+    }else{
+      console.log(myName + data.username)
+      navigate(`/chat?name=${myName}&room=${myName + data.username}`);
+    }
+  }
   
 
   useEffect(() => {
@@ -49,6 +67,10 @@ const Info = () => {
               return item;
             })}
           </div>
+          <div className={styles.gr}>
+            <Button onClick={onClickMessage} >Send message</Button>
+          </div>
+          
         </>
       )}
     </div>}

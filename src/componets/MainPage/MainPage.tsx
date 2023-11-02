@@ -4,11 +4,12 @@ import cn from 'classnames';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../Main.css';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { useAuthApiQuery } from '../../store/MovieApi';
 import styles from '../App/App.module.scss';
 import stylesDark from '../App/AppDark.module.scss';
 import MovieList from '../MovieList/MovieList';
+import { setMyName } from '../../store/sliceMovie';
 
 export type movieType = {
   Title: string;
@@ -19,6 +20,7 @@ export type movieType = {
 };
 
 function MainPage() {
+  const dispatch = useAppDispatch()
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
@@ -32,6 +34,10 @@ function MainPage() {
     [styles.Main2]: !darkMode,
     [stylesDark.Main2]: darkMode,
   });
+
+  useEffect(()=>{
+    dispatch(setMyName(data?.username))
+  },[])
 
   useEffect(() => {
     refetch();

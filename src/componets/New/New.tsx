@@ -1,16 +1,18 @@
 import type { PaginationProps } from 'antd';
 import { ConfigProvider, Empty, Pagination, Select, Spin, Popover } from 'antd';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieApi';
 import styles from './New.module.scss';
 
 const New = () => {
+  const navigate = useNavigate()
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
+  const { data, refetch, isFetching, error } = useAuthApiQuery('');
   const { data: dataPopular,isLoading } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
@@ -56,6 +58,22 @@ const New = () => {
       <p>How to sort</p>
     </div>
   );
+
+  useEffect(() => {
+    if(!localStorage.getItem('token')){
+      navigate('/login');
+    }
+    if (error) {
+      if ('data' in error) {
+        const data = error.data as any;
+        if ('message' in data) {
+          if (data.message === 'Пользователь не авторизован') {
+            navigate('/login');
+          }
+        }
+      }
+    }
+  }, [data, navigate, isFetching, error]);
 
   return (
     <>

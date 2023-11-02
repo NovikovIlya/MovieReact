@@ -69,6 +69,7 @@ export type Body = {
   name: string
   text: string
   like?: boolean,
+  date?: any,
 }
 
 

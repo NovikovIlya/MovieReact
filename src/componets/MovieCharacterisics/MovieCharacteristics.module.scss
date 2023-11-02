@@ -9,6 +9,9 @@
 .Main2 {
   color: white;
 }
+.imag{
+  width: 300px;
+}
 .zagr {
   position: absolute;
   top:300px;
@@ -150,8 +153,11 @@
 }
 
 @media screen and (max-width: 600px) {
+  .imag{
+    width: 100%;
+  }
   .plus {
-    width: 300px;
+    width: 100%;
   }
   .container {
     width: 100%;

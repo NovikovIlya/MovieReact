@@ -21,7 +21,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data, isLoading } = useFetchCommentQuery(id, { refetchOnFocus: true });
 
-  // const { data: dataApi } = auth.useAuthApiQuery('');
+
   const mass = data ? data : [];
 
   const darkModeTheme = cn({
@@ -37,54 +37,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     criteriaMode: 'all',
   });
 
-  // const success = () => {
-  //   messageApi.open({
-  //     type: 'success',
-  //     content:
-  //       'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
-  //   });
-  // };
-
-  // const error = () => {
-  //   messageApi.open({
-  //     type: 'error',
-  //     content: 'You must enter text!',
-  //   });
-  // };
-
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  //   const zero = value === 'like' ? true : false;
-  //   setValueSelect(zero);
-  // };
-
-  // const handleComment = (e) => {
-  //   console.log(e.target.value);
-  //   setText(e.target.value);
-  // };
-
-  // const handleCreate = async () => {
-  //   const title = textComment;
-  //   const name = dataApi.username;
-  //   if (name === '' || title === '') {
-  //     error();
-  //     return;
-  //   }
-  //   await AddCommentApi({
-  //     imdbid: id,
-  //     body: [
-  //       {
-  //         postId: 10,
-  //         name: name,
-  //         text: title,
-  //         like: valueSelect,
-  //       },
-  //     ],
-  //   });
-  //   success();
-
-  //   dispatch(addTextComment(''));
-  // };
+  
   const likeD = () => {
     let allAray = data?.length;
     let likeArray = 0;
@@ -152,6 +105,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
                           <div className={styles.childText}>
                             <Markdown>{child.text}</Markdown>
                           </div>
+                          <div className={styles.date}>{child.date}</div>
                         </div>
                       </div>
                     );

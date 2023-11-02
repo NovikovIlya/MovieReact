@@ -45,7 +45,7 @@ const MovieHeader = () => {
             time: new Date().toLocaleTimeString(),
           };
           ChatAll(data);
-        }, 10000);
+        }, 600000);
         return () => clearInterval(interval);
       }
     }
