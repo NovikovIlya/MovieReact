@@ -190,6 +190,45 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
+    getUsers: builder.query<any, any>({
+      query: () => ({
+        url: 'auth/users',
+      }),
+      providesTags: ['info']
+    }),
+    sendMessage: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'auth/sendmessage',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    updateMessage: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'PUT',
+        url: 'auth/updatemessage',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    getMessage: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'auth/getmessage',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    deleteMessage: builder.mutation<any, any>({
+      query: (add) => ({
+        method: 'POST',
+        url: 'auth/deletemessage',
+        body: add,
+      }),
+      invalidatesTags: ['info']
+    }),
+    
    
   }),
 });
@@ -213,6 +252,7 @@ export const infoTag = createApi({
       }),
       invalidatesTags: ['infoTag']
     })
+    
   }),
 })
 
@@ -253,7 +293,14 @@ export const {
   useLoginApiSetMutation,
   useChatAllMutation,
   useEmailReadMutation,
-  useGetEmailMutation
+  useGetEmailMutation,
+  useGetUsersQuery,
+
+  useSendMessageMutation,
+  useUpdateMessageMutation,
+  useGetMessageMutation,
+  useDeleteMessageMutation
+
 } = info;
 
 export const { useInfoApiSetTwoQuery,useGetUserApiSetTwoMutation } = infoTag;

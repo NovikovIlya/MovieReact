@@ -1,15 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Info.module.scss';
-import {  useGetUserApiSetMutation } from '../../store/MovieApi';
+import {  useGetUserApiSetMutation, useSendMessageMutation } from '../../store/MovieApi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Spin } from 'antd';
+import { Button, Spin ,Modal, Input} from 'antd';
 import { useAppSelector } from '../../hooks/redux';
+import { nanoid } from '@reduxjs/toolkit';
+
+const { TextArea } = Input;
 
 const Info = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate()
   const myName = useAppSelector((state)=>state.sliceMovie.myName)
   const { name } = useParams();
   const [getUserApiSet, { data,isLoading }] = useGetUserApiSetMutation();
+  const [sendMessage] = useSendMessageMutation()
+  const [theme,setTheme] = useState('')
+  const [text,setText] = useState('')
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
   const onErr = (error) => {
     console.log('e', error);
@@ -30,7 +46,31 @@ const Info = () => {
       navigate(`/chat?name=${myName}&room=${myName + data.username}`);
     }
   }
-  
+  const handlerTextTheme = ({target:{value}})=>{
+    console.log('ss',value)
+    setTheme(value)
+  }
+  const handlerTextArea = ({target:{value}})=>{
+    setText(value)
+  }
+  const onClicMail = ()=>{
+    const dataZ = {
+      id:nanoid(),
+      username: data.username,
+      myname: myName,
+      theme: theme,
+      text:text,
+      date: new Date().toISOString().slice(0,10).split('-').reverse().join('.'),
+      time: new Date().toLocaleTimeString(),
+      read: false,
+    }
+    console.log('data',dataZ)
+    sendMessage(dataZ)
+    setTheme('')
+    setText('')
+  }
+  console.log('theme',theme)
+  console.log('text',text)
 
   useEffect(() => {
     const getUser = () => {
@@ -70,7 +110,16 @@ const Info = () => {
           <div className={styles.gr}>
             <Button onClick={onClickMessage} >Send message</Button>
           </div>
+          <div className={styles.gr}>
+            <Button onClick={showModal} >Send message v2</Button>
+          </div>
           
+          <Modal title="Send message" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+           
+            <div><Input value={theme} name='theme' onChange={handlerTextTheme} placeholder="Theme" /></div>
+            <div><TextArea value={text} name='area' onChange={handlerTextArea} rows={4} placeholder="Message" maxLength={60} /></div>
+            <Button onClick={onClicMail} >Send message v2</Button>
+          </Modal>
         </>
       )}
     </div>}

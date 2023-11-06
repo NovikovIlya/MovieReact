@@ -26,7 +26,7 @@ const Chat = () => {
   const dispatch = useAppDispatch();
   const [emailRead, { data }] = useEmailReadMutation();
   const emailAll = useAppSelector((state) => state.sliceMovie.emailAll);
-  const { data: dataApi, refetch } = useAuthApiQuery('');
+  const { data: dataApi } = useAuthApiQuery('');
 
   useEffect(() => {
     //Имя и комната
@@ -35,9 +35,7 @@ const Chat = () => {
     socket.emit('join', searchParams);
   }, [search]);
 
-  // if(search.includes('main')){
-  //   console.log('содержит!!!!!!!!!!!!!!!!!!!!!!!!')  
-  // }
+
 
   useEffect(() => {
     if(search.includes('main')){

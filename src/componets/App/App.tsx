@@ -16,6 +16,9 @@ import Info from '../Info/Info';
 import Chat from '../Chat/Chat';
 import Main from '../Chat/Main';
 import Not from '../Not/Not';
+import Tableuser from '../Tableusers/Tableuser';
+import Mail from '../Mail/Mail';
+import Onemail from '../Onemail/Onemail';
 
 function App() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
@@ -35,11 +38,14 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route index element={<New />} />
-              <Route index element={<MainPage />} />
+              {/* <Route index element={<MainPage />} /> */}
               <Route path="/chat" element={<Chat />} />
               <Route path="/mainchat" element={<Main />} />
               <Route path="/info/:name" element={<Info />} />
               <Route path="/not" element={<Not />} />
+              <Route path="/tableuser" element={<Tableuser />} />
+              <Route path="/mail" element={<Mail />} />
+              <Route path="/onemail/:id" element={<Onemail />} />
               <Route path="*" element={<>Нет такого</>} />
             </Route>
             </Route>

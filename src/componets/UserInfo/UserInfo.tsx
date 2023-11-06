@@ -5,7 +5,9 @@ import {
   MenuOutlined,
   StarOutlined,
   UserOutlined,
-  WechatOutlined
+  WechatOutlined,
+  UsergroupAddOutlined,
+  MailOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space } from 'antd';
@@ -48,7 +50,6 @@ const UserInfo = () => {
   };
 
 
-
   const items: MenuProps['items'] = [
     getItem(
       <Link className={styles.lin} to="/">
@@ -77,6 +78,20 @@ const UserInfo = () => {
       </Link>,
       '7',
       <WechatOutlined />,
+    ),
+    getItem(
+      <Link  className={styles.lin} to='/mail'>
+        Mail
+      </Link>,
+      '8',
+      <MailOutlined />,
+    ),
+    getItem(
+      <Link  className={styles.lin} to={`/tableuser`}>
+        Users
+      </Link>,
+      '11',
+      <UsergroupAddOutlined />,
     ),
     getItem(<div onClick={exitFnc}>Exit</div>, '6', <LogoutOutlined />),
     ,
