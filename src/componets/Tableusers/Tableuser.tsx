@@ -23,7 +23,7 @@ const Tableuser = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
-  const { data: dataUsers, isFetching } = useGetUsersQuery('');
+  const { data: dataUsers } = useGetUsersQuery('');
   const [users, setUsers] = useState([]);
 
   const handleSearch = (

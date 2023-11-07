@@ -8,15 +8,15 @@ import { useAppDispatch } from '../../hooks/redux';
 import { setMyName } from '../../store/sliceMovie';
 
 const New = () => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
   const { data, refetch, isFetching, error } = useAuthApiQuery('');
-  const { data: dataPopular,isLoading } = useFetchMoviesPopularQuery(
+  const { data: dataPopular, isLoading } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
 
@@ -66,10 +66,10 @@ const New = () => {
     if (data) {
       dispatch(setMyName(data.username));
     }
-  }, [data,dispatch]);
+  }, [data, dispatch]);
 
   useEffect(() => {
-    if(!localStorage.getItem('token')){
+    if (!localStorage.getItem('token')) {
       navigate('/login');
     }
     if (error) {
@@ -87,13 +87,11 @@ const New = () => {
   return (
     <>
       {isLoading ? (
-       (
-          <div className={styles.zagr}>
-            <Spin tip="Loading" size="large">
-              <div className="content" />
-            </Spin>
-          </div>
-        )
+        <div className={styles.zagr}>
+          <Spin tip="Loading" size="large">
+            <div className="content" />
+          </Spin>
+        </div>
       ) : (
         <>
           <div className={styles.parentDrop}>
@@ -170,7 +168,7 @@ const New = () => {
                 <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start">
                   <div className={styles.text}>{item.title}</div>
                   {item.large_cover_image ? (
-                    <Link  to={`/${item.imdb_code}`}>
+                    <Link to={`/${item.imdb_code}`}>
                       <img
                         className={styles.img}
                         onError={onErr}

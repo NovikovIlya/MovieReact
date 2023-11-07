@@ -45,14 +45,7 @@ const MovieList = ({ movie }: MovieListProps) => {
             })}
           </Slider>
 
-          {/* <div className={styles.papadivi}>
-            <Divider className={styles.divi} />
-          </div>
-
-          <h1 className={styles.head}>Top Lifetime Grosses:</h1>
-          <div className={styles.tabl}>
-            <TableZ />
-          </div> */}
+          
         </>
       ) : (
         <>

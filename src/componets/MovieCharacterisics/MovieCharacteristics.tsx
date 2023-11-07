@@ -137,9 +137,9 @@ const MovieCharacteristics = () => {
   }, [dataTorrent]);
   //@ts-ignore
   if(dataPoster){
-    var placeholderImage = dataPoster.data.movies[0].large_cover_image
+    var placeholderImage ='https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
   }
-
+  console.log('placeholderImage',placeholderImage)
   const onErr = (error) => {
     error.target.src = placeholderImage;
   };

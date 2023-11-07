@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setEmailAll } from '../../store/sliceMovie';
 
 const MovieHeader = () => {
+  const {pathname} = useLocation()
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const myName = useAppSelector((state) => state.sliceMovie.myName);
@@ -41,13 +42,16 @@ const MovieHeader = () => {
   useEffect(() => {
     getMessage({ username: myName });
   }, [getMessage,myName]);
-
+  
   useEffect(() => {
     if (dataMessage) {
+      if(pathname.includes('mail') || pathname.includes('onemail') ) {
+        setSomefalse(false)
+      }else{
       var some = dataMessage.some((item) => item.read === false);
-      setSomefalse(some);
+      setSomefalse(some);}
     }
-  }, [dataMessage]);
+  }, [dataMessage,pathname]);
 
   // console.log('someFalse', someFalse);
   useEffect(() => {
