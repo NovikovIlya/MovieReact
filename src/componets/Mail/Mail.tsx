@@ -25,7 +25,7 @@ const Mail = () => {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
-  const [getMessage,{ data: dataUsers }] = useGetMessageMutation();
+  const [getMessage,{ data: dataMessage }] = useGetMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation()
   const [users, setUsers] = useState([]);
 
@@ -118,12 +118,16 @@ const Mail = () => {
   });
 
   const deleteMessageFn = (event)=>{
-    console.log('e',event.target.name)
+    deleteMessage({
+      username:myName,
+      id:event.target.name
+    })
+    getMessage({username:myName})
   }
 
   useEffect(() => {
-    if (dataUsers) {
-      const dataArray = dataUsers.map((item) => {
+    if (dataMessage) {
+      const dataArray = dataMessage.map((item) => {
         return {
           key: item.id,
           username: item.myname,
@@ -132,7 +136,7 @@ const Mail = () => {
           time: item.time,
           delete: <button onClick={deleteMessageFn} name={item.id} >Delete</button>,
           read: item.read ? 'yes' : 'no',
-          link: <Link to={`/onemail/${item.id}`}>Go</Link>,
+          link: <Link to={`/onemail/${item.id}/${item.myname}`}>Go</Link>,
         };
       });
       const uniqueArray = []
@@ -141,11 +145,9 @@ const Mail = () => {
             uniqueArray.push(element);
           }
       })
-      console.log('uniqueArray',uniqueArray)
-    //   console.log('array',array)
       setUsers(uniqueArray.reverse());
     }
-  }, [dataUsers]);
+  }, [dataMessage]);
 
   useEffect(()=>{
     getMessage({username:myName})

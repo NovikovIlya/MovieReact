@@ -45,7 +45,7 @@ function App() {
               <Route path="/not" element={<Not />} />
               <Route path="/tableuser" element={<Tableuser />} />
               <Route path="/mail" element={<Mail />} />
-              <Route path="/onemail/:id" element={<Onemail />} />
+              <Route path="/onemail/:id/:name" element={<Onemail />} />
               <Route path="*" element={<>Нет такого</>} />
             </Route>
             </Route>

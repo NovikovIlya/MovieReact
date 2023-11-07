@@ -222,7 +222,7 @@ export const info = createApi({
     }),
     deleteMessage: builder.mutation<any, any>({
       query: (add) => ({
-        method: 'POST',
+        method: 'DELETE',
         url: 'auth/deletemessage',
         body: add,
       }),

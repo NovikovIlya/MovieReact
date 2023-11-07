@@ -20,11 +20,12 @@ export type movieType = {
 };
 
 function MainPage() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
   const { data, refetch, isFetching, error } = useAuthApiQuery('');
+  const meName = useAppSelector((state)=>state.sliceMovie.myName)
 
   const darkModeTheme = cn({
     [styles.container2]: !darkMode,
@@ -34,10 +35,12 @@ function MainPage() {
     [styles.Main2]: !darkMode,
     [stylesDark.Main2]: darkMode,
   });
-
-  useEffect(()=>{
-    dispatch(setMyName(data?.username))
-  },[])
+  console.log('meName',meName)
+  useEffect(() => {
+    if (data) {
+      dispatch(setMyName(data.username));
+    }
+  }, [data,dispatch]);
 
   useEffect(() => {
     refetch();
@@ -58,7 +61,7 @@ function MainPage() {
 
   return (
     <>
-      { (
+      {
         <div className={darkModeThemeMain}>
           <div className={darkModeTheme}>
             <div className="">
@@ -68,7 +71,7 @@ function MainPage() {
             </div>
           </div>
         </div>
-      )}
+      }
     </>
   );
 }

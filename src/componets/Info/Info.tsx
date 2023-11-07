@@ -28,26 +28,24 @@ const Info = () => {
   };
   const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
   const onErr = (error) => {
-    console.log('e', error);
     error.target.src = placeholderImage;
   };
 
-  const onClickMessage = ()=>{
-    if(data.username === myName){
-      console.log('это мое имя')
-      alert('its your profile')
-      return;
-    }
-    if(data.username[0] < (myName[0])){
-      console.log(data.username + myName)
-      navigate(`/chat?name=${myName}&room=${data.username + myName}`);
-    }else{
-      console.log(myName + data.username)
-      navigate(`/chat?name=${myName}&room=${myName + data.username}`);
-    }
-  }
+  // const onClickMessage = ()=>{
+  //   if(data.username === myName){
+  //     console.log('это мое имя')
+  //     alert('its your profile')
+  //     return;
+  //   }
+  //   if(data.username[0] < (myName[0])){
+  //     console.log(data.username + myName)
+  //     navigate(`/chat?name=${myName}&room=${data.username + myName}`);
+  //   }else{
+  //     console.log(myName + data.username)
+  //     navigate(`/chat?name=${myName}&room=${myName + data.username}`);
+  //   }
+  // }
   const handlerTextTheme = ({target:{value}})=>{
-    console.log('ss',value)
     setTheme(value)
   }
   const handlerTextArea = ({target:{value}})=>{
@@ -64,13 +62,11 @@ const Info = () => {
       time: new Date().toLocaleTimeString(),
       read: false,
     }
-    console.log('data',dataZ)
     sendMessage(dataZ)
     setTheme('')
     setText('')
   }
-  console.log('theme',theme)
-  console.log('text',text)
+
 
   useEffect(() => {
     const getUser = () => {
@@ -107,9 +103,9 @@ const Info = () => {
               return item;
             })}
           </div>
-          <div className={styles.gr}>
+          {/* <div className={styles.gr}>
             <Button onClick={onClickMessage} >Send message</Button>
-          </div>
+          </div> */}
           <div className={styles.gr}>
             <Button onClick={showModal} >Send message v2</Button>
           </div>
@@ -118,7 +114,7 @@ const Info = () => {
            
             <div><Input value={theme} name='theme' onChange={handlerTextTheme} placeholder="Theme" /></div>
             <div><TextArea value={text} name='area' onChange={handlerTextArea} rows={4} placeholder="Message" maxLength={60} /></div>
-            <Button onClick={onClicMail} >Send message v2</Button>
+            <Button onClick={onClicMail} >Send message</Button>
           </Modal>
         </>
       )}

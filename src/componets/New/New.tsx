@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieApi';
 import styles from './New.module.scss';
+import { useAppDispatch } from '../../hooks/redux';
+import { setMyName } from '../../store/sliceMovie';
 
 const New = () => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [imgSrc, setImageSrc] = useState(true);
   const [num, setNum] = useState('1');
@@ -58,6 +61,12 @@ const New = () => {
       <p>How to sort</p>
     </div>
   );
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setMyName(data.username));
+    }
+  }, [data,dispatch]);
 
   useEffect(() => {
     if(!localStorage.getItem('token')){

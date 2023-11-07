@@ -3,26 +3,53 @@ import MovieTitle from '../MovieTitle/MovieTitle';
 import Search from '../Search/Search';
 import styles from './Movie.module.scss';
 import UserInfo from '../UserInfo/UserInfo';
-import { Divider, FloatButton, message } from 'antd';
+import { Divider, FloatButton } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { CommentOutlined } from '@ant-design/icons';
-import { useAuthApiQuery, useChatAllMutation, useGetEmailMutation } from '../../store/MovieApi';
-import { useAppDispatch } from '../../hooks/redux';
+import {
+  useAuthApiQuery,
+  useChatAllMutation,
+  useGetEmailMutation,
+  useGetMessageMutation,
+} from '../../store/MovieApi';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setEmailAll } from '../../store/sliceMovie';
 
 const MovieHeader = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  const myName = useAppSelector((state) => state.sliceMovie.myName);
   const [hidd, setHidd] = useState(false);
   const location = useLocation();
-  const { data: dataApi, refetch } = useAuthApiQuery('');
+  const { data: dataApi } = useAuthApiQuery('');
   const [ChatAll, { data: dataChat }] = useChatAllMutation();
   const [cccvalue, setCccValue] = useState('');
   const [getUserApiSetTwo, { data: dataGetEmail }] = useGetEmailMutation({});
   const [mess, setMess] = useState(false);
+  const [getMessage, { data: dataMessage }] = useGetMessageMutation();
+  const [someFalse, setSomefalse] = useState(false);
 
+  const onClickMess = () => {
+    navigate(`/chat?name=${dataApi.username}&room=main`);
+  };
+
+  const onClickMail = () => {
+    navigate(`/mail`);
+  };
+
+  useEffect(() => {
+    getMessage({ username: myName });
+  }, [getMessage,myName]);
+
+  useEffect(() => {
+    if (dataMessage) {
+      var some = dataMessage.some((item) => item.read === false);
+      setSomefalse(some);
+    }
+  }, [dataMessage]);
+
+  // console.log('someFalse', someFalse);
   useEffect(() => {
     if (dataApi) {
       if (dataApi.username) {
@@ -68,7 +95,6 @@ const MovieHeader = () => {
       }
     }
   }, [dataGetEmail, cccvalue]);
-  // console.log('dataGetEmail', dataGetEmail, '-----', 'cccvalue', cccvalue.length);
 
   useEffect(() => {
     if (location.pathname === '/login' || location.pathname === '/auth') {
@@ -79,10 +105,6 @@ const MovieHeader = () => {
   }, [location.pathname]);
 
   const placeholder = 'input text';
-
-  const onClickMess = () => {
-    navigate(`/chat?name=${dataApi.username}&room=main`);
-  };
 
   return (
     <div className={hidd ? styles.hiddenZ : ''}>
@@ -98,6 +120,18 @@ const MovieHeader = () => {
                   shape="square"
                   style={{ right: 24 }}
                   onClick={onClickMess}
+                />
+              </div>
+            )}
+            {someFalse && (
+              <div>
+                {' '}
+                <FloatButton
+                  icon={<CommentOutlined />}
+                  description="New message in mail"
+                  shape="square"
+                  style={{ right: 24 }}
+                  onClick={onClickMail}
                 />
               </div>
             )}
