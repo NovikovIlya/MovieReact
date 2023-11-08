@@ -50,7 +50,7 @@ const Similar = ({gengreText}:SimilarProps ) => {
            <Slider {...settings}>
             {isLoading ? <div></div> : arrayYts?.map((item)=>{
               return(
-                <Link className={styles.lin}  target='_blank' to={`/${item.imdb_code}`}>
+                <Link key={item.imdb_code} className={styles.lin}  target='_blank' to={`/${item.imdb_code}`}>
                   <div >
                     <img className={styles.img}  src={item.medium_cover_image} alt='no'/ >
                     <div className={styles.text}>{item.title}</div>
