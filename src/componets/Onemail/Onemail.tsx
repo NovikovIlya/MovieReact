@@ -4,13 +4,14 @@ import { useGetMessageMutation, useUpdateMessageMutation } from '../../store/Mov
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { useSendMessageMutation } from '../../store/MovieApi';
-import { Modal, Input } from 'antd';
+import { Modal, Input, message } from 'antd';
 import { nanoid } from '@reduxjs/toolkit';
 import TextArea from 'antd/es/input/TextArea';
 
 const Onemail = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const myName = useAppSelector((state) => state.sliceMovie.myName);
   const [sendMessage] = useSendMessageMutation();
@@ -19,12 +20,34 @@ const Onemail = () => {
   const { id, name } = useParams();
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
   const [updateMessage] = useUpdateMessageMutation();
-  const [message, setMessage] = useState<any>();
+  const [messageZ, setMessage] = useState<any>();
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Message sent',
+    });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+    const dataZ = {
+      id: nanoid(),
+      username: name,
+      myname: myName,
+      theme: theme,
+      text: text,
+      date: new Date().toISOString().slice(0, 10).split('-').reverse().join('.'),
+      time: new Date().toLocaleTimeString(),
+      read: false,
+    };
+    sendMessage(dataZ);
+    success();
+    setTheme('');
+    setText('');
+
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -39,21 +62,6 @@ const Onemail = () => {
     setText(value);
   };
 
-  const onClicMail = () => {
-    const dataZ = {
-      id: nanoid(),
-      username: name,
-      myname: myName,
-      theme: theme,
-      text: text,
-      date: new Date().toISOString().slice(0, 10).split('-').reverse().join('.'),
-      time: new Date().toLocaleTimeString(),
-      read: false,
-    };
-    sendMessage(dataZ);
-    setTheme('');
-    setText('');
-  };
 
   //Нахождения почты в массиве
   useEffect(() => {
@@ -65,7 +73,6 @@ const Onemail = () => {
     }
   }, [dataMessage]);
 
-
   //Получение почты и Обновление(read)почты
   useEffect(() => {
     getMessage({ username: myName });
@@ -73,32 +80,43 @@ const Onemail = () => {
       username: myName,
       id: id,
     });
-  }, []);
+  }, [myName]);
 
   return (
-    <div className={styles.container}>
-      <div>{message && message?.text}</div>
-      <div className={styles.gr}>
-        <Button onClick={showModal}>Reply to message</Button>
-      </div>
+    <>
+      {messageZ ? (
+        <div className={styles.container}>
+          {contextHolder}
+          <div className={styles.container__message}>{messageZ?.text}</div>
+          <div className={styles.gr}>
+            <Button onClick={showModal}>Reply to message</Button>
+          </div>
 
-      <Modal title="Send message" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <div>
-          <Input value={theme} name="theme" onChange={handlerTextTheme} placeholder="Theme" />
+          <Modal title="Send message" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+            <div className={styles.theme}>
+              <Input value={theme} name="theme" onChange={handlerTextTheme} placeholder="Theme" />
+            </div>
+            <div className={styles.text}>
+              <TextArea
+                value={text}
+                name="area"
+                onChange={handlerTextArea}
+                rows={4}
+                placeholder="Message"
+                maxLength={60}
+              />
+            </div>
+           
+          </Modal>
         </div>
-        <div>
-          <TextArea
-            value={text}
-            name="area"
-            onChange={handlerTextArea}
-            rows={4}
-            placeholder="Message"
-            maxLength={60}
-          />
-        </div>
-        <Button onClick={onClicMail}>Send</Button>
-      </Modal>
-    </div>
+      ) : (
+        <>
+          <Spin  className={styles.zagr} tip="Loading" size="large">
+            <div data-testid='z' className="content" />
+          </Spin>
+        </>
+      )}
+    </>
   );
 };
 
