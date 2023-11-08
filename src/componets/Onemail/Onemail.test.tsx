@@ -5,9 +5,7 @@ import { Provider } from 'react-redux';
 import store from '../../store';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
 
-jest.mock('axios')
 
 
 
@@ -25,10 +23,6 @@ describe('test component mail', () => {
 
     const btn = screen.getByTestId('z');
 
-    // userEvent.click(btn);
-
-    // const modal = screen.getByText('Send message');
-    // screen.debug();
     expect(btn).toBeInTheDocument();
   });
 });

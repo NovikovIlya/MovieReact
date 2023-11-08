@@ -19,10 +19,22 @@ const Info = () => {
   const [text, setText] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
 
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'You cant send an empty message',
+    });
+  };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
+    if (theme.length < 1 || text.length < 1) {
+      error();
+      return;
+    }
     const dataZ = {
       id: nanoid(),
       username: data.username,
@@ -39,9 +51,11 @@ const Info = () => {
     setText('');
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
 
   const onErr = (error) => {
@@ -54,7 +68,6 @@ const Info = () => {
   const handlerTextArea = ({ target: { value } }) => {
     setText(value);
   };
-
 
   const success = () => {
     messageApi.open({

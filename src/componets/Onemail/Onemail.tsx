@@ -29,10 +29,22 @@ const Onemail = () => {
     });
   };
 
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'You cant send an empty message',
+    });
+  };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
+    if (theme.length < 1 || text.length < 1) {
+      error();
+      return;
+    }
     const dataZ = {
       id: nanoid(),
       username: name,
@@ -50,6 +62,7 @@ const Onemail = () => {
 
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -61,7 +74,6 @@ const Onemail = () => {
   const handlerTextArea = ({ target: { value } }) => {
     setText(value);
   };
-
 
   //Нахождения почты в массиве
   useEffect(() => {
@@ -106,13 +118,12 @@ const Onemail = () => {
                 maxLength={60}
               />
             </div>
-           
           </Modal>
         </div>
       ) : (
         <>
-          <Spin  className={styles.zagr} tip="Loading" size="large">
-            <div data-testid='z' className="content" />
+          <Spin className={styles.zagr} tip="Loading" size="large">
+            <div data-testid="z" className="content" />
           </Spin>
         </>
       )}

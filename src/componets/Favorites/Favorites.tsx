@@ -14,11 +14,12 @@ import {
 import styles from './Favorite.module.scss';
 
 export const Favorites = () => {
+  const myName = useAppSelector((state)=>state.sliceMovie.myName)
   const isLoad = useAppSelector((state) => state.sliceMovie.isLoad);
   const favoriteMovie = useAppSelector((state) => state.sliceMovie.favoritesNew);
-  const favoriteMovieUnique = favoriteMovie.filter((elem, index) => {
+  const favoriteMovieUnique =  favoriteMovie ? (favoriteMovie.filter((elem, index) => {
     return favoriteMovie.findIndex((item) => item.Title === elem.Title) === index;
-  });
+  })) : [];
   const { data: dataApi } = useAuthApiQuery('');
   const navigate = useNavigate();
   const { error } = useAuthApiQuery('');
@@ -55,9 +56,9 @@ export const Favorites = () => {
   };
 
   useEffect(() => {
-    const data = { oldUsername: dataApi?.username };
+    const data = { oldUsername: myName };
     dispatch(getFavorites(data));
-  }, []);
+  }, [getFavorites]);
 
   useEffect(() => {
     if (dataApi) {
