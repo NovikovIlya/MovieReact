@@ -35,7 +35,6 @@ function MainPage() {
     [styles.Main2]: !darkMode,
     [stylesDark.Main2]: darkMode,
   });
-  console.log('meName',meName)
   useEffect(() => {
     if (data) {
       dispatch(setMyName(data.username));

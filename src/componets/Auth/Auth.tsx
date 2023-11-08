@@ -103,7 +103,6 @@ function Auth() {
             errors={errors}
             name="username"
             render={({ messages }) => {
-              console.log('messages', messages);
               return messages
                 ? _.entries(messages).map(([type, message]: [string, string]) => (
                     <p className={styles.error} key={type}>
@@ -130,7 +129,6 @@ function Auth() {
           errors={errors}
           name="password"
           render={({ messages }) => {
-            console.log('messages', messages);
             return messages
               ? _.entries(messages).map(([type, message]: [string, string]) => (
                   <p className={styles.error} key={type}>

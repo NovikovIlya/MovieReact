@@ -2,7 +2,6 @@ import React from 'react'
 import styles from './Messages.module.scss';
 
 const Message = ({messages,name,history}) => {
-  console.log('messia',messages)
   return (
     <div className={styles.messages}>
       {history.map(({sender,text,date,time},index)=>{

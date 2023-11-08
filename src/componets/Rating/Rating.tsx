@@ -36,7 +36,6 @@ const Rating = ({ id }) => {
           res = suma / len;
           return res;
         });
-        console.log('res', res);
         setResRating(res);
       };
       summer();

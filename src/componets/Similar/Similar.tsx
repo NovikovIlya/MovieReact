@@ -29,11 +29,8 @@ const Similar = ({gengreText}:SimilarProps ) => {
 
 
   useEffect(() => {
-
-    console.log('ss', data?.data.movies);
     setArrayYts(data?.data.movies)
     if (gengreText === undefined){
-      console.log('und')
       return;
     }
     if (gengreText !== undefined){
@@ -41,7 +38,6 @@ const Similar = ({gengreText}:SimilarProps ) => {
       refetch()
     }
   }, [data,gengreText,refetch]);
-  console.log(gengreText)
   
   return (
     <>

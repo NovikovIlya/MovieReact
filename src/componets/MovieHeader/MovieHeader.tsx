@@ -53,7 +53,6 @@ const MovieHeader = () => {
     }
   }, [dataMessage,pathname]);
 
-  // console.log('someFalse', someFalse);
   useEffect(() => {
     if (dataApi) {
       if (dataApi.username) {

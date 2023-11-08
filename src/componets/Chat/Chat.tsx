@@ -39,7 +39,7 @@ const Chat = () => {
 
   useEffect(() => {
     if(search.includes('main')){
-      console.log('содержит!!!!!!!!!!!!!!!!!!!!!!!!')
+
       dispatch(setClosed(true));
       if (dataApi) {
         if (dataApi.username) {
@@ -91,7 +91,6 @@ const Chat = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    console.log('message', message);
     if (!message) {
       return;
     }

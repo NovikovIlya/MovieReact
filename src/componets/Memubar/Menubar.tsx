@@ -35,7 +35,6 @@ const Menubar = () => {
 
   const onClick: MenuProps['onClick'] = (e) => {
     dispatch(toggleDropdown(e.key));
-    console.log(e.key);
   };
 
   useEffect(() => {

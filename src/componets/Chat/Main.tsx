@@ -11,7 +11,6 @@ const Main = () => {
   const handleClick = ()=>{
     
   }
-  console.log('va',values)
   return (
     <div className={styles.container}>
       <div>Main</div>

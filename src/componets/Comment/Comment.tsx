@@ -51,18 +51,14 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
         }
       });
     });
-    console.log('allAray', allAray);
     const upldateAll = { all: allAray, positive: likeArray, negative: hateArray };
     setObjArray((objArray) => ({
       ...objArray,
       ...upldateAll,
     }));
-    console.log('likeArray', likeArray);
-    console.log('hateArray', hateArray);
   };
   useEffect(() => {
     likeD();
-    console.log(objArray);
   }, [data]);
 
   const reversedArray = [];

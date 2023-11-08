@@ -56,9 +56,6 @@ const MovieCharacteristics = () => {
       const favoriteMovieImdb = favoriteMovie.map((item) => {
         return item.imdbID;
       });
-      console.log('favoriteMovieImdb', favoriteMovieImdb);
-      console.log('ahaha', haveFav);
-      console.log('hehehe', id);
       setHaveFav(favoriteMovieImdb.includes(id));
     };
     proverka();}
@@ -133,13 +130,11 @@ const MovieCharacteristics = () => {
     );
     setTor(torrentMassiv);
 
-    console.log('torrentMassiv', torrentMassiv);
   }, [dataTorrent]);
   //@ts-ignore
   if(dataPoster){
     var placeholderImage ='https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
   }
-  console.log('placeholderImage',placeholderImage)
   const onErr = (error) => {
     error.target.src = placeholderImage;
   };
@@ -242,8 +237,6 @@ const MovieCharacteristics = () => {
                                 onClick={() => {
                                   setHaveFav(true);
                                   addFavoritesNew(data);
-                                  console.log('favoriteMoviefavoriteMovie', favoriteMovie);
-                                  console.log('haveFavhaveFav', haveFav);
                                 }}
                               />
                             ) : (

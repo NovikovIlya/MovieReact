@@ -100,7 +100,6 @@ function LoginPage() {
   }, [dataApi, navigate, isFetching, dispatch]);
 
   useEffect(() => {
-    console.log('result', result);
     if (result.error) {
       const info = () => {
         messageApi.info('This user was not found!');
@@ -148,7 +147,6 @@ function LoginPage() {
               errors={errors}
               name="username"
               render={({ messages }) => {
-                console.log('messages', messages);
                 return messages
                   ? _.entries(messages).map(([type, message]: [string, string]) => (
                       <p className={styles.error} key={type}>
@@ -178,7 +176,6 @@ function LoginPage() {
             errors={errors}
             name="password"
             render={({ messages }) => {
-              console.log('messages', messages);
               return messages
                 ? _.entries(messages).map(([type, message]: [string, string]) => (
                     <p className={styles.error} key={type}>

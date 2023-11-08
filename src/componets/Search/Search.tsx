@@ -27,7 +27,6 @@ const Search: React.FC<SearchProps> = (props) => {
     const es = data?.Search?.find((item) => {
       return item.Title === data3;
     });
-    console.log('ssffv', es);
     if(es){
       navigate(`/${es.imdbID}`);
     }else{
@@ -69,14 +68,12 @@ const Search: React.FC<SearchProps> = (props) => {
           let { Title, Year } = item;
           return { ...item, value: `${Title}, ${Year}` };
         });
-        console.log('vvvbbb', searchData);
         setDataMass(searchData);
       }
     }
   }, [data]);
 
   useEffect(() => {
-    console.log(data);
     if (val.length < 1) {
       const keka = [
         {

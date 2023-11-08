@@ -26,8 +26,7 @@ const Trailer = ({ id, title, year }: argType) => {
         ? alt
         : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
       : alt;
-    console.log('alt', alt);
-    console.log('tt', title);
+
 
     setUrlValue(urlTrailer);
   }, [alt, data, title, year]);

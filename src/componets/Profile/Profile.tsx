@@ -73,7 +73,6 @@ const Profile = () => {
       oldUsername: dataApi.username,
     };
     const dataRename = await renameApiSet(data);
-    console.log('dataRename', dataRename);
     refetch();
   };
 
@@ -109,7 +108,6 @@ const Profile = () => {
       body: formData,
     });
     let result = await response.json();
-    console.log('rrr', result);
     refetch();
   };
 
@@ -145,7 +143,6 @@ const Profile = () => {
   const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
 
   const onErr = (error) => {
-    console.log('e', error);
     error.target.src = placeholderImage;
   };
 
@@ -170,7 +167,6 @@ const Profile = () => {
       if ('message' in dataRepass) {
         if (dataRepass.message.includes('Паспорт пользователя')) {
           successMess();
-          console.log('44', dataRepass.message);
         }
       }
     }
@@ -193,7 +189,6 @@ const Profile = () => {
   }, [dataApi, navigate, isFetching, errorApi]);
 
   useEffect(() => {
-    console.log('er', error);
     if (error) {
       if ('data' in error) {
         //@ts-ignore

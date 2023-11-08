@@ -45,7 +45,7 @@ export const Favorites = () => {
     speed: 500,
   };
 
-  console.log('isLoad', isLoad);
+  
   const delFavoriteNew = async (item) => {
     const data = {
       oldUsername: dataApi.username,
@@ -65,8 +65,7 @@ export const Favorites = () => {
       if ('username' in dataApi) {
         const data = { oldUsername: dataApi?.username };
         const dataFav = dispatch(getFavorites(data));
-        console.log('favoriteMovie', favoriteMovie);
-        console.log('dataFav', dataFav);
+
       }
     }
   }, [dataApi, dispatch]);

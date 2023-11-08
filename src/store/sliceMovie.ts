@@ -70,7 +70,7 @@ export const sliceMovie = createSlice({
       state.favorite = [...state.favorite, action.payload];
     },
     deleteFavorite: (state, action) => {
-      console.log('zzvc', action.payload);
+
       state.favorite = state.favorite.filter((item) => item.imdbID !== action.payload.imdbID);
     },
     darkMode: (state) => {
