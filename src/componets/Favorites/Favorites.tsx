@@ -95,7 +95,7 @@ export const Favorites = () => {
       ) : (
         <div className={styles.container}>
           <Slider {...settings2}>
-            {favoriteMovie.length > 0 &&
+            {favoriteMovie?.length > 0 &&
               favoriteMovieUnique.map((item) => {
                 return (
                   <div key={item.imdbID} className="rowChild f-flex justify-content-start m-3">
