@@ -140,9 +140,9 @@ const Mail = () => {
           date: item.date,
           time: item.time,
           delete: (
-            <button onClick={deleteMessageFn} name={item.id}>
+            <Button onClick={deleteMessageFn} name={item.id}>
               Delete
-            </button>
+            </Button>
           ),
           read: item.read ? 'yes' : 'no',
           link: <Link to={`/onemail/${item.id}/${item.myname}`}>Go</Link>,
@@ -205,7 +205,7 @@ const Mail = () => {
       key: 'delete',
       width: '10%',
       //@ts-ignore
-      ...getColumnSearchProps('delete'),
+      // ...getColumnSearchProps('delete'),
     },
     {
       title: 'Read',

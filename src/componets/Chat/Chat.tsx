@@ -36,11 +36,8 @@ const Chat = () => {
     socket.emit('join', searchParams);
   }, [search]);
 
-
-
   useEffect(() => {
-    if(search.includes('main')){
-
+    if (search.includes('main')) {
       dispatch(setClosed(true));
       if (dataApi) {
         if (dataApi.username) {
@@ -50,9 +47,9 @@ const Chat = () => {
             email: emailAll?.length,
           };
           emailRead(dataInfo);
+        }
       }
     }
-  }
   }, [dataApi]);
 
   useEffect(() => {
@@ -74,7 +71,6 @@ const Chat = () => {
       setHistory(data);
     });
   }, [params.room]);
-  console.log('data',history)
   const clickIcon = () => {
     click.current.click();
   };
@@ -95,20 +91,20 @@ const Chat = () => {
     if (!message) {
       return;
     }
-
     socket.emit('sendMessage', { message, params });
-
     setMessage('');
   };
 
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <div className={styles.title}>{params.room}</div>
-        <div className={styles.users}>{users} users in this room</div>
+        {/* <div className={styles.title}>{params.room}</div> */}
+        
         <button className={styles.left} onClick={leftRoom}>
           Left room
         </button>
+        <div className={styles.users}>{users} users in this room</div>
+        <div className={styles.title}></div> 
       </div>
 
       <div className={styles.messages}>
