@@ -8,6 +8,7 @@ import Message from './Message';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setClosed } from '../../store/sliceMovie';
 import { useAuthApiQuery, useEmailReadMutation } from '../../store/MovieApi';
+import { ChatAllResponse } from '../../types';
 
 //@ts-ignore
 const socket = io.connect('https://backmovie.onrender.com/');
@@ -21,7 +22,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [users, setUser] = useState(0);
-  const [history, setHistory] = useState<any>([]);
+  const [history, setHistory] = useState<ChatAllResponse[]>([]);
   const [not, setNot] = useState(false);
   const dispatch = useAppDispatch();
   const [emailRead, { data }] = useEmailReadMutation();
@@ -73,7 +74,7 @@ const Chat = () => {
       setHistory(data);
     });
   }, [params.room]);
-
+  console.log('data',history)
   const clickIcon = () => {
     click.current.click();
   };

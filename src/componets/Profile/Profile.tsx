@@ -28,7 +28,7 @@ const Profile = () => {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data: dataApi, refetch, error: errorApi, isFetching } = auth.useAuthApiQuery('');
   const val = dataApi ? dataApi.info : '';
-  const [area, setArea] = useState<any>(val);
+  const [area, setArea] = useState<string>(val);
   const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
 
   const errorMessage = () => {
@@ -177,10 +177,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (errorApi) {
-      if ('data' in errorApi) {
-        const data = errorApi.data as any;
-        if ('message' in data) {
-          if (data.message === 'Пользователь не авторизован') {
+      if ('data' in errorApi && typeof errorApi.data === 'object') {
+        if ('message' in errorApi.data) {
+          if (errorApi.data.message === 'Пользователь не авторизован') {
             navigate('/login');
           }
         }
@@ -351,13 +350,11 @@ const Profile = () => {
 
               <div>
                 <h1>Information</h1>
-                
               </div>
 
               <Divider />
 
               <div>
-                
                 <div>
                   <TextArea
                     value={area}

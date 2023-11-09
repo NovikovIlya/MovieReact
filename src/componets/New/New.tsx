@@ -73,10 +73,9 @@ const New = () => {
       navigate('/login');
     }
     if (error) {
-      if ('data' in error) {
-        const data = error.data as any;
-        if ('message' in data) {
-          if (data.message === 'Пользователь не авторизован') {
+      if ('data' in error && typeof error.data === 'object') {
+        if ('message' in error.data) {
+          if (error.data.message === 'Пользователь не авторизован') {
             navigate('/login');
           }
         }

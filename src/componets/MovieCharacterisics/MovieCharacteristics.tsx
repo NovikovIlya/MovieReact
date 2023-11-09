@@ -88,10 +88,9 @@ const MovieCharacteristics = () => {
 
   useEffect(() => {
     if (error) {
-      if ('data' in error) {
-        const data = error.data as any;
-        if ('message' in data) {
-          if (data.message === 'Пользователь не авторизован') {
+      if ('data' in error && typeof error.data === 'object') {
+        if ('message' in error.data) {
+          if (error.data.message === 'Пользователь не авторизован') {
             navigate('/login');
           }
         }
@@ -216,13 +215,13 @@ const MovieCharacteristics = () => {
                               {tor.length > 0 &&
                                 tor.map((item) => {
                                   return (
-                                    <>
+                                    <div  key={item.url}>
                                       <Link to={item.url}>
                                         <div>
                                           {item.quality}, {item.size}, {item.type}
                                         </div>
                                       </Link>
-                                    </>
+                                    </div>
                                   );
                                 })}
                             </Modal>

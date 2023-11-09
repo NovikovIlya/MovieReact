@@ -9,6 +9,7 @@ import { useSendMessageMutation } from '../../store/MovieApi';
 import { Modal, Input, message } from 'antd';
 import { nanoid } from '@reduxjs/toolkit';
 import TextArea from 'antd/es/input/TextArea';
+import { SendMessageRequest } from '../../types';
 
 const Onemail = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -20,7 +21,7 @@ const Onemail = () => {
   const { id, name } = useParams();
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
   const [updateMessage] = useUpdateMessageMutation();
-  const [messageZ, setMessage] = useState<any>();
+  const [messageZ, setMessage] = useState<SendMessageRequest | undefined>();
 
   const success = () => {
     messageApi.open({

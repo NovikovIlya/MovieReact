@@ -128,7 +128,7 @@ const Tableuser = () => {
     }
   }, [dataUsers]);
 
-  const data: any = users;
+  const data = users;
 
   const columns: ColumnsType<any> = [
     {

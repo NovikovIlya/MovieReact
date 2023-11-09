@@ -236,8 +236,6 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    
-   
   }),
 });
 

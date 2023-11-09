@@ -15,6 +15,7 @@ import {
 } from '../../store/MovieApi';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setEmailAll } from '../../store/sliceMovie';
+import { ChatAllResponse } from '../../types';
 
 const MovieHeader = () => {
   const {pathname} = useLocation()
@@ -25,7 +26,7 @@ const MovieHeader = () => {
   const location = useLocation();
   const { data: dataApi } = useAuthApiQuery('');
   const [ChatAll, { data: dataChat }] = useChatAllMutation();
-  const [cccvalue, setCccValue] = useState<any>('');
+  const [cccvalue, setCccValue] = useState<ChatAllResponse[] | string>('');
   const [getUserApiSetTwo, { data: dataGetEmail }] = useGetEmailMutation({});
   const [mess, setMess] = useState(false);
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
