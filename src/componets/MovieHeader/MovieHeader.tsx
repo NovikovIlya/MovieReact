@@ -25,7 +25,7 @@ const MovieHeader = () => {
   const location = useLocation();
   const { data: dataApi } = useAuthApiQuery('');
   const [ChatAll, { data: dataChat }] = useChatAllMutation();
-  const [cccvalue, setCccValue] = useState('');
+  const [cccvalue, setCccValue] = useState<any>('');
   const [getUserApiSetTwo, { data: dataGetEmail }] = useGetEmailMutation({});
   const [mess, setMess] = useState(false);
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
@@ -85,6 +85,7 @@ const MovieHeader = () => {
     if (dataChat) {
       const ccc = dataChat.filter((element) => element !== null);
       dispatch(setEmailAll(ccc));
+
       setCccValue(ccc);
     }
   }, [dataChat]);

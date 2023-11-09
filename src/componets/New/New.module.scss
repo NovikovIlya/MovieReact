@@ -12,8 +12,7 @@
     padding-right: 65px;
     min-width: 1000px;
     margin-bottom: 10px;
-    // overflow: auto;
-    // height: 100vh;
+
 }
 .img{
     width: 300px;
@@ -64,12 +63,18 @@
   }
 
 @media screen and (max-width:600px) {
-    .parent{
-        min-width: 100%;
-        padding-left: 0;
-        padding-right: 0;
+    .parent > div{
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+    .parent{
+        padding: 0;
+        min-width: 100%;
+  
+        grid-template-columns: auto;
+        // display: flex;
+        // justify-content: center;
     }
     .parentDrop{
         margin-top: 30px;

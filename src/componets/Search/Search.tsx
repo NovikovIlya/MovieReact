@@ -27,26 +27,22 @@ const Search: React.FC<SearchProps> = (props) => {
     const es = data?.Search?.find((item) => {
       return item.Title === data3;
     });
-    if(es){
+    if (es) {
       navigate(`/${es.imdbID}`);
-    }else{
-      navigate('/not')
+    } else {
+      navigate('/not');
     }
-    
   };
 
   const handleMovie = (e) => {
     const text = e;
     setVal2(text);
-
     if (text.length < 1) {
       setDataMass([]);
     }
   };
 
-  useEffect(()=>{
-    
-  },[])
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (data) {

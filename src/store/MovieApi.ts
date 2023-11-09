@@ -1,10 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
+  ChatAllRequest,
+  ChatAllResponse,
+  EmailReadRequest,
+  GetEmailRequest,
+  GetEmailResponse,
+  GetUsersResponse,
   MovieApiOneType,
   MovieArray,
   Root2,
   RootYts,
+  SendMessageRequest,
   TrailerApi,
+  UpdateMessageRequest,
   argType,
   getInfoUser,
   login,
@@ -166,7 +174,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    ChatAll: builder.mutation<any, any>({
+    ChatAll: builder.mutation<ChatAllResponse[], ChatAllRequest>({
       query: (add) => ({
         method: 'POST',
         url: 'chatall',
@@ -174,7 +182,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    emailRead: builder.mutation<any, any>({
+    emailRead: builder.mutation<any, EmailReadRequest>({
       query: (add) => ({
         method: 'POST',
         url: 'auth/emailReading',
@@ -182,7 +190,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    getEmail: builder.mutation<any, any>({
+    getEmail: builder.mutation<GetEmailResponse, GetEmailRequest>({
       query: (add) => ({
         method: 'POST',
         url: 'auth/getemail',
@@ -190,13 +198,13 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    getUsers: builder.query<any, any>({
+    getUsers: builder.query<GetUsersResponse[], string>({
       query: () => ({
         url: 'auth/users',
       }),
       providesTags: ['info']
     }),
-    sendMessage: builder.mutation<any, any>({
+    sendMessage: builder.mutation<SendMessageRequest[], SendMessageRequest>({
       query: (add) => ({
         method: 'POST',
         url: 'auth/sendmessage',
@@ -204,7 +212,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    updateMessage: builder.mutation<any, any>({
+    updateMessage: builder.mutation<SendMessageRequest[], UpdateMessageRequest>({
       query: (add) => ({
         method: 'PUT',
         url: 'auth/updatemessage',
@@ -212,7 +220,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    getMessage: builder.mutation<any, any>({
+    getMessage: builder.mutation<SendMessageRequest[], GetEmailRequest>({
       query: (add) => ({
         method: 'POST',
         url: 'auth/getmessage',
@@ -220,7 +228,7 @@ export const info = createApi({
       }),
       invalidatesTags: ['info']
     }),
-    deleteMessage: builder.mutation<any, any>({
+    deleteMessage: builder.mutation<SendMessageRequest[], UpdateMessageRequest>({
       query: (add) => ({
         method: 'DELETE',
         url: 'auth/deletemessage',
@@ -295,12 +303,10 @@ export const {
   useEmailReadMutation,
   useGetEmailMutation,
   useGetUsersQuery,
-
   useSendMessageMutation,
   useUpdateMessageMutation,
   useGetMessageMutation,
   useDeleteMessageMutation
-
 } = info;
 
 export const { useInfoApiSetTwoQuery,useGetUserApiSetTwoMutation } = infoTag;

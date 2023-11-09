@@ -6,7 +6,12 @@ import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
-import { useDeleteMessageMutation, useGetEmailMutation, useGetMessageMutation, useGetUsersQuery } from '../../store/MovieApi';
+import {
+  useDeleteMessageMutation,
+  useGetEmailMutation,
+  useGetMessageMutation,
+  useGetUsersQuery,
+} from '../../store/MovieApi';
 import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
@@ -21,12 +26,12 @@ interface DataType {
 type DataIndex = keyof DataType;
 
 const Mail = () => {
-  const myName = useAppSelector((state)=>state.sliceMovie.myName)
+  const myName = useAppSelector((state) => state.sliceMovie.myName);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef<InputRef>(null);
-  const [getMessage,{ data: dataMessage }] = useGetMessageMutation();
-  const [deleteMessage] = useDeleteMessageMutation()
+  const [getMessage, { data: dataMessage }] = useGetMessageMutation();
+  const [deleteMessage] = useDeleteMessageMutation();
   const [users, setUsers] = useState([]);
 
   const handleSearch = (
@@ -117,13 +122,13 @@ const Mail = () => {
       ),
   });
 
-  const deleteMessageFn = (event)=>{
+  const deleteMessageFn = (event) => {
     deleteMessage({
-      username:myName,
-      id:event.target.name
-    })
-    getMessage({username:myName})
-  }
+      username: myName,
+      id: event.target.name,
+    });
+    getMessage({ username: myName });
+  };
 
   useEffect(() => {
     if (dataMessage) {
@@ -134,24 +139,28 @@ const Mail = () => {
           theme: item.theme,
           date: item.date,
           time: item.time,
-          delete: <button onClick={deleteMessageFn} name={item.id} >Delete</button>,
+          delete: (
+            <button onClick={deleteMessageFn} name={item.id}>
+              Delete
+            </button>
+          ),
           read: item.read ? 'yes' : 'no',
           link: <Link to={`/onemail/${item.id}/${item.myname}`}>Go</Link>,
         };
       });
-      const uniqueArray = []
-      dataArray.forEach((element)=>{
-        if(!uniqueArray.some((e) => e.theme === element.theme)) {
-            uniqueArray.push(element);
-          }
-      })
+      const uniqueArray = [];
+      dataArray.forEach((element) => {
+        if (!uniqueArray.some((e) => e.theme === element.theme)) {
+          uniqueArray.push(element);
+        }
+      });
       setUsers(uniqueArray.reverse());
     }
   }, [dataMessage]);
 
-  useEffect(()=>{
-    getMessage({username:myName})
-  },[])
+  useEffect(() => {
+    getMessage({ username: myName });
+  }, []);
 
   const data: any = users;
 
@@ -160,7 +169,8 @@ const Mail = () => {
       title: 'Username',
       dataIndex: 'username',
       key: 'username',
-      width: '30%',
+      width: '20%',
+      
       // render: (text) => <a href='/'>{text}</a>,
       //@ts-ignore
       ...getColumnSearchProps('username'),
@@ -174,37 +184,37 @@ const Mail = () => {
       ...getColumnSearchProps('theme'),
     },
     {
-        title: 'Date',
-        dataIndex: 'date',
-        key: 'date',
-        width: '20%',
-        //@ts-ignore
-        ...getColumnSearchProps('date'),
-      },
-      {
-        title: 'Time',
-        dataIndex: 'time',
-        key: 'time',
-        width: '20%',
-        //@ts-ignore
-        ...getColumnSearchProps('time'),
-      },
-      {
-        title: 'Delete',
-        dataIndex: 'delete',
-        key: 'delete',
-        width: '20%',
-        //@ts-ignore
-        ...getColumnSearchProps('delete'),
-      },
-      {
-        title: 'Read',
-        dataIndex: 'read',
-        key: 'read',
-        width: '20%',
-        //@ts-ignore
-        ...getColumnSearchProps('read'),
-      },
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      width: '10%',
+      //@ts-ignore
+      ...getColumnSearchProps('date'),
+    },
+    {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
+      width: '10%',
+      //@ts-ignore
+      ...getColumnSearchProps('time'),
+    },
+    {
+      title: 'Delete',
+      dataIndex: 'delete',
+      key: 'delete',
+      width: '10%',
+      //@ts-ignore
+      ...getColumnSearchProps('delete'),
+    },
+    {
+      title: 'Read',
+      dataIndex: 'read',
+      key: 'read',
+      width: '10%',
+      //@ts-ignore
+      ...getColumnSearchProps('read'),
+    },
     {
       title: 'Link',
       dataIndex: 'link',
