@@ -88,7 +88,7 @@ export const Favorites = () => {
       {favoriteMovie && isLoad ? (
         <div className={styles.zagr}>
           <Spin tip="Loading" size="large">
-            <div className="content" />
+            <div data-testid="z" className="content" />
           </Spin>
         </div>
       ) : (
