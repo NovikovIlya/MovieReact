@@ -50,10 +50,12 @@
 .MainDate{
   margin-top: 3px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .date{
   font-size: 9px;
   color: gray;
+  width: 100%;
 }

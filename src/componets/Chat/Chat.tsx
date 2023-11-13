@@ -98,7 +98,7 @@ const Chat = () => {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        {/* <div className={styles.title}>{params.room}</div> */}
+
         
         <button className={styles.left} onClick={leftRoom}>
           Left room

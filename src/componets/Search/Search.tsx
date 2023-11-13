@@ -11,7 +11,7 @@ import styles from './Search.module.scss';
 const Search: React.FC<SearchProps> = (props) => {
   const navigate = useNavigate();
   const [dataMass, setDataMass] = useState([]);
-  const options = dataMass;
+  // const options = dataMass;
   const [val2, setVal2] = useState('');
   const [dis, setDis] = useState(true);
   const {
@@ -42,7 +42,6 @@ const Search: React.FC<SearchProps> = (props) => {
     }
   };
 
-  useEffect(() => {}, []);
 
   useEffect(() => {
     if (data) {
@@ -61,7 +60,7 @@ const Search: React.FC<SearchProps> = (props) => {
     if (data) {
       if (data.Search) {
         const searchData = data.Search.map((item) => {
-          let { Title, Year } = item;
+          let { Title, Year, Poster } = item;
           return { ...item, value: `${Title}, ${Year}` };
         });
         setDataMass(searchData);
@@ -165,7 +164,7 @@ const Search: React.FC<SearchProps> = (props) => {
           //@ts-ignore
           onSelect={onSelect}
           style={{ width: 200 }}
-          options={options}
+          options={dataMass}
           placeholder="Search"
           filterOption={(inputValue, option) =>
             option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
