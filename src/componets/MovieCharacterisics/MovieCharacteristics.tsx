@@ -168,12 +168,12 @@ const MovieCharacteristics = () => {
                         }}>
                         <Breadcrumb
                           items={[
+                            // {
+                            //   href: '/',
+                            //   title: <HomeOutlined />,
+                            // },
                             {
                               href: '/',
-                              title: <HomeOutlined />,
-                            },
-                            {
-                              href: '/new',
                               title: (
                                 <>
                                   <UserOutlined />
