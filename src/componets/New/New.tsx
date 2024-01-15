@@ -82,7 +82,14 @@ const New = () => {
 
   return (
     <>
-      {isLoading || isFetch? (
+      {isFetch &&(
+        <div className={styles.zagr2}>
+        <Spin tip="Loading" size="large">
+          <div className="content" />
+        </Spin>
+      </div>
+      )}
+      {isLoading ?  (
         <div className={styles.zagr}>
           <Spin tip="Loading" size="large">
             <div className="content" />
