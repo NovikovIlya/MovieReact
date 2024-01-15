@@ -52,10 +52,29 @@ function LoginPage() {
     criteriaMode: 'all',
   });
 
+  //hooks
+  useEffect(() => {
+    if (result.error) {
+      const info = () => {
+        messageApi.info('This user was not found!');
+      };
+      info();
+    }
+  }, [result, messageApi]);
+
+  useEffect(() => {
+    if (!isFetching) {
+      dispatch(toggleRender());
+    }
+    if (dataApi) {
+      navigate('/');
+    }
+  }, [dataApi, navigate, isFetching, dispatch]);
+
+  //functions
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
   };
-
   const onSubmit = async (data) => {
     try {
       setLama(true);
@@ -76,9 +95,9 @@ function LoginPage() {
   };
   const onSubmit1 = async () => {
     try {
-      const time =  new Date().toLocaleTimeString('ru-RU')
+      const time = new Date().toLocaleTimeString('ru-RU');
       setLama(true);
-      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321',time: time});
+      const tok = await LoginApiSet({ username: 'papa123', password: 'papa321', time: time });
       if ('data' in tok) {
         localStorage.setItem('token', tok.data.token);
         refetch();
@@ -90,24 +109,7 @@ function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    if (!isFetching) {
-      dispatch(toggleRender());
-    }
-    if (dataApi) {
-      navigate('/');
-    }
-  }, [dataApi, navigate, isFetching, dispatch]);
-
-  useEffect(() => {
-    if (result.error) {
-      const info = () => {
-        messageApi.info('This user was not found!');
-      };
-      info();
-    }
-  }, [result, messageApi]);
-
+  //render
   if (!renderValue) {
     return (
       <>
@@ -196,15 +198,17 @@ function LoginPage() {
             </AndtdButton>
           </div>
         </form>
-        
-        {lama && (<>
-          <Spin className={styles.spin} tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-          <div className={styles.spin2} >Please wait, the server is waking up on Render (about 30 sec)</div>
-        </>
+
+        {lama && (
+          <>
+            <Spin className={styles.spin} tip="Loading" size="large">
+              <div className="content" />
+            </Spin>
+            <div className={styles.spin2}>
+              Please wait, the server is waking up on Render (about 30 sec)
+            </div>
+          </>
         )}
-        
       </div>
     </>
   );

@@ -9,9 +9,9 @@ import { SearchProps } from '../../types';
 import styles from './Search.module.scss';
 
 const Search: React.FC<SearchProps> = (props) => {
+  //data
   const navigate = useNavigate();
   const [dataMass, setDataMass] = useState([]);
-  // const options = dataMass;
   const [val2, setVal2] = useState('');
   const [dis, setDis] = useState(true);
   const {
@@ -22,27 +22,7 @@ const Search: React.FC<SearchProps> = (props) => {
   const { data, refetch } = useFetchMoviesQuery(val2);
   const dispatch = useAppDispatch();
 
-  const onSelect = (data2: string) => {
-    const data3 = data2.split(',')[0];
-    const es = data?.Search?.find((item) => {
-      return item.Title === data3;
-    });
-    if (es) {
-      navigate(`/${es.imdbID}`);
-    } else {
-      navigate('/not');
-    }
-  };
-
-  const handleMovie = (e) => {
-    const text = e;
-    setVal2(text);
-    if (text.length < 1) {
-      setDataMass([]);
-    }
-  };
-
-
+  //hooks
   useEffect(() => {
     if (data) {
       if (!data.Error) {
@@ -148,6 +128,27 @@ const Search: React.FC<SearchProps> = (props) => {
       refetch();
     }
   }, [dispatch, refetch, data]);
+
+  //functions
+  const onSelect = (data2: string) => {
+    const data3 = data2.split(',')[0];
+    const es = data?.Search?.find((item) => {
+      return item.Title === data3;
+    });
+    if (es) {
+      navigate(`/${es.imdbID}`);
+    } else {
+      navigate('/not');
+    }
+  };
+
+  const handleMovie = (e) => {
+    const text = e;
+    setVal2(text);
+    if (text.length < 1) {
+      setDataMass([]);
+    }
+  };
 
   const inputClass = cn({
     [styles.filled]: val.length,

@@ -8,20 +8,13 @@ import type { ColumnType, ColumnsType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import {
   useDeleteMessageMutation,
-  useGetEmailMutation,
   useGetMessageMutation,
-  useGetUsersQuery,
 } from '../../store/MovieApi';
-import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux';
+import { DataType } from '../../types';
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
+
 
 type DataIndex = keyof DataType;
 
@@ -33,22 +26,7 @@ const Mail = () => {
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
   const [deleteMessage] = useDeleteMessageMutation();
   const [users, setUsers] = useState([]);
-
-  const handleSearch = (
-    selectedKeys: string[],
-    confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: DataIndex,
-  ) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
-  const handleReset = (clearFilters: () => void) => {
-    clearFilters();
-    setSearchText('');
-  };
-
+  const data: any = users;
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
@@ -121,49 +99,6 @@ const Mail = () => {
         text
       ),
   });
-
-  const deleteMessageFn = (event) => {
-    deleteMessage({
-      username: myName,
-      id: event.target.name,
-    });
-    getMessage({ username: myName });
-  };
-
-  useEffect(() => {
-    if (dataMessage) {
-      const dataArray = dataMessage.map((item) => {
-        return {
-          key: item.id,
-          username: item.myname,
-          theme: item.theme,
-          date: item.date,
-          time: item.time,
-          delete: (
-            <Button onClick={deleteMessageFn} name={item.id}>
-              Delete
-            </Button>
-          ),
-          read: item.read ? 'yes' : 'no',
-          link: <Link to={`/onemail/${item.id}/${item.myname}`}>Go</Link>,
-        };
-      });
-      const uniqueArray = [];
-      dataArray.forEach((element) => {
-        if (!uniqueArray.some((e) => e.theme === element.theme)) {
-          uniqueArray.push(element);
-        }
-      });
-      setUsers(uniqueArray.reverse());
-    }
-  }, [dataMessage]);
-
-  useEffect(() => {
-    getMessage({ username: myName });
-  }, []);
-
-  const data: any = users;
-
   const columns: ColumnsType<any> = [
     {
       title: 'Username',
@@ -222,6 +157,61 @@ const Mail = () => {
       width: '10%',
     },
   ];
+
+  //hooks
+  useEffect(() => {
+    if (dataMessage) {
+      const dataArray = dataMessage.map((item) => {
+        return {
+          key: item.id,
+          username: item.myname,
+          theme: item.theme,
+          date: item.date,
+          time: item.time,
+          delete: (
+            <Button onClick={deleteMessageFn} name={item.id}>
+              Delete
+            </Button>
+          ),
+          read: item.read ? 'yes' : 'no',
+          link: <Link to={`/onemail/${item.id}/${item.myname}`}>Go</Link>,
+        };
+      });
+      const uniqueArray = [];
+      dataArray.forEach((element) => {
+        if (!uniqueArray.some((e) => e.theme === element.theme)) {
+          uniqueArray.push(element);
+        }
+      });
+      setUsers(uniqueArray.reverse());
+    }
+  }, [dataMessage]);
+
+  useEffect(() => {
+    getMessage({ username: myName });
+  }, []);
+
+  //functions
+  const handleSearch = (
+    selectedKeys: string[],
+    confirm: (param?: FilterConfirmProps) => void,
+    dataIndex: DataIndex,
+  ) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText('');
+  };
+  const deleteMessageFn = (event) => {
+    deleteMessage({
+      username: myName,
+      id: event.target.name,
+    });
+    getMessage({ username: myName });
+  };
 
   return (
     <div>

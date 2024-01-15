@@ -15,14 +15,12 @@ const Texteditor = ({ id }) => {
   const [AddCommentApi] = useAddCommentMutation();
   const dispatch = useAppDispatch();
 
-
   const error = () => {
     messageApi.open({
       type: 'error',
       content: 'You must enter text!',
     });
   };
-
   const success = () => {
     messageApi.open({
       type: 'success',
@@ -30,11 +28,9 @@ const Texteditor = ({ id }) => {
         'Your message has been sent! After passing moderation, the message will appear! (Approximately 30 seconds)',
     });
   };
-
   const onChange = (value: string) => {
     setValueZ(value);
   };
-
   const handleCreate = async () => {
     const title = valueZ;
     const name = dataApi.username;
@@ -50,7 +46,7 @@ const Texteditor = ({ id }) => {
           name: name,
           text: title,
           like: valueSelect,
-          date: new Date().toISOString().slice(0,10).split('-').reverse().join('.')
+          date: new Date().toISOString().slice(0, 10).split('-').reverse().join('.'),
         },
       ],
     });
@@ -58,13 +54,10 @@ const Texteditor = ({ id }) => {
     dispatch(addTextComment(''));
     setValueZ('');
   };
-
-
   const handleChange = (value: string) => {
     const zero = value === 'like' ? true : false;
     setValueSelect(zero);
   };
-
   const autofocusNoSpellcheckerOptions = useMemo(() => {
     return {
       maxHeight: '100px',

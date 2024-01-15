@@ -19,49 +19,10 @@ const New = () => {
   const { data: dataPopular, isLoading } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
-
   const placeholderImage =
     'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
 
-  const onErr = (error) => {
-    error.target.src = placeholderImage;
-  };
-
-  const onChange: PaginationProps['onChange'] = (pageNumber) => {
-    setNum(pageNumber.toString());
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  };
-
-  const onClickDrop = (value) => {
-    setGenre(value);
-  };
-  const onClickDropTwo = (value) => {
-    setSort(value);
-  };
-  const onClickDropThree = (value) => {
-    setSortHow(value);
-  };
-
-  const onSearch = (value: string) => {};
-  const filterOption = (input: string, option?: { label: string; value: string }) =>
-    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
-
-  const content = (
-    <div>
-      <p>Select a genre</p>
-    </div>
-  );
-  const contentSort = (
-    <div>
-      <p>Select a sort</p>
-    </div>
-  );
-  const contentHowSort = (
-    <div>
-      <p>How to sort</p>
-    </div>
-  );
-
+  //hooks
   useEffect(() => {
     if (data) {
       dispatch(setMyName(data.username));
@@ -82,6 +43,42 @@ const New = () => {
       }
     }
   }, [data, navigate, isFetching, error]);
+
+  //functions
+  const onErr = (error) => {
+    error.target.src = placeholderImage;
+  };
+  const onChange: PaginationProps['onChange'] = (pageNumber) => {
+    setNum(pageNumber.toString());
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+  const onClickDrop = (value) => {
+    setGenre(value);
+  };
+  const onClickDropTwo = (value) => {
+    setSort(value);
+  };
+  const onClickDropThree = (value) => {
+    setSortHow(value);
+  };
+  const onSearch = (value: string) => {};
+  const filterOption = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  const content = (
+    <div>
+      <p>Select a genre</p>
+    </div>
+  );
+  const contentSort = (
+    <div>
+      <p>Select a sort</p>
+    </div>
+  );
+  const contentHowSort = (
+    <div>
+      <p>How to sort</p>
+    </div>
+  );
 
   return (
     <>

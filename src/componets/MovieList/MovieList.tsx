@@ -44,8 +44,6 @@ const MovieList = ({ movie }: MovieListProps) => {
               );
             })}
           </Slider>
-
-          
         </>
       ) : (
         <>

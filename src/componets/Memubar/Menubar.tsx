@@ -33,10 +33,6 @@ const Menubar = () => {
     },
   ];
 
-  const onClick: MenuProps['onClick'] = (e) => {
-    dispatch(toggleDropdown(e.key));
-  };
-
   useEffect(() => {
     let url = location;
     if (url.pathname === '/popular' || url.pathname === '/') {
@@ -53,6 +49,10 @@ const Menubar = () => {
       dispatch(toggleDropdown('alipay'));
     }
   }, [location, dispatch]);
+
+  const onClick: MenuProps['onClick'] = (e) => {
+    dispatch(toggleDropdown(e.key));
+  };
 
   return (
     <>

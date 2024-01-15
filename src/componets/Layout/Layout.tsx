@@ -8,10 +8,7 @@ import stylesDark from '../App/AppDark.module.scss';
 import { useAuthApiQuery } from '../../store/MovieApi';
 import Menubar from '../Memubar/Menubar';
 
-
-
 const Layout = () => {
-  const { data, isFetching } = useAuthApiQuery('');
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const darkModeTheme = cn({
     [styles.container]: !darkMode,
@@ -22,17 +19,15 @@ const Layout = () => {
     [stylesDark.Main]: darkMode,
   });
 
-  
-
   return (
     <>
       <div className={darkModeThemeMain}>
         <div className={darkModeTheme}>
-        <>
-            <MovieHeader /> 
-            <Menubar/>
+          <>
+            <MovieHeader />
+            <Menubar />
             <Outlet />
-            </>
+          </>
         </div>
       </div>
     </>

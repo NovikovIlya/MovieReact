@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFetcTrailerQuery } from '../../store/MovieApi';
 import styles from './Trailer.module.scss';
 import Skeleton from './Skeleton';
@@ -13,7 +13,7 @@ const Trailer = ({ id, title, year }: argType) => {
     const fetchYoutube = async () => {
       let response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${title} ${year}&type=video&key=AIzaSyC0eVRG5nSA0E-bPOjsBjq98YPeicDViSE`,
-      ); 
+      );
       let result = await response.json();
       const altYoutubeData = result?.items?.[0].id.videoId;
       const urlYoutube = `https://www.youtube.com/embed/${altYoutubeData}`;
@@ -27,11 +27,8 @@ const Trailer = ({ id, title, year }: argType) => {
         : `https://www.youtube.com/embed/${data?.videos[0]?.youtube_video_id}`
       : alt;
 
-
     setUrlValue(urlTrailer);
   }, [alt, data, title, year]);
-
-
 
   return (
     <>

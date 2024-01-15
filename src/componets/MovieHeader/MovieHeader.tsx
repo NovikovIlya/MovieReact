@@ -18,7 +18,7 @@ import { setEmailAll } from '../../store/sliceMovie';
 import { ChatAllResponse } from '../../types';
 
 const MovieHeader = () => {
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const myName = useAppSelector((state) => state.sliceMovie.myName);
@@ -31,28 +31,23 @@ const MovieHeader = () => {
   const [mess, setMess] = useState(false);
   const [getMessage, { data: dataMessage }] = useGetMessageMutation();
   const [someFalse, setSomefalse] = useState(false);
+  const placeholder = 'input text';
 
-  const onClickMess = () => {
-    navigate(`/chat?name=${dataApi.username}&room=main`);
-  };
-
-  const onClickMail = () => {
-    navigate(`/mail`);
-  };
-
+  //hooks
   useEffect(() => {
     getMessage({ username: myName });
-  }, [getMessage,myName]);
-  
+  }, [getMessage, myName]);
+
   useEffect(() => {
     if (dataMessage) {
-      if(pathname.includes('mail') || pathname.includes('onemail') ) {
-        setSomefalse(false)
-      }else{
-      var some = dataMessage.some((item) => item.read === false);
-      setSomefalse(some);}
+      if (pathname.includes('mail') || pathname.includes('onemail')) {
+        setSomefalse(false);
+      } else {
+        var some = dataMessage.some((item) => item.read === false);
+        setSomefalse(some);
+      }
     }
-  }, [dataMessage,pathname]);
+  }, [dataMessage, pathname]);
 
   useEffect(() => {
     if (dataApi) {
@@ -109,7 +104,13 @@ const MovieHeader = () => {
     }
   }, [location.pathname]);
 
-  const placeholder = 'input text';
+  //functions
+  const onClickMess = () => {
+    navigate(`/chat?name=${dataApi.username}&room=main`);
+  };
+  const onClickMail = () => {
+    navigate(`/mail`);
+  };
 
   return (
     <div className={hidd ? styles.hiddenZ : ''}>

@@ -38,7 +38,6 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route index element={<New />} />
-              {/* <Route index element={<MainPage />} /> */}
               <Route path="/chat" element={<Chat />} />
               <Route path="/mainchat" element={<Main />} />
               <Route path="/info/:name" element={<Info />} />

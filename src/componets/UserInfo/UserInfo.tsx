@@ -7,7 +7,7 @@ import {
   UserOutlined,
   WechatOutlined,
   UsergroupAddOutlined,
-  MailOutlined
+  MailOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space } from 'antd';
@@ -24,32 +24,15 @@ const UserInfo = () => {
   const navigate = useNavigate();
   const { data: dataApi, refetch } = auth.useAuthApiQuery('');
   const dispatch = useAppDispatch();
-
-  function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-    type?: 'group',
-  ): MenuItem {
-    return {
-      key,
-      icon,
-      children,
-      label,
-      type,
-    } as MenuItem;
-  }
-
   const exitFnc = () => {
     localStorage.setItem('token', '');
     dispatch(auth.util.resetApiState());
     refetch();
-    dispatch(setClosed(false))
+    dispatch(setClosed(false));
     navigate('/login');
   };
-
-
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
+  };
   const items: MenuProps['items'] = [
     getItem(
       <Link className={styles.lin} to="/">
@@ -73,21 +56,21 @@ const UserInfo = () => {
       <StarOutlined />,
     ),
     getItem(
-      <Link  className={styles.lin} to={`/chat?name=${dataApi?.username}&room=main`}>
+      <Link className={styles.lin} to={`/chat?name=${dataApi?.username}&room=main`}>
         Chat
       </Link>,
       '7',
       <WechatOutlined />,
     ),
     getItem(
-      <Link  className={styles.lin} to='/mail'>
+      <Link className={styles.lin} to="/mail">
         Mail
       </Link>,
       '8',
       <MailOutlined />,
     ),
     getItem(
-      <Link  className={styles.lin} to={`/tableuser`}>
+      <Link className={styles.lin} to={`/tableuser`}>
         Users
       </Link>,
       '11',
@@ -96,15 +79,27 @@ const UserInfo = () => {
     getItem(<div onClick={exitFnc}>Exit</div>, '6', <LogoutOutlined />),
     ,
   ];
-
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
-    console.log('click', e);
-  };
-
   const menuProps = {
     items,
     onClick: handleMenuClick,
   };
+
+  //functions
+  function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    type?: 'group',
+  ): MenuItem {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+    } as MenuItem;
+  }
 
   return (
     <div className={styles.container}>

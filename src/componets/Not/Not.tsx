@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Result } from 'antd';
+import {  Result } from 'antd';
 import styles from './Not.module.scss';
 
 const Not = () => {

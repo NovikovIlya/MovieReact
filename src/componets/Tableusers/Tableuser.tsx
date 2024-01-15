@@ -9,13 +9,7 @@ import { useGetUsersQuery } from '../../store/MovieApi';
 import { nanoid } from 'nanoid';
 import styles from './Tableuser.module.scss';
 import { Link } from 'react-router-dom';
-
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
+import { DataType } from '../../types';
 
 type DataIndex = keyof DataType;
 
@@ -25,22 +19,7 @@ const Tableuser = () => {
   const searchInput = useRef<InputRef>(null);
   const { data: dataUsers } = useGetUsersQuery('');
   const [users, setUsers] = useState([]);
-
-  const handleSearch = (
-    selectedKeys: string[],
-    confirm: (param?: FilterConfirmProps) => void,
-    dataIndex: DataIndex,
-  ) => {
-    confirm();
-    setSearchText(selectedKeys[0]);
-    setSearchedColumn(dataIndex);
-  };
-
-  const handleReset = (clearFilters: () => void) => {
-    clearFilters();
-    setSearchText('');
-  };
-
+  const data = users;
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
@@ -113,30 +92,13 @@ const Tableuser = () => {
         text
       ),
   });
-
-  useEffect(() => {
-    if (dataUsers) {
-      const dataArray = dataUsers.map((item) => {
-        return {
-          key: nanoid(),
-          name: item.username,
-          roles: item.roles,
-          link: <Link to={`/info/${item.username}`}>Go</Link>,
-        };
-      });
-      setUsers(dataArray);
-    }
-  }, [dataUsers]);
-
-  const data = users;
-
   const columns: ColumnsType<any> = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
       width: '30%',
-      // render: (text) => <a href='/'>{text}</a>,
+      // @ts-ignore
       ...getColumnSearchProps('name'),
     },
     {
@@ -152,9 +114,38 @@ const Tableuser = () => {
       dataIndex: 'link',
       key: 'link',
       width: '10%',
-
     },
   ];
+
+  //hooks
+  useEffect(() => {
+    if (dataUsers) {
+      const dataArray = dataUsers.map((item) => {
+        return {
+          key: nanoid(),
+          name: item.username,
+          roles: item.roles,
+          link: <Link to={`/info/${item.username}`}>Go</Link>,
+        };
+      });
+      setUsers(dataArray);
+    }
+  }, [dataUsers]);
+
+  //functions
+  const handleSearch = (
+    selectedKeys: string[],
+    confirm: (param?: FilterConfirmProps) => void,
+    dataIndex: DataIndex,
+  ) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+  const handleReset = (clearFilters: () => void) => {
+    clearFilters();
+    setSearchText('');
+  };
 
   return (
     <div className={styles.tabl}>

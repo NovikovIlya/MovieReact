@@ -4,6 +4,7 @@ import { useFetchMoviesOneQuery } from '../../store/MovieApi';
 
 export function CharacherRight({arg}) {
   const { data } = useFetchMoviesOneQuery(arg);
+  
   return (
     <div className={styles.container__right}>
       <div className={styles.ParentItem}>

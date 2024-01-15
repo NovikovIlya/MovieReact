@@ -18,18 +18,26 @@ const Info = () => {
   const [theme, setTheme] = useState('');
   const [text, setText] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
+  const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
 
+  //hooks
+  useEffect(() => {
+    const getUser = () => {
+      getUserApiSet({ username: name });
+    };
+    getUser();
+  }, [getUserApiSet, name]);
+
+  //functions
   const error = () => {
     messageApi.open({
       type: 'error',
       content: 'You cant send an empty message',
     });
   };
-
   const showModal = () => {
     setIsModalOpen(true);
   };
-
   const handleOk = () => {
     if (theme.length < 1 || text.length < 1) {
       error();
@@ -51,37 +59,24 @@ const Info = () => {
     setText('');
     setIsModalOpen(false);
   };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
-  const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
-
   const onErr = (error) => {
     error.target.src = placeholderImage;
   };
-
   const handlerTextTheme = ({ target: { value } }) => {
     setTheme(value);
   };
   const handlerTextArea = ({ target: { value } }) => {
     setText(value);
   };
-
   const success = () => {
     messageApi.open({
       type: 'success',
       content: 'Message sent',
     });
   };
-
-  useEffect(() => {
-    const getUser = () => {
-      getUserApiSet({ username: name });
-    };
-    getUser();
-  }, [getUserApiSet, name]);
 
   return (
     <>

@@ -23,6 +23,27 @@ const Onemail = () => {
   const [updateMessage] = useUpdateMessageMutation();
   const [messageZ, setMessage] = useState<SendMessageRequest | undefined>();
 
+  //hooks
+    //Нахождения почты в массиве
+  useEffect(() => {
+    if (dataMessage) {
+      const mess = dataMessage.find((item) => {
+        return item.id === id;
+      });
+      setMessage(mess);
+    }
+  }, [dataMessage]);
+
+    //Получение почты и Обновление(read)почты
+  useEffect(() => {
+    getMessage({ username: myName });
+    updateMessage({
+      username: myName,
+      id: id,
+    });
+  }, [myName]);
+
+  //functions
   const success = () => {
     messageApi.open({
       type: 'success',
@@ -75,26 +96,6 @@ const Onemail = () => {
   const handlerTextArea = ({ target: { value } }) => {
     setText(value);
   };
-
-  //Нахождения почты в массиве
-  useEffect(() => {
-    if (dataMessage) {
-      const mess = dataMessage.find((item) => {
-        return item.id === id;
-      });
-      setMessage(mess);
-    }
-  }, [dataMessage]);
-
-  //Получение почты и Обновление(read)почты
-  useEffect(() => {
-    getMessage({ username: myName });
-    updateMessage({
-      username: myName,
-      id: id,
-    });
-  }, [myName]);
-  
 
   return (
     <>

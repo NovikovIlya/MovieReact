@@ -45,16 +45,7 @@ export const Favorites = () => {
     speed: 500,
   };
 
-  
-  const delFavoriteNew = async (item) => {
-    const data = {
-      oldUsername: dataApi.username,
-      imdbID: item.imdbID,
-    };
-    await dispatch(deleteFavorites(data));
-    await dispatch(deletefavoritesNew(data.imdbID));
-  };
-
+  //hooks
   useEffect(() => {
     const data = { oldUsername: myName };
     dispatch(getFavorites(data));
@@ -82,6 +73,16 @@ export const Favorites = () => {
       }
     }
   }, [error, navigate]);
+
+  //functions
+  const delFavoriteNew = async (item) => {
+    const data = {
+      oldUsername: dataApi.username,
+      imdbID: item.imdbID,
+    };
+    await dispatch(deleteFavorites(data));
+    await dispatch(deletefavoritesNew(data.imdbID));
+  };
 
   return (
     <>

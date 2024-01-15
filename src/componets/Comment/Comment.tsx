@@ -12,18 +12,16 @@ import Texteditor from '../TextEditor/Texteditor';
 import styles from './Comment.module.scss';
 
 const Comment: React.FC<CommentProps> = ({ id }) => {
+  //data
+  const reversedArray = [];
   const [objArray, setObjArray] = useState({
     all: null,
     positive: null,
     negative: null,
   });
-
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const { data, isLoading } = useFetchCommentQuery(id, { refetchOnFocus: true });
-
-
   const mass = data ? data : [];
-
   const darkModeTheme = cn({
     [styles.container]: !darkMode,
     [styles.container2]: darkMode,
@@ -37,7 +35,12 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     criteriaMode: 'all',
   });
 
-  
+  //hooks
+  useEffect(() => {
+    likeD();
+  }, [data]);
+
+  //function
   const likeD = () => {
     let allAray = data?.length;
     let likeArray = 0;
@@ -57,11 +60,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
       ...upldateAll,
     }));
   };
-  useEffect(() => {
-    likeD();
-  }, [data]);
 
-  const reversedArray = [];
   for (let i = mass.length - 1; i >= 0; i--) {
     const valueAtIndex = mass[i];
     reversedArray.push(valueAtIndex);
@@ -69,7 +68,6 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
 
   return (
     <div className={styles.MainParent}>
-
       <div className={styles.parentBtn}>
         <Texteditor id={id} />
       </div>

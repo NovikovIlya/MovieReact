@@ -25,7 +25,6 @@ function MainPage() {
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
   const { data, refetch, isFetching, error } = useAuthApiQuery('');
-  const meName = useAppSelector((state)=>state.sliceMovie.myName)
 
   const darkModeTheme = cn({
     [styles.container2]: !darkMode,
@@ -35,6 +34,8 @@ function MainPage() {
     [styles.Main2]: !darkMode,
     [stylesDark.Main2]: darkMode,
   });
+
+  //hooks
   useEffect(() => {
     if (data) {
       dispatch(setMyName(data.username));

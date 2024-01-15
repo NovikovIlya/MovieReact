@@ -30,14 +30,19 @@ const Profile = () => {
   const val = dataApi ? dataApi.info : '';
   const [area, setArea] = useState<string>(val);
   const [infoApiSet, { data: dataInfo }] = useInfoApiSetMutation();
-
+  const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
   const errorMessage = () => {
     messageApi.open({
       type: 'error',
       content: 'Please input your old password',
     });
   };
-
+  const successMess = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Password changed!',
+    });
+  };
   const errorMessageTwo = () => {
     messageApi.open({
       type: 'error',
@@ -45,107 +50,7 @@ const Profile = () => {
     });
   };
 
-  const successMess = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'Password changed!',
-    });
-  };
-
-  const handleInput = (e) => {
-    setText(e.target.value);
-  };
-
-  const handleInputOldPassword = (e) => {
-    setOldPass(e.target.value);
-  };
-
-  const handleInputNewPassword = (e) => {
-    setNewPass(e.target.value);
-  };
-
-  const handleClick = async () => {
-    if (text.length < 4) {
-      return;
-    }
-    const data = {
-      newUsername: text,
-      oldUsername: dataApi.username,
-    };
-    const dataRename = await renameApiSet(data);
-    refetch();
-  };
-
-  const handleClickPassword = async () => {
-    if (oldPass.length < 1) {
-      errorMessage();
-      return;
-    }
-    const data = {
-      oldPassword: oldPass,
-      newPassord: newPass,
-      oldUsername: dataApi.username,
-    };
-    repassApiSet(data);
-  };
-
-  const handleChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-  const onClickImage = async () => {
-    if (!selectedFile) {
-      alert('Please select a file');
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('filedata', selectedFile);
-    formData.append('oldUsername', dataApi.username);
-
-    let response = await fetch('https://backmovie.onrender.com/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    let result = await response.json();
-    refetch();
-  };
-
-  const darkModeTheme = cn({
-    [styles.Main]: !darkMode,
-  });
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
-
-  const selFile = () => {
-    refImage?.current?.click();
-  };
-
-  const handleArea = (e) => {
-    setArea(e.target.value);
-  };
-
-  const cliclArea = () => {
-    const data = {
-      username: dataApi.username,
-      info: area,
-    };
-    infoApiSet(data);
-    setArea('');
-  };
-
-  const placeholderImage = 'https://cdn-icons-png.flaticon.com/512/219/219983.png';
-
-  const onErr = (error) => {
-    error.target.src = placeholderImage;
-  };
-
+  //hooks
   useEffect(() => {
     refetch();
   }, [refetch, dataInfo]);
@@ -197,6 +102,87 @@ const Profile = () => {
     }
   }, [error, error1]);
 
+  //functions
+  const handleInput = (e) => {
+    setText(e.target.value);
+  };
+  const handleInputOldPassword = (e) => {
+    setOldPass(e.target.value);
+  };
+  const handleInputNewPassword = (e) => {
+    setNewPass(e.target.value);
+  };
+  const handleClick = async () => {
+    if (text.length < 4) {
+      return;
+    }
+    const data = {
+      newUsername: text,
+      oldUsername: dataApi.username,
+    };
+    const dataRename = await renameApiSet(data);
+    refetch();
+  };
+  const handleClickPassword = async () => {
+    if (oldPass.length < 1) {
+      errorMessage();
+      return;
+    }
+    const data = {
+      oldPassword: oldPass,
+      newPassord: newPass,
+      oldUsername: dataApi.username,
+    };
+    repassApiSet(data);
+  };
+  const handleChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+  const onClickImage = async () => {
+    if (!selectedFile) {
+      alert('Please select a file');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('filedata', selectedFile);
+    formData.append('oldUsername', dataApi.username);
+
+    let response = await fetch('https://backmovie.onrender.com/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    let result = await response.json();
+    refetch();
+  };
+  const darkModeTheme = cn({
+    [styles.Main]: !darkMode,
+  });
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+  const selFile = () => {
+    refImage?.current?.click();
+  };
+  const handleArea = (e) => {
+    setArea(e.target.value);
+  };
+  const cliclArea = () => {
+    const data = {
+      username: dataApi.username,
+      info: area,
+    };
+    infoApiSet(data);
+    setArea('');
+  };
+  const onErr = (error) => {
+    error.target.src = placeholderImage;
+  };
+
+  //render
   if (!dataApi) {
     navigate('/');
   }
@@ -220,7 +206,6 @@ const Profile = () => {
                 src={`https://backmovie.onrender.com/${dataApi?.avatar}`}
                 alt="Add"
               />
-
               <div className={styles.imageParent} style={{ width: '100%' }}>
                 <Button className={styles.btnImage} onClick={selFile}>
                   Select file

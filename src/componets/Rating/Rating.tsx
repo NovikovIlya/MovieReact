@@ -6,24 +6,8 @@ import { useAddRatingMutation, useFetchRatingQuery } from '../../store/MovieApi'
 const Rating = ({ id }) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [resRating, setResRating] = useState(0);
-  const { data } = useFetchRatingQuery(id,{refetchOnFocus:true});
+  const { data } = useFetchRatingQuery(id, { refetchOnFocus: true });
   const [AddRatingApi] = useAddRatingMutation();
-
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content:
-        'Your rating has been successfully submitted! It will be summarized with all scores within 30 seconds',
-    });
-  };
-
-  const rating = async (e: number) => {
-    await AddRatingApi({
-      imdbid: id,
-      rating: e,
-    });
-    success();
-  };
 
   useEffect(() => {
     if (data) {
@@ -41,6 +25,22 @@ const Rating = ({ id }) => {
       summer();
     }
   }, [data]);
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content:
+        'Your rating has been successfully submitted! It will be summarized with all scores within 30 seconds',
+    });
+  };
+
+  const rating = async (e: number) => {
+    await AddRatingApi({
+      imdbid: id,
+      rating: e,
+    });
+    success();
+  };
 
   return (
     <div className={styles.container}>
