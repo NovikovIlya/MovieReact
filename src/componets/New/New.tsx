@@ -16,7 +16,7 @@ const New = () => {
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
   const { data, refetch, isFetching, error } = useAuthApiQuery('');
-  const { data: dataPopular, isLoading } = useFetchMoviesPopularQuery(
+  const { data: dataPopular, isLoading,isFetching:isFetch } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
   const placeholderImage =
@@ -82,7 +82,7 @@ const New = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isFetch? (
         <div className={styles.zagr}>
           <Spin tip="Loading" size="large">
             <div className="content" />
