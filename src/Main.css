@@ -59,3 +59,7 @@ body{
 .ant-message,.ant-modal-wrap{
   z-index: 100000000 !important;
 }
+
+.ant-pagination-options{
+  display: none;
+}
