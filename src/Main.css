@@ -61,5 +61,16 @@ body{
 }
 
 .ant-pagination-options{
-  display: none;
+  display: none !important;
+}
+.zz{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center !important;
+  position: relative;
+}
+.toH{
+ overflow: hidden;
+ text-overflow: ellipsis;
 }

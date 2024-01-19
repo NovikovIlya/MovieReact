@@ -168,8 +168,8 @@ const New = () => {
           <div className={styles.parent}>
             {dataPopular?.data?.movies?.map((item) => {
               return (
-                <div key={item.imdb_code} className="mda1 rowChild f-flex justify-content-start">
-                  <div className={styles.text}>{item.title}</div>
+                <div key={item.imdb_code} className="mda1 zz rowChild f-flex justify-content-start">
+                  <div className={styles.text}><div className='toH'>{item.title}</div></div>
                   {item.large_cover_image ? (
                     <Link to={`/${item.imdb_code}`}>
                       <img

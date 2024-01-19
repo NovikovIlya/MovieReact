@@ -12,10 +12,17 @@
     padding-right: 65px;
     min-width: 1000px;
     margin-bottom: 10px;
+    gap:10px;
+    margin-top: 40px;
 
 }
+.zz{
+    display: flex;
+    justify-content: center;
+}
 .img{
-    width: 300px;
+    // width: 300px;
+    width: 100%;
 }
 .pag{
     background-color: gray;
@@ -33,21 +40,28 @@
 .text{
     height: 60px;
     padding: 8px;
-    position: relative;
-    bottom: -450px;
+    // position: relative;
+    position: absolute;
+    // bottom: -500px;
+    bottom: 0;
     background-color: #0000008f;
-    width: 300px;
+    // width: 300px;
     text-decoration: none;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color:white ;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    // max-width: 100%;
 }
 .parentDrop{
     margin-top: 10px;
 }
 .drop{
     margin-left: 65px;
+    // margin-left: 100px;
 }
 .drop2{
     margin-left: 10px;
