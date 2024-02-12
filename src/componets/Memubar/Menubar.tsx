@@ -15,7 +15,7 @@ const Menubar = () => {
   const items: MenuProps['items'] = [
     {
       label: (
-        <Link className={styles.lin} to="/">
+        <Link className={styles.lin} to="/" target="_blank" rel="noopener noreferrer">
           All
         </Link>
       ),
@@ -24,7 +24,7 @@ const Menubar = () => {
     },
     {
       label: (
-        <Link className={styles.lin} to="/popular" rel="noopener noreferrer">
+        <Link className={styles.lin} to="/popular" rel="noopener noreferrer" target="_blank">
           Popular
         </Link>
       ),
