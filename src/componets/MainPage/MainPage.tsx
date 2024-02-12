@@ -24,7 +24,7 @@ function MainPage() {
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const navigate = useNavigate();
   const MovieData = useAppSelector((state) => state.sliceMovie.films);
-  const { data, refetch, isFetching, error } = useAuthApiQuery('');
+  const { data, refetch, isFetching, error,isLoading } = useAuthApiQuery('');
 
   const darkModeTheme = cn({
     [styles.container2]: !darkMode,
@@ -40,7 +40,7 @@ function MainPage() {
     if (data) {
       dispatch(setMyName(data.username));
     }
-  }, [data,dispatch]);
+  }, [data, dispatch]);
 
   useEffect(() => {
     refetch();
@@ -58,18 +58,24 @@ function MainPage() {
     }
   }, [data, navigate, isFetching, error]);
 
+  if (isFetching) {
+    return <div></div>;
+  }
+
   return (
     <>
       {
-        <div className={darkModeThemeMain}>
-          <div className={darkModeTheme}>
-            <div className="">
+        <Spin spinning={isLoading} tip="Loading...">
+          <div className={darkModeThemeMain}>
+            <div className={darkModeTheme}>
               <div className="">
-                <MovieList movie={MovieData} />
+                <div className="">
+                  <MovieList movie={MovieData} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Spin>
       }
     </>
   );

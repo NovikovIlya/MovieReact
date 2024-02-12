@@ -15,7 +15,7 @@ const New = () => {
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
-  const { data, refetch, isFetching, error } = useAuthApiQuery('');
+  const { data, refetch, isFetching, error,isLoading:isLoadingAuth } = useAuthApiQuery('');
   const { data: dataPopular, isLoading,isFetching:isFetch } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
@@ -96,7 +96,7 @@ const New = () => {
           </Spin>
         </div>
       ) : (
-        <>
+        <Spin spinning={isLoadingAuth} tip="Loading...">
           <div className={styles.parentDrop}>
             <Popover content={content} title="">
               <Select
@@ -199,7 +199,7 @@ const New = () => {
               <Pagination onChange={onChange} defaultCurrent={1} total={500} />
             </div>
           </ConfigProvider>{' '}
-        </>
+        </Spin>
       )}
     </>
   );
