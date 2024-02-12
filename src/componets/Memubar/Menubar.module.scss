@@ -23,6 +23,9 @@
 .menu li:active{
     color: white !important; 
 }
+.ant-menu-overflow-item::after{
+    display: none;
+}
 .menu .ant-menu-item-active{
     color:white !important;
 }
