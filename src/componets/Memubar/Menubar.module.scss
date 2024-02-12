@@ -24,7 +24,7 @@
     color: white !important; 
 }
 .ant-menu-overflow-item::after{
-    display: none;
+    display: none !important;
 }
 .menu .ant-menu-item-active{
     color:white !important;

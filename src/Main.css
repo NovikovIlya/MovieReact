@@ -74,3 +74,6 @@ body{
  overflow: hidden;
  text-overflow: ellipsis;
 }
+.ant-menu-overflow-item::after{
+  display: none !important;
+}
