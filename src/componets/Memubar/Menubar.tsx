@@ -51,7 +51,7 @@ const Menubar = () => {
   }, [location, dispatch]);
 
   const onClick: MenuProps['onClick'] = (e) => {
-    dispatch(toggleDropdown(e.key));
+    // dispatch(toggleDropdown(e.key));
   };
 
   return (
