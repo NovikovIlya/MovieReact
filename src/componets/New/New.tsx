@@ -200,7 +200,7 @@ const New = () => {
               },
             }}>
             <div className={styles.pag}>
-              <Pagination onChange={onChange} defaultCurrent={num} total={500} />
+              <Pagination onChange={onChange} defaultCurrent={num} total={50000} />
             </div>
           </ConfigProvider>{' '}
         </Spin>
