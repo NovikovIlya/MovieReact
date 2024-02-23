@@ -46,13 +46,18 @@ const initialState = {
   isLoad: false,
   closed: false,
   emailAll: 0,
-  myName: ''
+  myName: '',
+  num: 1
 };
 
 export const sliceMovie = createSlice({
   name: 'sliceMovie',
   initialState,
   reducers: {
+    setNumReduce: (state, action) => {
+      state.num = action.payload;
+      // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    },
     addMovie: (state, action) => {
       state.films = action.payload;
     },
@@ -134,5 +139,6 @@ export const {
   setClosed,
   setEmailAll,
   setMyName,
+  setNumReduce
 } = sliceMovie.actions;
 export default sliceMovie.reducer;

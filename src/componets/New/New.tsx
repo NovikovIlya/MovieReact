@@ -4,17 +4,18 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthApiQuery, useFetchMoviesPopularQuery } from '../../store/MovieApi';
 import styles from './New.module.scss';
-import { useAppDispatch } from '../../hooks/redux';
-import { setMyName } from '../../store/sliceMovie';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setMyName, setNumReduce } from '../../store/sliceMovie';
 
 const New = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [imgSrc, setImageSrc] = useState(true);
-  const [num, setNum] = useState('1');
+  // const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
+  const num = useAppSelector((state) => state.sliceMovie.num);
   const { data, refetch, isFetching, error,isLoading:isLoadingAuth } = useAuthApiQuery('');
   const { data: dataPopular, isLoading,isFetching:isFetch } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
@@ -49,7 +50,8 @@ const New = () => {
     error.target.src = placeholderImage;
   };
   const onChange: PaginationProps['onChange'] = (pageNumber) => {
-    setNum(pageNumber.toString());
+    // setNum(pageNumber.toString());
+    dispatch(setNumReduce(pageNumber.toString()));
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
   const onClickDrop = (value) => {
@@ -196,7 +198,7 @@ const New = () => {
               },
             }}>
             <div className={styles.pag}>
-              <Pagination onChange={onChange} defaultCurrent={1} total={500} />
+              <Pagination onChange={onChange} defaultCurrent={num} total={500} />
             </div>
           </ConfigProvider>{' '}
         </Spin>

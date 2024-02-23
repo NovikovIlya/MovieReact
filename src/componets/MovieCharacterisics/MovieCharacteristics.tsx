@@ -39,16 +39,18 @@ const MovieCharacteristics = () => {
     year: year,
     id: id,
   };
-  const { data: dataTorrent } = useTorrentFetchQuery(id);
-  const { data: dataApi, error, isFetching } = useAuthApiQuery('');
+  const { data: dataTorrent,isLoading:isLoadTorr } = useTorrentFetchQuery(id);
+  const { data: dataApi, error, isFetching,isLoading:isLoadApi } = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
   //@ts-ignore
-  const { data: dataPoster } = useTorrentFetchQuery(id);
+  const { data: dataPoster,isLoading:isLoadPoster } = useTorrentFetchQuery(id);
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
   });
 
+  //useeffect -------------
+  //логика с избранными
   useEffect(() => {
     if (favoriteMovie) {
       const proverka = () => {
@@ -61,6 +63,7 @@ const MovieCharacteristics = () => {
     }
   }, [id, favoriteMovie]);
 
+  //логика с жанром и выкидываем если не авторизован
   useEffect(() => {
     if (error) {
       if ('data' in error && typeof error.data === 'object') {
@@ -81,13 +84,20 @@ const MovieCharacteristics = () => {
     setGenreText(text);
   }, [data, navigate, dataApi, error]);
 
+  //скролл вверх
   useEffect(() => {
-    const kek = () => {
-      window.scrollTo(0, 0);
-    };
-    setTimeout(kek, 1000);
-  }, [pathname]);
+    if ( !isLoadTorr && !isLoading && !isLoadPoster && window.scrollY > 0) {
+      window.scrollTo(
+        { top: 0,
+          left: 0,
+          behavior: 'smooth'}
+      );
+      console.log('вверх');
+    }
+  }, [pathname, isLoadTorr, isLoading,isLoadPoster,window.scrollY]);
 
+
+  //проверка на торрент-файлы
   useEffect(() => {
     const dt = dataTorrent?.data?.movies?.[0].torrents.map((item) => {
       return {
@@ -105,12 +115,8 @@ const MovieCharacteristics = () => {
     setTor(torrentMassiv);
   }, [dataTorrent]);
 
-  if (dataPoster) {
-    var placeholderImage =
-      'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
-  }
 
-  //functions
+  //functions --------------
   const addFavoritesNew = (data) => {
     const mainData = {
       favorites: data,
@@ -130,6 +136,11 @@ const MovieCharacteristics = () => {
   const onErr = (error) => {
     error.target.src = placeholderImage;
   };
+
+  if (dataPoster) {
+    var placeholderImage =
+      'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
+  }
 
   return (
     <>
@@ -159,9 +170,12 @@ const MovieCharacteristics = () => {
                         },
                       }}>
                       <Breadcrumb
+                        style={{ cursor: 'pointer' }}
                         items={[
                           {
-                            href: '/',
+                            onClick: () => {
+                              navigate(-1);
+                            },
                             title: (
                               <>
                                 <UserOutlined />
@@ -296,6 +310,7 @@ const MovieCharacteristics = () => {
           )}
         </div>
       </div>
+     
     </>
   );
 };
