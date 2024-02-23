@@ -77,3 +77,11 @@ body{
 .ant-menu-overflow-item::after{
   display: none !important;
 }
+@media  screen and (max-width: 600px) {
+  .zz{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  
+}
