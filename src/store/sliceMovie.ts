@@ -54,6 +54,10 @@ export const sliceMovie = createSlice({
   name: 'sliceMovie',
   initialState,
   reducers: {
+    changePag: (state, action) => {
+      state.num = action.payload;
+      // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    },
     setNumReduce: (state, action) => {
       state.num = action.payload;
       // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });

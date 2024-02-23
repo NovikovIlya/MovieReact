@@ -10,8 +10,8 @@ import { setMyName, setNumReduce } from '../../store/sliceMovie';
 const New = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const [imgSrc, setImageSrc] = useState(true);
-  // const [num, setNum] = useState('1');
   const [genre, setGenre] = useState('');
   const [sortHow, setSortHow] = useState('desc');
   const [sort, setSort] = useState('date_added');
@@ -44,6 +44,8 @@ const New = () => {
       }
     }
   }, [data, navigate, isFetching, error]);
+
+
 
   //functions
   const onErr = (error) => {
@@ -93,9 +95,9 @@ const New = () => {
       )}
       {isLoading ?  (
         <div className={styles.zagr}>
-          <Spin tip="Loading" size="large">
+          {/* <Spin tip="Loading" size="large">
             <div className="content" />
-          </Spin>
+          </Spin> */}
         </div>
       ) : (
         <Spin spinning={isLoadingAuth} tip="Loading...">
@@ -161,8 +163,8 @@ const New = () => {
                 style={{ width: 120 }}
                 onChange={onClickDropThree}
                 options={[
-                  { value: 'desc', label: 'desc' },
-                  { value: 'asc', label: 'asc' },
+                  { value: 'desc', label: 'Descending' },
+                  { value: 'asc', label: 'Ascending' },
                 ]}
               />
             </Popover>
