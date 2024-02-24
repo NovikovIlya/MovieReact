@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Rating from '../Rating/Rating';
 import Similar from '../Similar/Similar';
 import { addFavorites } from '../../store/sliceMovie';
+import ImageComp from '../ImagesComp/ImagesComp';
 
 const MovieCharacteristics = () => {
   //data
@@ -294,6 +295,10 @@ const MovieCharacteristics = () => {
                   <Rating id={id} />
 
                   <Divider className={styles.divid} />
+
+                  <div className="row wh">
+                    <ImageComp id={id} />
+                  </div>
 
                   <div className="row wh">
                     <Similar gengreText={gengreText} />
