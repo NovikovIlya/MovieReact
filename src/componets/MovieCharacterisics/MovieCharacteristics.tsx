@@ -300,6 +300,8 @@ const MovieCharacteristics = () => {
                     <ImageComp id={id} />
                   </div>
 
+                  <Divider className={styles.divid} />
+
                   <div className="row wh">
                     <Similar gengreText={gengreText} />
                   </div>
