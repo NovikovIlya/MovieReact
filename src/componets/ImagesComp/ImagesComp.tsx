@@ -94,7 +94,7 @@ const ImageComp = ({ id }: any) => {
                         <img
                           style={{ cursor: 'pointer' }}
                           onClick={() => showModal(item)}
-                          className={styles.img}
+                          className={styles.img3}
                           src={item}
                           alt="no"
                         />
