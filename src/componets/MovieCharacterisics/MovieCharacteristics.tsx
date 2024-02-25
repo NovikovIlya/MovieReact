@@ -18,6 +18,7 @@ import Rating from '../Rating/Rating';
 import Similar from '../Similar/Similar';
 import { addFavorites } from '../../store/sliceMovie';
 import ImageComp from '../ImagesComp/ImagesComp';
+import { Empty } from 'antd';
 
 const MovieCharacteristics = () => {
   //data
@@ -93,7 +94,7 @@ const MovieCharacteristics = () => {
           left: 0,
           behavior: 'smooth'}
       );
-      console.log('вверх');
+     
     }
   }, [pathname, isLoadTorr, isLoading,isLoadPoster,window.scrollY]);
 
@@ -215,7 +216,7 @@ const MovieCharacteristics = () => {
                             open={isModalOpen}
                             onOk={handleOk}
                             onCancel={handleCancel}>
-                            {tor.length > 0 &&
+                            {tor.length > 0 ?
                               tor.map((item) => {
                                 return (
                                   <div key={item.url}>
@@ -226,7 +227,9 @@ const MovieCharacteristics = () => {
                                     </Link>
                                   </div>
                                 );
-                              })}
+                              })
+                              : <><Empty /></>
+                              }
                           </Modal>
                         </div>
                       </div>

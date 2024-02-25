@@ -35,7 +35,7 @@ const ImageComp = ({ id }: any) => {
         },
       });
       const res = await data.json();
-      setIDKP(res.docs[0].id); // Устанавливает idKP из первого элемента массива
+      setIDKP(res?.docs[0]?.id); // Устанавливает idKP из первого элемента массива
     } catch (error) {
       console.log(error);
     } finally {
@@ -88,9 +88,9 @@ const ImageComp = ({ id }: any) => {
               {isLoading ? (
                 <div></div>
               ) : (
-                data?.map((item) => {
+                data?.map((item,index) => {
                   return (
-                    <div key={item.url} className={styles.lin}>
+                    <div key={index} className={styles.lin}>
                       <div>
                         <img
                           style={{ cursor: 'pointer' }}
