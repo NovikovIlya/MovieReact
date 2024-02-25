@@ -6,14 +6,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import '../../Main.css';
-import { Button, Modal } from 'antd';
+import { Button, Divider, Modal } from 'antd';
 
 const ImageComp = ({ id }: any) => {
   const [modalData, setModaldata] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [idKP, setIDKP] = useState('');
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [text, setText] = useState(null);
   const mobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -71,7 +71,7 @@ const ImageComp = ({ id }: any) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  console.log(data);
+ 
 
   useEffect(() => {
     fetchImage(id);
@@ -79,8 +79,9 @@ const ImageComp = ({ id }: any) => {
 
   return (
     <>
-      {!isLoading && data && (
+      {!isLoading && data.length > 0 && (
         <>
+          <Divider  style={{backgroundColor:'rgb(255, 255, 255'}}/>
           <div className={styles.container}>
             <h2 className={styles.head}>Screenshots:</h2>
             <Slider {...settings}>

@@ -294,7 +294,6 @@ const MovieCharacteristics = () => {
 
                   <Rating id={id} />
 
-                  <Divider className={styles.divid} />
 
                   <div className="row wh">
                     <ImageComp id={id} />

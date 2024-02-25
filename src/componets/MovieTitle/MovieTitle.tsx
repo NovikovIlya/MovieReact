@@ -26,7 +26,7 @@ const MovieTitle = () => {
     <>
       <div className={styles.themeSwitch}>
         <Link onClick={clickTitle} className={styles.lin} to="/">
-          PrivetMovie
+          <img className={styles.imageStyle} src='https://i.ibb.co/7SpdwyL/12-Photoroom-png-Photoroom.png' alt='image'/>
         </Link>
         {/* <Switch defaultChecked={darkMode} className={styles.switch} onChange={onChange} /> */}
       </div>
