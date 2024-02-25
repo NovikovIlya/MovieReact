@@ -28,7 +28,7 @@ const MovieTitle = () => {
         <Link onClick={clickTitle} className={styles.lin} to="/">
           PrivetMovie
         </Link>
-        <Switch defaultChecked={darkMode} className={styles.switch} onChange={onChange} />
+        {/* <Switch defaultChecked={darkMode} className={styles.switch} onChange={onChange} /> */}
       </div>
     </>
   );
