@@ -12,8 +12,10 @@ const ImageComp = ({ id }: any) => {
   const [modalData, setModaldata] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingActor, setIsLoadingActor] = useState(false);
   const [idKP, setIDKP] = useState('');
   const [data, setData] = useState([]);
+  const [dataActor,setDataActor] = useState([])
   const [text, setText] = useState(null);
   const mobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -28,6 +30,7 @@ const ImageComp = ({ id }: any) => {
   const fetchImage = async (id) => {
     try {
       setIsLoading(true);
+      setIsLoadingActor(true)
       const data = await fetch(`https://api.kinopoisk.dev/v1.4/movie?externalId.imdb=${id}`, {
         method: 'GET',
         headers: {
@@ -40,6 +43,7 @@ const ImageComp = ({ id }: any) => {
       console.log(error);
     } finally {
       fetchImageFull(idKP); // Использует правильно установленное значение idKP
+      fetchActorKP(idKP)
     }
   };
   const fetchImageFull = async (idKP) => {
@@ -59,6 +63,23 @@ const ImageComp = ({ id }: any) => {
         setIsLoading(false);
       }
   };
+  const fetchActorKP = async (idKP) => {
+    if (idKP)
+      try {
+        const data = await fetch(`https://api.kinopoisk.dev/v1.4/movie/${idKP}`, {
+          method: 'GET',
+          headers: {
+            'X-API-KEY': '1EDBRR5-VBQ4W08-QBDF41V-KZSDBV8',
+          },
+        });
+        const res = await data.json();
+        const actors = res.persons
+        setDataActor(actors);
+      } catch (error) {
+      } finally {
+        setIsLoadingActor(false);
+      }
+  };
   const showModal = (item) => {
     setModaldata(item);
     setIsModalOpen(true);
@@ -75,12 +96,39 @@ const ImageComp = ({ id }: any) => {
 
   useEffect(() => {
     fetchImage(id);
-  }, [, idKP]);
+  }, [idKP]);
 
   return (
     <>
       {!isLoading && data.length > 0 && (
         <>
+          <Divider  style={{backgroundColor:'rgb(255, 255, 255'}}/>
+          <div className={styles.container}>
+            <h2 className={styles.head}>Cast & Crew:</h2>
+            <Slider {...settings}>
+              {isLoadingActor ? (
+                <div></div>
+              ) : (
+                dataActor?.map((item,index) => {
+                  return (
+                    <div key={item.id} className={styles.lin}>
+                      <div>
+                        <img
+                         
+                         
+                          className={styles.img3}
+                          src={item.photo}
+                          alt="no"
+                        />
+                        <div className={styles.text3}>{item.enName}</div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </Slider>
+          </div>
+
           <Divider  style={{backgroundColor:'rgb(255, 255, 255'}}/>
           <div className={styles.container}>
             <h2 className={styles.head}>Screenshots:</h2>
