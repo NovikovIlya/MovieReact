@@ -172,16 +172,16 @@ const MovieCharacteristics = () => {
                         },
                       }}>
                       <Breadcrumb
-                        style={{ cursor: 'pointer' }}
+                        
                         items={[
                           {
                             onClick: () => {
-                              navigate(-1);
+                              navigate('/');
                             },
                             title: (
                               <>
                                 <UserOutlined />
-                                <span>Movies</span>
+                                <span style={{ cursor: 'pointer' }}>Movies</span>
                               </>
                             ),
                           },
