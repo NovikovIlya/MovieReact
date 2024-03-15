@@ -63,13 +63,14 @@ export const Favorites = () => {
 
   useEffect(() => {
     if (error) {
-      if ('data' in error) {
-        const data = error.data as any;
-        if ('message' in data) {
+      if ('data' in error && typeof error.data === 'object') {
+        const data = error.data;
+        if ('message' in data && typeof data.message === 'string') {
           if (data.message === 'Пользователь не авторизован') {
             navigate('/login');
           }
         }
+      
       }
     }
   }, [error, navigate]);

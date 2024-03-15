@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import '../../Main.css';
 import { Button, Divider, Modal } from 'antd';
 
-const ImageComp = ({ id }: any) => {
+const ImageComp = ({ id }: {id:number | string}) => {
   const [modalData, setModaldata] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

@@ -13,11 +13,17 @@ import { ChatAllResponse } from '../../types';
 //@ts-ignore
 const socket = io.connect('https://backmovie.onrender.com/');
 
+type Params = {
+  [key: string]: string;
+  room?: string;
+  user?: string;
+}  ;
+
 const Chat = () => {
   const click = useRef<HTMLInputElement>();
   const navigate = useNavigate();
   const { search } = useLocation();
-  const [params, setParams] = useState<any>({ room: '', user: '' });
+  const [params, setParams] = useState<Params>({ room: '', user: '' });
   const [state, setState] = useState([]);
   const [message, setMessage] = useState('');
   const [isOpen, setIsOpen] = useState(false);

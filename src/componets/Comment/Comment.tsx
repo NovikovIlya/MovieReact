@@ -31,7 +31,7 @@ const Comment: React.FC<CommentProps> = ({ id }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>({
+  } = useForm({
     criteriaMode: 'all',
   });
 

@@ -1,5 +1,5 @@
 import { CharacherRight } from '../characterRight/CharacherRight';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import {
   useAuthApiQuery,
@@ -41,11 +41,10 @@ const MovieCharacteristics = () => {
     year: year,
     id: id,
   };
-  const { data: dataTorrent,isLoading:isLoadTorr } = useTorrentFetchQuery(id);
-  const { data: dataApi, error, isFetching,isLoading:isLoadApi } = useAuthApiQuery('');
+  const { data: dataTorrent, isLoading: isLoadTorr } = useTorrentFetchQuery(id);
+  const { data: dataApi, error, isFetching, isLoading: isLoadApi } = useAuthApiQuery('');
   const { data, isLoading } = useFetchMoviesOneQuery(arg);
-  //@ts-ignore
-  const { data: dataPoster,isLoading:isLoadPoster } = useTorrentFetchQuery(id);
+  const { data: dataPoster, isLoading: isLoadPoster } = useTorrentFetchQuery(id);
   const darkMode = useAppSelector((state) => state.sliceMovie.darkMode);
   const darkModeTheme = cn({
     [styles.Main]: !darkMode,
@@ -88,16 +87,10 @@ const MovieCharacteristics = () => {
 
   //скролл вверх
   useEffect(() => {
-    if ( !isLoadTorr && !isLoading && !isLoadPoster && window.scrollY > 0) {
-      window.scrollTo(
-        { top: 0,
-          left: 0,
-          behavior: 'smooth'}
-      );
-     
+    if (!isLoadTorr && !isLoading && !isLoadPoster && window.scrollY > 0) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
-  }, [pathname, isLoadTorr, isLoading,isLoadPoster,window.scrollY]);
-
+  }, [pathname, isLoadTorr, isLoading, isLoadPoster, window.scrollY]);
 
   //проверка на торрент-файлы
   useEffect(() => {
@@ -116,7 +109,6 @@ const MovieCharacteristics = () => {
     );
     setTor(torrentMassiv);
   }, [dataTorrent]);
-
 
   //functions --------------
   const addFavoritesNew = (data) => {
@@ -172,7 +164,6 @@ const MovieCharacteristics = () => {
                         },
                       }}>
                       <Breadcrumb
-                        
                         items={[
                           {
                             onClick: () => {
@@ -216,7 +207,7 @@ const MovieCharacteristics = () => {
                             open={isModalOpen}
                             onOk={handleOk}
                             onCancel={handleCancel}>
-                            {tor.length > 0 ?
+                            {tor.length > 0 ? (
                               tor.map((item) => {
                                 return (
                                   <div key={item.url}>
@@ -228,8 +219,11 @@ const MovieCharacteristics = () => {
                                   </div>
                                 );
                               })
-                              : <><Empty /></>
-                              }
+                            ) : (
+                              <>
+                                <Empty />
+                              </>
+                            )}
                           </Modal>
                         </div>
                       </div>
@@ -297,7 +291,6 @@ const MovieCharacteristics = () => {
 
                   <Rating id={id} />
 
-
                   <div className="row wh">
                     <ImageComp id={id} />
                   </div>
@@ -319,7 +312,6 @@ const MovieCharacteristics = () => {
           )}
         </div>
       </div>
-     
     </>
   );
 };
