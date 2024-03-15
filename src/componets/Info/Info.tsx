@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Info.module.scss';
 import { useGetUserApiSetMutation, useSendMessageMutation } from '../../store/MovieApi';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,7 +10,6 @@ const { TextArea } = Input;
 
 const Info = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
   const myName = useAppSelector((state) => state.sliceMovie.myName);
   const { name } = useParams();
   const [getUserApiSet, { data, isLoading }] = useGetUserApiSetMutation();
