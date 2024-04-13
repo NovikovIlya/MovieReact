@@ -11,7 +11,7 @@
    `npm start`
 5. Откройте браузер и перейдите по адресу `http://localhost:3000` для просмотра приложения.
 
-## Основные используемые технологии
+## Используемые технологии
 - [React](https://react.dev)
 - [Redux](https://redux-toolkit.js.org/)
 - [Antd-design](https://ant.design/)
