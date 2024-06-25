@@ -20,8 +20,7 @@ const New = () => {
   const { data: dataPopular, isLoading,isFetching:isFetch } = useFetchMoviesPopularQuery(
     `sort_by=${sort}&order_by=${sortHow}&limit=8&page=${num}&genre=${genre}`,
   );
-  const placeholderImage =
-    'https://www.zidart.rs/build/images/background/no-results-bg.2d2c6ee3.png';
+  const placeholderImage = null
 
   //hooks
   useEffect(() => {
@@ -48,9 +47,9 @@ const New = () => {
 
 
   //functions
-  const onErr = (error) => {
-    error.target.src = placeholderImage;
-  };
+  // const onErr = (error) => {
+  //   error.target.src = placeholderImage;
+  // };
   const onChange: PaginationProps['onChange'] = (pageNumber) => {
     // setNum(pageNumber.toString());
     dispatch(setNumReduce(pageNumber.toString()));
@@ -176,10 +175,9 @@ const New = () => {
                     <Link style={{width:"100%"}} to={`/${item.imdb_code}`}>
                       <img
                         className={styles.img}
-                        onError={onErr}
                         key={item.imdb_code}
                         src={imgSrc ? item.medium_cover_image : null}
-                        alt="no"
+                        alt="Not image"
                       />
                     </Link>
                   ) : (
