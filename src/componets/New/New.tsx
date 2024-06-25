@@ -95,9 +95,7 @@ const New = () => {
       )}
       {isLoading ?  (
         <div className={styles.zagr}>
-          {/* <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin> */}
+         
         </div>
       ) : (
         <Spin spinning={isLoadingAuth} tip="Loading...">
@@ -175,12 +173,12 @@ const New = () => {
                 <div key={item.imdb_code} className="mda1 zz rowChild f-flex justify-content-start">
                   <div className={styles.text}><div className='toH'>{item.title}</div></div>
                   {item.large_cover_image ? (
-                    <Link to={`/${item.imdb_code}`}>
+                    <Link style={{width:"100%"}} to={`/${item.imdb_code}`}>
                       <img
                         className={styles.img}
                         onError={onErr}
                         key={item.imdb_code}
-                        src={imgSrc ? item.large_cover_image : placeholderImage}
+                        src={imgSrc ? item.medium_cover_image : null}
                         alt="no"
                       />
                     </Link>
@@ -202,7 +200,7 @@ const New = () => {
             <div className={styles.pag}>
               <Pagination onChange={onChange} defaultCurrent={num} total={50000} />
             </div>
-          </ConfigProvider>{' '}
+          </ConfigProvider>
         </Spin>
       )}
     </>
