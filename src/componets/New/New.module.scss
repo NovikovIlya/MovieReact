@@ -85,6 +85,9 @@
 }
 
 @media screen and (max-width:600px) {
+    .img{
+        width:100%
+    }
     .parent > div{
         display: flex;
         flex-wrap: wrap;
